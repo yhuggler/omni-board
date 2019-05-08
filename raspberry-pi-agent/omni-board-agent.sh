@@ -7,7 +7,6 @@
 
 AUTH_TOKEN="<INSERT_YOUR_AUTH_TOKEN>"
 SERVER_ADDRESS="<INSERT_YOUR_SERVER_ADDRESS>"
-UPDATES_PER_MINUTE=2                                          # 2 is default and recommended
 
 # ========================================================
 # End of the configuration section. Everything after this
@@ -26,24 +25,32 @@ function print_help() {
     echo "Options and arguments (and corresponding environment variables):"
     echo "-v    : Enable verbose outout. Can increase memory and cpu usage. Only for developement purposes."
     echo "-h    : Prints a short documentation over the available options and the usage."
+    exit
 }
 
 function retrieve_system_vitals() {
+    declare -A vitals
+
+    # CPU Temperature
+    cpu_temperature=$(</sys/class/thermal/thermal_zone0/temp)
+    cpu_temperature=$((cpu_temperature / 1000))
     
+    vitals[cpu_temperature]=$cpu_temperature;
+
+    cpu_frequency=$(</sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq)
+    cpu_frequency=$((cpu_frequency / 1000))
+
+    vitals[cpu_frequency]=$cpu_frequency
 }
 
 
 # Setup options
 while [ -n "$1" ]; do
     case "$1" in
-
-    -v) enable_verbose_output=true ;; 
-    -h) print_help ;; 
+        -v) enable_verbose_output=true ;; 
+        -h) print_help ;; 
     esac
     shift
 done
 
-# Main Logic Loop
-while true; do
-    
-done
+retrieve_system_vitals
