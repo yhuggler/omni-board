@@ -46,9 +46,16 @@ function retrieve_system_vitals() {
     vitals[cpu_load]=`./cpu_usage.sh`
 }
 
-#function post_vitals_to_server() {
-    # curl -u -H --data ${url} 
-#}
+function post_vitals_to_server() {
+    for key in "${!vitals[@]}"
+    do
+        echo "key  : $key"
+        echo "value: ${vitals[$key]}"
+
+        # curl -X POST -H "Content-Type: application/json" \ --data '{ "color":"red", "message":"Build failed '"$now"'", "message_format":"text" }' \ https://api.hipchat.com/v2/room/<room>/notification?auth_token=<token>
+    done
+    
+}
 
 
 # Setup options
@@ -61,9 +68,6 @@ while [ -n "$1" ]; do
 done
 
 retrieve_system_vitals
+post_vitals_to_server
 
-for i in "${!vitals[@]}"
-do
-    echo "key  : $i"
-    echo "value: ${vitals[$i]}"
-done
+
