@@ -43,12 +43,12 @@ function retrieve_system_vitals() {
     vitals[cpu_frequency]=$cpu_frequency
 
     cpu_load_averages=$(top -b | head -n 5 | grep 'load average:' | sed 's/^.*: //')
-    # readarray -td, cpu_loads <<<"$cpu_load_averages"; declare -p cpu_loads;
+    readarray -td, cpu_loads <<<"$cpu_load_averages"; declare -p cpu_loads;
 }
 
-function post_vitals_to_server() {
+#function post_vitals_to_server() {
     # curl -u -H --data ${url} 
-}
+#}
 
 
 # Setup options
