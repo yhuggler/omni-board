@@ -28,8 +28,10 @@ function print_help() {
     exit
 }
 
+
+declare -A vitals
+
 function retrieve_system_vitals() {
-    declare -A vitals
 
     # CPU Temperature
     cpu_temperature=$(</sys/class/thermal/thermal_zone0/temp)
@@ -41,9 +43,7 @@ function retrieve_system_vitals() {
     cpu_frequency=$((cpu_frequency / 1000))
 
     vitals[cpu_frequency]=$cpu_frequency
-
-    cpu_usage=$(./cpu_usage.sh)
-    echo "$cpu_usage"
+    vitals[cpu_load]=`./cpu_usage.sh`
 }
 
 #function post_vitals_to_server() {
@@ -61,3 +61,9 @@ while [ -n "$1" ]; do
 done
 
 retrieve_system_vitals
+
+for i in "${!vitals[@]}"
+do
+    echo "key  : $i"
+    echo "value: ${vitals[$i]}"
+done
