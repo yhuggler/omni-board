@@ -2,7 +2,7 @@
 
 	class Response {
 
-            public static function json($status, $response) {
+            public static function json(int $status, array $response) {
                 http_response_code($status); 
 
                 echo json_encode($response); 

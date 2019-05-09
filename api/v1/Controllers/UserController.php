@@ -9,8 +9,8 @@
             $this->middleware = new Middleware();
         }
 
-        public function createAuthenticationToken() {
-            $response = $this->userDAO->createAuthenticationToken();
+        public function initialSetup() {
+            $response = $this->userDAO->initialSetup();
             Response::json(200, $response);
         }
     }
