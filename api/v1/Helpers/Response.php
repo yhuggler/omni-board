@@ -3,7 +3,12 @@
 	class Response {
 
             public static function json(int $status, array $response) {
+                $jwtHelper = new JWTHelper();
+
                 http_response_code($status); 
+
+                if (isset($response['user']))
+                    $response['user'] = $jwtHelper->generateJWT($response['user']);
 
                 echo json_encode($response); 
                 die();

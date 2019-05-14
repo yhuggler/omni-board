@@ -13,4 +13,16 @@
             $response = $this->userDAO->initialSetup();
             Response::json(200, $response);
         }
+        
+        public function handleSignin() {
+            $request = $this->middleware->getRequest();
+            $inputs = $request["inputs"];
+
+            $response= $this->userDAO->handleSignin($inputs['username'], $inputs['password']);
+            Response::json(200, $response);
+        }
+
+        public function handleSignup() {
+
+        }
     }

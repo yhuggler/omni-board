@@ -29,14 +29,15 @@ class UserDAO {
            
             $username = "admin";
             $password = bin2hex(openssl_random_pseudo_bytes(6));
+            $passwordHash = password_hash($password, PASSWORD_BCRYPT);
 
             $sql = "INSERT INTO users(username, password) VALUES(:username, :password)";
             $stmt = $this->conn->prepare($sql);
             $stmt->bindParam(':username', $username, PDO::PARAM_STR);
-            $stmt->bindParam(':password', $password, PDO::PARAM_STR);
+            $stmt->bindParam(':password', $passwordHash, PDO::PARAM_STR);
             $stmt->execute();
 
-            $response['user'] = array(
+            $response['newUser'] = array(
                 "username" => "admin",
                 "password" => $password
             );
@@ -77,7 +78,57 @@ class UserDAO {
         } 
     }
 
-    public function handleSignin() {
+    public function handleSignin(string $username, string $password): array {
+        try {
+            $response = array();
 
+            if ($username !== null || $password !== null) {
+                $response['error'] = "Please fill in all the fields.";
+            }
+
+            $username = strtolower($username);
+
+            $sql = "SELECT * FROM users WHERE username = :username";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+            $stmt->execute();
+
+            $userResult = $stmt->fetch();
+
+            if (!empty($userResult)) {
+                $passwordHash = $userResult['password'];
+                
+                if (password_verify($password, $passwordHash)) {
+                    $response['user'] = new User($userResult['id'], $userResult['username']);
+                    $response['message'] = "You successfully signed in.";
+                } else {
+                    $response['error'] = "Auth failed. Please try again using diifferent credentials.";
+                }
+                
+                return $response;
+            } else {
+                $response['error'] = "Auth failed. Please try again using diifferent credentials.";
+                return $response;
+            }
+        } catch (Exception $e) {
+            $response['error'] = $e->getMessage();
+            return $response;
+        } 
+    }
+    
+    public function handleSignup(string $username, string $password): array {
+        try {
+            $response = array();
+
+            if ($username !== null || $password !== null) {
+                $response['error'] = "Please fill in all the fields.";
+            }
+
+            $username = strtolower($username);
+
+        } catch (Exception $e) {
+            $response['error'] = $e->getMessage();
+            return $response;
+        } 
     }
 }

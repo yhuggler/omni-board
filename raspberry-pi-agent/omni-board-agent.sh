@@ -51,7 +51,6 @@ function post_vitals_to_server() {
     do
         echo "key  : $key"
         echo "value: ${vitals[$key]}"
-
         # curl -X POST -H "Content-Type: application/json" \ --data '{ "color":"red", "message":"Build failed '"$now"'", "message_format":"text" }' \ https://api.hipchat.com/v2/room/<room>/notification?auth_token=<token>
     done
     

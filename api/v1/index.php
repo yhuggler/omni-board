@@ -35,9 +35,8 @@ $router->get('/', function () {
 // Route: /user
 $router->mount('/user', function () use ($router) {
 	$router->get('/init', 'UserController@initialSetup');
-	$router->get('/signin', 'UserController@handleSignin');
-	$router->get('/signup', 'UserController@handleSignup');
+	$router->post('/signin', 'UserController@handleSignin');
+	$router->post('/signup', 'UserController@handleSignup');
 });
-
 
 $router->run();
