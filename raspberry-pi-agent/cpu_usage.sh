@@ -1,4 +1,8 @@
 #!/bin/bash 
+
+# Helper Script for calculating the current cpu usage over one interval. 
+# Future expansion: Add options for number of intervals
+
 for index in {1..2}
 do
     cpu_now=($(head -n1 /proc/stat)) 

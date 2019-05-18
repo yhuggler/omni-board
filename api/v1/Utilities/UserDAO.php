@@ -13,21 +13,13 @@ class UserDAO {
         try {
             $response = array();
 
-            if ($this->checkIfAuthenticationTokenExists()) {
+            if ($this->checkIfInitialUserExists()) {
                 $response['error'] = "There has already been created an initial account.";
                 return $response;
             } 
             
-            $token = bin2hex(openssl_random_pseudo_bytes(128));
-                
-            $sql = "INSERT INTO authentication_tokens(token) VALUES(:token)";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->bindParam(':token', $token, PDO::PARAM_STR);
-            $stmt->execute();
-
-            $response['token'] = $token;
-           
             $username = "admin";
+
             $password = bin2hex(openssl_random_pseudo_bytes(6));
             $passwordHash = password_hash($password, PASSWORD_BCRYPT);
 
@@ -38,7 +30,7 @@ class UserDAO {
             $stmt->execute();
 
             $response['newUser'] = array(
-                "username" => "admin",
+                "username" => $username,
                 "password" => $password
             );
 
@@ -49,30 +41,15 @@ class UserDAO {
         } 
     }
 
-    public function verifyAuthenticationToken(string $token): bool {
+    public function checkIfInitialUserExists(): bool {
         try {
-            $sql = "SELECT * FROM authentication_tokens WHERE token = :token"; 
-            $stmt = $this->conn->prepare($sql);
-            $stmt->bindParam(':token', $token, PDO::PARAM_STR);
-            $stmt->execute();
-
-            $authenticationTokensResults = $stmt->fetchAll();
-
-            return !empty($authenticationTokensResults);
-        } catch (Exception $e) {
-            return false;
-        } 
-    }
-
-    public function checkIfAuthenticationTokenExists(): bool {
-        try {
-            $sql = "SELECT * FROM authentication_tokens"; 
+            $sql = "SELECT * FROM users"; 
             $stmt = $this->conn->prepare($sql);
             $stmt->execute();
 
-            $authenticationTokensResults = $stmt->fetchAll();
+            $usersResults = $stmt->fetchAll();
 
-            return !empty($authenticationTokensResults);
+            return !empty($usersResults);
         } catch (Exception $e) {
             return false;
         } 
@@ -115,20 +92,21 @@ class UserDAO {
             return $response;
         } 
     }
-    
-    public function handleSignup(string $username, string $password): array {
+
+    public function createUser($user) {
         try {
             $response = array();
+                
+            if (isset(Validator::validateUsername($user['username'])['errors']))
+                return Validator::validateUsername($user['username'])['errors']);
 
-            if ($username !== null || $password !== null) {
-                $response['error'] = "Please fill in all the fields.";
-            }
+            if (isset(Validator::validatePassword($user['password'], $user['repeatPassword'])['errors']))
+                return Validator::validatePassword($user['password'], $user['repeatPassword'])['errors']);
 
-            $username = strtolower($username);
-
+            
         } catch (Exception $e) {
             $response['error'] = $e->getMessage();
             return $response;
-        } 
+        }
     }
 }

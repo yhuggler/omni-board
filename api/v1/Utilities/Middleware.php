@@ -1,10 +1,10 @@
 <?php
     class Middleware {
 
-        private $userDAO;
+        private $jwtHelper;
 
         public function __construct() {
-            $this->userDAO = new UserDAO();
+            $this->jwtHelper = new JWTHelper();
         }
 
         public function getRequest() {
@@ -15,10 +15,19 @@
             $request = array();    
             $token = $this->getBearerToken();
 
-            if ($this->userDAO->verifyAuthenticationToken()) {
+            if ($this->jwtHelper->verifyJWT($token)) {
                 $request['inputs'] = (array) json_decode(file_get_contents("php://input")); 
+                $request['user'] = $this->jwtHelper->decodeJWT($token)['user'];
                 return $request;
             }
+
+            Response::json(403, array(
+                "error" => "Insufficient privilegies"
+            ));
+        }
+        
+        public function checkPrivilegies($user, $minimumRole) {
+            $request = array();    
 
             Response::json(403, array(
                 "error" => "Insufficient privilegies"

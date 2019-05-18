@@ -22,7 +22,7 @@
             Response::json(200, $response);
         }
 
-        public function handleSignup() {
-
+        public function createUser() {
+            
         }
     }
