@@ -16,7 +16,7 @@ class Validator {
         $response['errors'] = array();
 
         if ($password !== $repeatPassword) array_push($response['errors'], "The passwords don't match");
-        if (strlen($password)) < 8) array_push($response['errors'], "The password is too short.");
+        if (strlen($password) < 8) array_push($response['errors'], "The password is too short.");
         if (!preg_match('~[0-9]~', $password)) array_push($response['errors'], "The password must contain numbers.");
 
         return $response;

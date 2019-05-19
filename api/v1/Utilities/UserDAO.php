@@ -98,12 +98,12 @@ class UserDAO {
             $response = array();
                 
             if (isset(Validator::validateUsername($user['username'])['errors']))
-                return Validator::validateUsername($user['username'])['errors']);
+                return Validator::validateUsername($user['username'])['errors'];
 
             if (isset(Validator::validatePassword($user['password'], $user['repeatPassword'])['errors']))
-                return Validator::validatePassword($user['password'], $user['repeatPassword'])['errors']);
+                return Validator::validatePassword($user['password'], $user['repeatPassword'])['errors'];
 
-            
+                    
         } catch (Exception $e) {
             $response['error'] = $e->getMessage();
             return $response;
