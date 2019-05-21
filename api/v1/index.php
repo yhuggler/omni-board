@@ -36,7 +36,7 @@ $router->get('/', function () {
 $router->mount('/user', function () use ($router) {
 	$router->get('/init', 'UserController@initialSetup');
 	$router->post('/signin', 'UserController@handleSignin');
-	$router->post('/signup', 'UserController@handleSignup');
+	$router->post('/', 'UserController@createUser');
 });
 
 $router->run();

@@ -23,6 +23,9 @@
         }
 
         public function createUser() {
-            
+            $request = $this->middleware->checkAuth();
+            $this->middleware->checkPrivilegies($request['user'], 3);
+
+
         }
     }

@@ -103,7 +103,9 @@ class UserDAO {
             if (isset(Validator::validatePassword($user['password'], $user['repeatPassword'])['errors']))
                 return Validator::validatePassword($user['password'], $user['repeatPassword'])['errors'];
 
-                    
+                
+
+                        
         } catch (Exception $e) {
             $response['error'] = $e->getMessage();
             return $response;
