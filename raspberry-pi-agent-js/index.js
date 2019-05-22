@@ -1,8 +1,16 @@
+// Import environemental variables
+require('dotenv').config();
+
 const si = require('systeminformation');
 
-si.cpuCurrentspeed()
+
+// Retrieve System Vitals
+si.cpu()
     .then(data => console.log(data))
     .catch(error => console.log(error));
 
+si.currentLoad()
+    .then(data => console.log(data))
+    .catch(error => console.log(error));
 
 
