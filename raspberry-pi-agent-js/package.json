@@ -1,0 +1,14 @@
+{
+  "name": "raspberry-pi-agent",
+  "version": "1.0.0",
+  "description": "This is the raspberry pi agent for the omni-board linux vitals dashboard",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mortimer Cold",
+  "license": "ISC",
+  "dependencies": {
+    "systeminformation": "^4.5.1"
+  }
+}
