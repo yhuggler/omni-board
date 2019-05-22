@@ -9,6 +9,7 @@
   "author": "Mortimer Cold",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^8.0.0",
     "systeminformation": "^4.5.1"
   }
 }
