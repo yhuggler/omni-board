@@ -27,8 +27,18 @@
 
         public function createUser() {
             $request = $this->middleware->checkAuth();
-            $this->middleware->checkPrivilegies($request['user'], 3);
+            $this->middleware->checkPrivilegies($request['user'], 2);
+            
+            $inputs = $request["inputs"];
 
+            $user = array();
 
+            $user['username'] = isset($inputs['username']) ? $inputs['username'] : "";
+            $user['password'] = isset($inputs['password']) ? $inputs['password'] : "";
+            $user['repeatPassword'] = isset($inputs['repeatPassword']) ? $inputs['repeatPassword'] : "";
+            $user['role'] = isset($inputs['role']) ?  $inputs['role'] : -1;
+            
+            $response = $this->userDAO->createUser($user);
+            Response::json(200, $response);
         }
     }

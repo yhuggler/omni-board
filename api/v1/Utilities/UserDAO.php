@@ -76,7 +76,7 @@ class UserDAO {
                 $passwordHash = $userResult['password'];
                 
                 if (password_verify($password, $passwordHash)) {
-                    $response['user'] = new User($userResult['id'], $userResult['username']);
+                    $response['user'] = new User($userResult['id'], $userResult['username'], $userResult['role']);
                     $response['message'] = "You successfully signed in.";
                 } else {
                     $response['error'] = "Auth failed. Please try again using diifferent credentials.";
@@ -96,16 +96,30 @@ class UserDAO {
     public function createUser($user) {
         try {
             $response = array();
-                
-            if (isset(Validator::validateUsername($user['username'])['errors']))
+
+            if (isset(Validator::validateUsername($user['username'])['errors'])) {
                 return Validator::validateUsername($user['username'])['errors'];
+            }
 
-            if (isset(Validator::validatePassword($user['password'], $user['repeatPassword'])['errors']))
+            if (isset(Validator::validatePassword($user['password'], $user['repeatPassword'])['errors'])) {
                 return Validator::validatePassword($user['password'], $user['repeatPassword'])['errors'];
+            }
+            
+            if (isset(Validator::validateRole($user['role'])['errors'])) {
+                return Validator::validateRole($user['role'])['errors'];
+            }
 
-                
+            $passwordHash = password_hash($user['password'], PASSWORD_BCRYPT);
+            
+            $sql = "INSERT INTO users(username, password, role) VALUES(:username, :password, :role)"; 
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':username', $user['username'], PDO::PARAM_STR);
+            $stmt->bindParam(':password', $passwordHash, PDO::PARAM_STR);
+            $stmt->bindParam(':role', $user['role'], PDO::PARAM_INT);
+            $stmt->execute();
 
-                        
+            $response['message'] = "You successfully created a new user.";
+            return $response;
         } catch (Exception $e) {
             $response['error'] = $e->getMessage();
             return $response;

@@ -19,7 +19,7 @@
 
             if ($this->jwtHelper->verifyJWT($token)) {
                 $request['inputs'] = (array) json_decode(file_get_contents("php://input")); 
-                $request['user'] = $this->jwtHelper->decodeJWT($token)['user'];
+                $request['user'] = $this->jwtHelper->decodeJWT($token)->user;
                 return $request;
             }
 
@@ -31,9 +31,12 @@
         public function checkPrivilegies($user, $minimumRole) {
             $request = array();    
 
-            Response::json(403, array(
-                "error" => "Insufficient privilegies"
-            ));
+            if ($user->role < $minimumRole) {
+                Response::json(403, array(
+                    "error" => "Insufficient privilegies"
+                ));
+            }
+            return true;
         }
         
         private function getAuthorizationHeader(){

@@ -2,10 +2,12 @@
     class User {
         public $id;
         public $username;
-    
-        public function __construct(int $id, string $username) {
+        public $role;
+
+        public function __construct(int $id, string $username, int $role) {
             $this->id = $id;
             $this->username = $username;
+            $this->role = $role;
         } 
     }
 ?>
