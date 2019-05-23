@@ -8,7 +8,9 @@
         }
 
         public function getRequest() {
-
+            $request = array();    
+            $request['inputs'] = (array) json_decode(file_get_contents("php://input")); 
+            return $request;
         }
 
         public function checkAuth() {

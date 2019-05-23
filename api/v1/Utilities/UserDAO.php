@@ -59,7 +59,7 @@ class UserDAO {
         try {
             $response = array();
 
-            if ($username !== null || $password !== null) {
+            if ($username === "" || $password === "") {
                 $response['error'] = "Please fill in all the fields.";
             }
 

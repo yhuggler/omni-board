@@ -12,5 +12,3 @@ si.cpu()
 si.currentLoad()
     .then(data => console.log(data))
     .catch(error => console.log(error));
-
-

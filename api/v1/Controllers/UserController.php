@@ -18,7 +18,10 @@
             $request = $this->middleware->getRequest();
             $inputs = $request["inputs"];
 
-            $response= $this->userDAO->handleSignin($inputs['username'], $inputs['password']);
+            $username = isset($inputs['username']) ? $inputs['username'] : "";
+            $password = isset($inputs['password']) ? $inputs['password'] : "";
+            
+            $response= $this->userDAO->handleSignin($username, $password);
             Response::json(200, $response);
         }
 

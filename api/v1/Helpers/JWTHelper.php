@@ -14,7 +14,7 @@
         }
 
         // Erstellt einen JSON-Web-Token mit den Benutzerdaten.
-        public function generateJWT(array $user) {
+        public function generateJWT(User $user) {
             $issuedAt = time();
             $exp = $issuedAt + $this->expiration_time;
             $payload = array(
