@@ -23,7 +23,7 @@ class UserDAO {
             $password = bin2hex(openssl_random_pseudo_bytes(6));
             $passwordHash = password_hash($password, PASSWORD_BCRYPT);
 
-            $sql = "INSERT INTO users(username, password) VALUES(:username, :password)";
+            $sql = "INSERT INTO users(username, password, role) VALUES(:username, :password, 2)";
             $stmt = $this->conn->prepare($sql);
             $stmt->bindParam(':username', $username, PDO::PARAM_STR);
             $stmt->bindParam(':password', $passwordHash, PDO::PARAM_STR);

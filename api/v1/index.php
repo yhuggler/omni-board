@@ -27,6 +27,10 @@ $router = new Router();
 
 //Define Routes
 $router->get('/', function () {
+    $authKeyManager = new AuthKeyManager();
+    $authKeyManager->generateAuthKey(1);
+
+
     Response::json(200, array(
         "message" => "Welcome to the ombi-board-api"
     ));
@@ -39,4 +43,12 @@ $router->mount('/user', function () use ($router) {
 	$router->post('/', 'UserController@createUser');
 });
 
+// Route: /servers
+$router->mount('/servers', function () use ($router) {
+	$router->post('/', 'ServerController@createServer');
+	$router->get('/', 'ServerController@getServers');
+	$router->get('/(\d+)', 'ServerController@getServerById');
+});
+
 $router->run();
+
