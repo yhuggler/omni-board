@@ -48,6 +48,8 @@ $router->mount('/servers', function () use ($router) {
 	$router->post('/', 'ServerController@createServer');
 	$router->get('/', 'ServerController@getServers');
 	$router->get('/(\d+)', 'ServerController@getServerById');
+	$router->put('/', 'ServerController@updateServer');
+	$router->delete('/', 'ServerController@deleteServer');
 });
 
 $router->run();

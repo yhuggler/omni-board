@@ -39,5 +39,34 @@ class ServerController {
         $response = $this->serverDAO->getServerById($id);
         Response::json(200, $response);
     }
+    
+    public function updateServer() {
+        $request = $this->middleware->checkAuth();
+        $this->middleware->checkPrivilegies($request['user'], 2);
+
+        $inputs = $request["inputs"];
+
+        $serverId = isset($inputs['serverId']) ? $inputs['serverId'] : ""; 
+        $friendlyName = isset($inputs['friendlyName']) ? $inputs['friendlyName'] : ""; 
+        $description = isset($inputs['description']) ? $inputs['description'] : ""; 
+
+        $server = new Server($serverId, $friendlyName, $description, "");
+
+        $response = $this->serverDAO->updateServer($server);
+        Response::json(200, $response);
+    }
+    
+    public function deleteServer() {
+        $request = $this->middleware->checkAuth();
+        $this->middleware->checkPrivilegies($request['user'], 2);
+
+        $inputs = $request["inputs"];
+
+        $serverId = isset($inputs['serverId']) ? $inputs['serverId'] : ""; 
+        $authKeyId = isset($inputs['authKeyId']) ? $inputs['authKeyId'] : ""; 
+
+        $response = $this->serverDAO->deleteServer($serverId, $authKeyId);
+        Response::json(200, $response);
+    }
 }
 

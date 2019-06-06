@@ -42,6 +42,20 @@ class AuthKeyManager {
     public function verifyAuthKey() {
 
     }
+
+    public function deleteAuthKey($authKeyId): bool {
+        try {
+            $sql = "DELETE FROM auth_keys WHERE auth_key_id = :authKeyId";
+            $stmt  = $this->conn->prepare($sql);
+            $stmt->bindParam(':authKeyId', $authKeyId, PDO::PARAM_INT);
+            $stmt->execute();
+
+            return true;    
+        } catch (Exception $e) {
+            echo $e->getMessage();
+            return false;
+        }
+    }
 }
 
 ?>

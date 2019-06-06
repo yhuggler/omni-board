@@ -115,24 +115,7 @@ class ServerDAO {
         }
     }
     
-    public function deleteServer($serverId, $authKeyId) {
-        try {
-            $response = array();
-
-            $sql = "DELETE FROM servers WHERE server_id = :serverId";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->bindParam(':serverId', $server->serverId, PDO::PARAM_INT);
-            $stmt->execute();
-
-            $this->authKeyManager->deleteAuthKey($authKeyId);
-
-            $response['message'] = "The server was deleted successfully!";
-        
-            return $response;
-        } catch (Exception $e) {
-            $response['error'] = $e->getMessage();
-            return $response;
-        }
+    public function deleteServer($serverId) {
 
     }
 }
