@@ -1,51 +1,51 @@
 <?php
 
-	class Response {
+class Response {
 
-            public static function json(int $status, array $response) {
-                $jwtHelper = new JWTHelper();
+    public static function json(int $status, array $response) {
+        $jwtHelper = new JWTHelper();
 
-                http_response_code($status); 
+        http_response_code($status); 
 
-                if (isset($response['user']))
-                    $response['user'] = $jwtHelper->generateJWT($response['user']);
+        if (isset($response['user']))
+            $response['user'] = $jwtHelper->generateJWT($response['user']);
 
-                echo json_encode($response); 
-                die();
-            }
+        echo json_encode($response); 
+        die();
+    }
 
-			public static function invalidJWT() {
-				$response = array();
+    public static function invalidJWT() {
+        $response = array();
 
-				http_response_code(403);
+        http_response_code(403);
 
-				$response['message'] = "Your session expired. Please sign in again.";
+        $response['message'] = "Your session expired. Please sign in again.";
 
-				echo json_encode($response);
-				die();
-			}
+        echo json_encode($response);
+        die();
+    }
 
-			public static function insufficientPrivileges() {
-				$response = array();
+    public static function insufficientPrivileges() {
+        $response = array();
 
-				http_response_code(403);
+        http_response_code(403);
 
-				$response['message'] = "You're not allowed to access this method.";
+        $response['message'] = "You're not allowed to access this method.";
 
-				echo json_encode($response);
-				die();
-			}
+        echo json_encode($response);
+        die();
+    }
 
-			public static function sendGeneralErrorResponse() {
-				$response = array();
+    public static function sendGeneralErrorResponse() {
+        $response = array();
 
-				http_response_code(500);
+        http_response_code(500);
 
-				$response['message'] = "Internal Server Error";
+        $response['message'] = "Internal Server Error";
 
-				echo json_encode($response);
-				die();
-			}
-	}
-		
+        echo json_encode($response);
+        die();
+    }
+}
+
 ?>
