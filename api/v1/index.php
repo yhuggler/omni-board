@@ -17,7 +17,7 @@ error_reporting(E_ALL);
 
 // Include necessary files.
 require_once "vendor/autoload.php";
-require_once "file_inclusions.php";
+require_once "file-inclusions.php";
 
 // Set namespace for easier later use.
 use \Bramus\Router\Router;
@@ -27,10 +27,6 @@ $router = new Router();
 
 //Define Routes
 $router->get('/', function () {
-    $authKeyManager = new AuthKeyManager();
-    $authKeyManager->generateAuthKey(1);
-
-
     Response::json(200, array(
         "message" => "Welcome to the ombi-board-api"
     ));
