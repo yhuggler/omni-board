@@ -1,16 +1,11 @@
 <?php
-	// To prevent repetitive programming, this function includes a whole folder at once.
-	function loadDirectory($directory) {
-		foreach (glob($directory . "/*.php") as $filename) {
-			include_once $filename;
-		}
-	}
 
-	$dirs = array_filter(glob('*'), 'is_dir');
+$recursiveDirectoryIterator = new RecursiveDirectoryIterator('./',RecursiveDirectoryIterator::SKIP_DOTS);
+$recursiveIteratorIterator = new RecursiveIteratorIterator($recursiveDirectoryIterator);
 
-	foreach ($dirs as $dir) {
-		if(!($dir == "vendor" || $dir == "Libraries")) {
-			loadDirectory($dir);
-		}
-	}
+foreach($recursiveIteratorIterator as $file) {
+    if (pathinfo($file, PATHINFO_EXTENSION) == "php" && !strpos($file, 'vendor')) {
+        include_once $file;
+    }
+}
 ?>
