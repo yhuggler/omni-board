@@ -23,7 +23,7 @@ class ServerController {
         $response = $this->serverDAO->createServer($server);
         Response::json(200, $response);
     }
-    
+
     public function getServers() {
         $request = $this->middleware->checkAuth();
         $this->middleware->checkPrivilegies($request['user'], 2);
@@ -31,7 +31,7 @@ class ServerController {
         $response = $this->serverDAO->getServers($server);
         Response::json(200, $response);
     }
-    
+
     public function getServerById($id) {
         $request = $this->middleware->checkAuth();
         $this->middleware->checkPrivilegies($request['user'], 2);
@@ -39,7 +39,7 @@ class ServerController {
         $response = $this->serverDAO->getServerById($id);
         Response::json(200, $response);
     }
-    
+
     public function updateServer() {
         $request = $this->middleware->checkAuth();
         $this->middleware->checkPrivilegies($request['user'], 2);
@@ -55,7 +55,7 @@ class ServerController {
         $response = $this->serverDAO->updateServer($server);
         Response::json(200, $response);
     }
-    
+
     public function deleteServer() {
         $request = $this->middleware->checkAuth();
         $this->middleware->checkPrivilegies($request['user'], 2);
@@ -63,9 +63,8 @@ class ServerController {
         $inputs = $request["inputs"];
 
         $serverId = isset($inputs['serverId']) ? $inputs['serverId'] : ""; 
-        $authKeyId = isset($inputs['authKeyId']) ? $inputs['authKeyId'] : ""; 
 
-        $response = $this->serverDAO->deleteServer($serverId, $authKeyId);
+        $response = $this->serverDAO->deleteServer($serverId);
         Response::json(200, $response);
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+// Needed method calls to prevent cors errors.
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     header("Access-Control-Allow-Methods: *");
     header("Access-Control-Allow-Headers: *");
@@ -11,6 +12,7 @@ header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
 header("Content-Type:application/json; charset=utf-8");
 
+// Development only
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -34,18 +36,18 @@ $router->get('/', function () {
 
 // Route: /user
 $router->mount('/user', function () use ($router) {
-	$router->get('/init', 'UserController@initialSetup');
-	$router->post('/signin', 'UserController@handleSignin');
-	$router->post('/', 'UserController@createUser');
+    $router->get('/init', 'UserController@initialSetup');
+    $router->post('/signin', 'UserController@handleSignin');
+    $router->post('/', 'UserController@createUser');
 });
 
 // Route: /servers
 $router->mount('/servers', function () use ($router) {
-	$router->post('/', 'ServerController@createServer');
-	$router->get('/', 'ServerController@getServers');
-	$router->get('/(\d+)', 'ServerController@getServerById');
-	$router->put('/', 'ServerController@updateServer');
-	$router->delete('/', 'ServerController@deleteServer');
+    $router->post('/', 'ServerController@createServer');
+    $router->get('/', 'ServerController@getServers');
+    $router->get('/(\d+)', 'ServerController@getServerById');
+    $router->put('/', 'ServerController@updateServer');
+    $router->delete('/', 'ServerController@deleteServer');
 });
 
 $router->run();

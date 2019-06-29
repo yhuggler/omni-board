@@ -4,8 +4,8 @@ class ServerDAO {
     private $conn;
     private $authKeyManager;
 
-	public function __construct() {
-	    $dbConn = new DBConnection();
+    public function __construct() {
+        $dbConn = new DBConnection();
         $this->conn = $dbConn->conn;
 
         $this->authKeyManager = new AuthKeyManager();
@@ -62,7 +62,7 @@ class ServerDAO {
             return $response;
         } 
     }
-    
+
     public function getServerById($serverId) {
         try {
             $response = array();
@@ -107,15 +107,15 @@ class ServerDAO {
 
             $response['server'] = $this->getServerById($server->serverId);
             $response['message'] = "The server was updated successfully!";
-        
+
             return $response;
         } catch (Exception $e) {
             $response['error'] = $e->getMessage();
             return $response;
         }
     }
-    
-    public function deleteServer($serverId, $authKeyId) {
+
+    public function deleteServer($serverId) {
         try {
             $response = array();
 
@@ -124,16 +124,13 @@ class ServerDAO {
             $stmt->bindParam(':serverId', $server->serverId, PDO::PARAM_INT);
             $stmt->execute();
 
-            $this->authKeyManager->deleteAuthKey($authKeyId);
-
             $response['message'] = "The server was deleted successfully!";
-        
+
             return $response;
         } catch (Exception $e) {
             $response['error'] = $e->getMessage();
             return $response;
         }
-
     }
 }
 
