@@ -29,6 +29,12 @@ $router = new Router();
 
 //Define Routes
 $router->get('/', function () {
+    /*
+    $cpuReading = new CpuReading();
+    $gpuReading = new GpuReading();
+    $systemStats = new SystemStats();
+    $vitals = new Vitals($cpuReading, $gpuReading, $systemStats);
+    */
     Response::json(200, array(
         "message" => "Welcome to the ombi-board-api"
     ));
