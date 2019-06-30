@@ -15,7 +15,6 @@ class VitalsDAO {
         try {
             $response = array();
             
-            
             if (!$this->cpuReadingDAO->createCpuReading($vitals->cpuReading)) {
                 $response['error'] = Errors::BAD_REQUEST;
                 return $response;
