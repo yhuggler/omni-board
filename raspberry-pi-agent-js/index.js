@@ -1,7 +1,8 @@
 // Import environemental variables
 require('dotenv').config();
 
-const si = require('systeminformation');
+const systemInformation = require('systeminformation');
+const osUtils = require('os-utils');
 
 let cpuReading = {
     "currentLoad": 0,
@@ -9,23 +10,30 @@ let cpuReading = {
     "maxClockspeed": 0,
     "minClockspeed": 0,
     "currentTemp": 0,
-    "tempLimitTdp": 0,
-    "serverIdFk": 2
+    "tempLimitTdp": 0
 };
 
-
 // Retrieve System Vitals
-/*
-si.cpu()
-    .then(data => console.log(data))
-    .catch(error => console.log(error));
-    */
-si.currentLoad()
+systemInformation.cpu()
     .then(data => {
-        console.log(data);
-        cpuReading.currentLoad = data['currentload'];
-        console.log(cpuReading);
+        cpuReading.currentClockspeed = data['speed'];
+        cpuReading.maxClockspeed = data['speedmax'];
+        cpuReading.minClockspeed = data['speedmin'];
     })
     .catch(error => console.log(error));
+
+systemInformation.cpuTemperature()
+    .then(data => {
+        cpuReading.currentTemp = data['main']
+    })
+    .catch(error => console.log(error));
+
+
+// CPU Usage
+osUtils.cpuUsage(function(cpuUsage) {
+    cpuReading.currentLoad = cpuUsage; 
+});
+
+// Post the data to the server
 
 

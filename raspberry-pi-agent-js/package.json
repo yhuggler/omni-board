@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^8.0.0",
+    "os-utils": "0.0.14",
     "systeminformation": "^4.12.0"
   }
 }
