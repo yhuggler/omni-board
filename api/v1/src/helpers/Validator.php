@@ -20,7 +20,7 @@ class Validator {
 
         return $response;
     }
-    
+
     public static function validateRole(int $role) {
         $response = array();
 
@@ -28,6 +28,14 @@ class Validator {
 
         return $response;
     }
+
+    public static function checkArrayForEmptyInput($array) {
+        foreach ($array as $key => $value) {
+            if ($array[$key] == null)
+                return $key . " can't be empty."; 
+        }
+    }
+
 }
 
 ?>

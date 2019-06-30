@@ -10,11 +10,13 @@ class CpuReadingDAO {
 
     public function createCpuReading(CpuReading $cpuReading) {
         try {
-            $response = array();
+            if (Validator::checkArrayForEmptyInput((array)$cpuReading)) {
+                return false;
+            }
 
-            $sql = "INSERT INTO cpu_readings(current_load, current_clockspeed, max_clockspeed, min_clockspeed 
-            current_temp, temp_limit_tdp, created_at, server_id_fk) VALUES(:current_load, :current_clockspeed, 
-            :max_clockspeed, :min_clockspeed, :current_temp, :temp_limit_tdp, :created_at, :server_id_fk)";
+            $sql = "INSERT INTO cpu_readings(current_load, current_clockspeed, max_clockspeed, min_clockspeed,
+                current_temp, temp_limit_tdp, created_at, server_id_fk) VALUES(:current_load, :current_clockspeed,
+                :max_clockspeed, :min_clockspeed, :current_temp, :temp_limit_tdp, :created_at, :server_id_fk)";
 
             $stmt = $this->conn->prepare($sql);
             $stmt->bindParam(':current_load', $cpuReading->currentLoad, PDO::PARAM_STR);
@@ -25,11 +27,11 @@ class CpuReadingDAO {
             $stmt->bindParam(':temp_limit_tdp', $cpuReading->tempLimitTdp, PDO::PARAM_STR);
             $stmt->bindParam(':created_at', $cpuReading->createdAt, PDO::PARAM_INT);
             $stmt->bindParam(':server_id_fk', $cpuReading->serverIdFk, PDO::PARAM_INT);
-            
+
             $stmt->execute();
             return true;
         } catch (Exception $e) {
-            $response['error'] = $e->getMessage();
+            $response['error'] = Errors::INTERNAL_MYSQL_ERROR;
             return $response;
         } 
     }
@@ -42,11 +44,11 @@ class CpuReadingDAO {
 
             $stmt = $this->conn->prepare($sql);
             $stmt->bindParam(':server_id_fk', $serverIdFk, PDO::PARAM_INT);
-            
+
             $stmt->execute();
             return true;
         } catch (Exception $e) {
-            $response['error'] = $e->getMessage();
+            $response['error'] = Errors::INTERNAL_MYSQL_ERROR;
             return $response;
         } 
     }
