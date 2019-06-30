@@ -50,5 +50,10 @@ $router->mount('/servers', function () use ($router) {
     $router->delete('/', 'ServerController@deleteServer');
 });
 
+// Route: /servers
+$router->mount('/vitals', function () use ($router) {
+    $router->post('/', 'VitalsController@createVitalsReading');
+});
+
 $router->run();
 
