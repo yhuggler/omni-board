@@ -26,7 +26,6 @@ class VitalsController {
             $cpuData->maxClockspeed ?? 0,
             $cpuData->minClockspeed ?? 0,
             $cpuData->currentTemp ?? 0,
-            $cpuData->tempLimitTdp ?? 0, 
             $createdAt,
             $cpuData->serverIdFk ?? 0
         );
@@ -40,7 +39,6 @@ class VitalsController {
             $gpuData->maxClockspeed ?? 0,
             $gpuData->minClockspeed ?? 0,
             $gpuData->currentTemp ?? 0,
-            $gpuData->tempLimitTdp ?? 0,
             $gpuData->memoryClockspeed ?? 0, 
             $createdAt,
             $gpuData->serverIdFk ?? 0

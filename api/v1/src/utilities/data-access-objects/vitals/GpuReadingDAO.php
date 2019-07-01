@@ -15,9 +15,9 @@ class GpuReadingDAO {
             }
 
             $sql = "INSERT INTO gpu_readings(current_load, current_clockspeed, max_clockspeed, 
-                min_clockspeed, current_temp, temp_limit_tdp, memory_clock_speed, created_at, 
+                min_clockspeed, current_temp, memory_clock_speed, created_at, 
                 server_id_fk) VALUES(:current_load, :current_clockspeed, :max_clockspeed, 
-                :min_clockspeed, :current_temp, :temp_limit_tdp, :memory_clock_speed, :created_at, :server_id_fk)";
+                :min_clockspeed, :current_temp, :memory_clock_speed, :created_at, :server_id_fk)";
 
             $stmt = $this->conn->prepare($sql);
             $stmt->bindParam(':current_load', $gpuReading->currentLoad, PDO::PARAM_STR);
@@ -25,7 +25,6 @@ class GpuReadingDAO {
             $stmt->bindParam(':max_clockspeed', $gpuReading->maxClockspeed, PDO::PARAM_STR);
             $stmt->bindParam(':min_clockspeed', $gpuReading->minClockspeed, PDO::PARAM_STR);
             $stmt->bindParam(':current_temp', $gpuReading->currentTemp, PDO::PARAM_STR);
-            $stmt->bindParam(':temp_limit_tdp', $gpuReading->tempLimitTdp, PDO::PARAM_STR);
             $stmt->bindParam(':memory_clock_speed', $gpuReading->memoryClockspeed, PDO::PARAM_STR);
             $stmt->bindParam(':created_at', $gpuReading->createdAt, PDO::PARAM_INT);
             $stmt->bindParam(':server_id_fk', $gpuReading->serverIdFk, PDO::PARAM_INT);
