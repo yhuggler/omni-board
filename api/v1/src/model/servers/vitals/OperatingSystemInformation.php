@@ -5,7 +5,7 @@ class OperatingSystemInformation {
     public $serverIdFk;
     public $platform;
     public $distro;
-    public $osRelease;
+    public $release;
     public $codename;
     public $kernel;
     public $arch;
@@ -41,12 +41,12 @@ class OperatingSystemInformation {
 
     }
 
-    public function setData($operatingSystemInformationId, $serverIdFk, $platform, $distro, $osRelease, $codename, $kernel, $arch, $hostname, $codepage, $logofile, $serial, $build, $servicePack, $updatedAt) {
+    public function setData($operatingSystemInformationId, $serverIdFk, $platform, $distro, $release, $codename, $kernel, $arch, $hostname, $codepage, $logofile, $serial, $build, $servicePack, $updatedAt) {
         $this->operatingSystemInformationId = $operatingSystemInformationId;
         $this->serverIdFk = $serverIdFk;
         $this->platform = $platform;
         $this->distro = $distro;
-        $this->osRelease = $osRelease;
+        $this->release = $release;
         $this->codename = $codename;
         $this->kernel = $kernel;
         $this->arch = $arch;

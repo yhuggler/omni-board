@@ -3,10 +3,13 @@
 class SystemInformationDAO {
 
     private $cpuInformationDAO;
+    private $hardwareInformationDAO;
+    private $operatingSystemInformationDAO;
 
     public function __construct() {
         $this->cpuInformationDAO = new CpuInformationDAO();
         $this->hardwareInformationDAO = new HardwareInformationDAO();
+        $this->operatingSystemInformationDAO = new OperatingSystemInformationDAO();
     }
 
     public function createSystemInformationEntry(SystemInformation $systemInformation) {
@@ -19,6 +22,11 @@ class SystemInformationDAO {
             }
             
             if (!$this->hardwareInformationDAO->createHardwareInformation($systemInformation->hardwareInformation)) {
+                $response['error'] = Errors::BAD_REQUEST;
+                return $response;
+            }
+            
+            if (!$this->operatingSystemInformationDAO->createOperatingSystemInformation($systemInformation->operatingSystemInformation)) {
                 $response['error'] = Errors::BAD_REQUEST;
                 return $response;
             }

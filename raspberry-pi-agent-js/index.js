@@ -34,7 +34,6 @@ let systemInformation = {
 
 
 // Initial System Information Retrieval
-
 getSystemInformation();
 
 async function getSystemInformation() {
@@ -54,8 +53,7 @@ async function getSystemInformation() {
         systemInformation.hardwareInformation.biosRevision = data['bios']['revision'];
 
         systemInformation.operatingSystemInformation =  data['os'];
-
-        console.log(systemInformation.operatingSystemInformation);
+        
         postSystemInformationToServer();
     } catch (e) {
         console.log(e);
@@ -72,11 +70,10 @@ function postSystemInformationToServer() {
         });
 }
 
-/*
 setInterval(function () {
     getSystemVitals();
 }, 10000);
-*/
+
 async function getSystemVitals() {
     try {
         const data = await si.getAllData();
