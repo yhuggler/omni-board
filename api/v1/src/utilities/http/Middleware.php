@@ -2,9 +2,11 @@
     class Middleware {
 
         private $jwtHelper;
+        private $authKeyManager;
 
         public function __construct() {
             $this->jwtHelper = new JWTHelper();
+            $this->authKeyManager = new AuthKeyManager();
         }
 
         public function getRequest() {
@@ -38,6 +40,22 @@
             }
             return true;
         }
+
+        public function checkAuthKey() {
+            $request = array();    
+            $token = $this->getBearerToken();
+
+            if ($this->authKeyManager->verifyAuthKey($token)) {
+                $request['inputs'] = (array) json_decode(file_get_contents("php://input")); 
+                $request['serverId'] = $this->authKeyManager->getServerIdByAuthKey($token);
+                return $request;
+            }
+
+            Response::json(403, array(
+                "error" => "Insufficient privilegies"
+            ));
+        }
+
         
         private function getAuthorizationHeader(){
             $headers = null;
