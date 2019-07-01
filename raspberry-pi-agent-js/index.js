@@ -4,46 +4,57 @@ require('dotenv').config();
 const systemInformation = require('systeminformation');
 const osUtils = require('os-utils');
 
-let vitals = {
-    "cpuReading": {},
-    "gpuReading": {},
-    "systemStats": {}
-}
+const axios = require('axios')
 
-let cpuReading = {
-    "currentLoad": 0,
-    "currentClockspeed": 0,
-    "maxClockspeed": 0,
-    "minClockspeed": 0,
-    "currentTemp": 0,
-    "tempLimitTdp": 0
+let vitals = {
+    cpuInformation: {},
+    hardwareInformation: {
+        system: {},
+        bios: {}
+    },
+    operatingSystemInformation: {},
+    cpuReading: {},
+    systemStats: {
+        uptime: 0
+    }
 };
 
+getSystemVitals();
 
-// For now, I'm getting the data in this sequential approach. It's not the prettiest thing ever, but it kinda works.
+async function getSystemVitals() {
+    try {
+        const data = await systemInformation.getAllData();
+        vitals.cpuInformation = data['cpu'];
+        vitals.hardwareInformation.system = data['system'];
+        vitals.hardwareInformation.bios = data['bios'];
+        vitals.operatingSystemInformation =  data['os'];
 
-setTimeout(function () {
-    getSystemVitals();
-}, 4000);
+        vitals.cpuReading.currentTemp = data['temp']['main'];
+        vitals.cpuReading.currentSpeed = data['cpu']['speed'];
 
-function getSystemVitals() {
-    systemInformation.getAllData()
-        .then(data => {
-            cpuReading.currentClockspeed = data['cpu']['speed'];
-            cpuReading.maxClockspeed = data['cpu']['speedmax'];
-            cpuReading.minClockspeed = data['cpu']['speedmin'];
-            cpuReading.currentTemp = data['temp']['main'];
+        vitals.systemStats.uptime = data['time']['uptime'];
 
-            getCPUUsage();
-        })
-        .catch(error => console.log(error));
+        getCPUUsage();
+    } catch (e) {
+        console.log(e);
+    }
+
 }
 
 function getCPUUsage() {
     osUtils.cpuUsage(function(cpuUsage) {
-        cpuReading.currentLoad = cpuUsage; 
-        console.log(cpuReading);
+        vitals.cpuReading.currentLoad = cpuUsage;
+        postData();
     });
 }
 
+function postData() {
+    axios.post('http://[::1]:8000/vitals', JSON.stringify(vitals))
+        .then(response => {
+            console.log(response.data);
+        })
+        .catch (error => {
+            console.log(error);
+        });
+}
 

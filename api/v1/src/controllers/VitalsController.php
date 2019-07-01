@@ -10,38 +10,38 @@ class VitalsController {
     }
 
     public function createVitalsReading() {
-        $request = $this->middleware->checkAuth();
-        $this->middleware->checkPrivilegies($request['user'], 2);
+        $request = $this->middleware->getRequest();
 
         $inputs = $request["inputs"];
 
         $createdAt = time();        
 
-        // Cpu-Reading
-        $cpuData = $inputs['cpuReading'];
+        // First of all, I have to handle the recieval of the data.
 
-        $cpuReading = new CpuReading(-1, 
-            $cpuData->currentLoad ?? 0,
-            $cpuData->currentClockspeed ?? 0,
-            $cpuData->maxClockspeed ?? 0,
-            $cpuData->minClockspeed ?? 0,
-            $cpuData->currentTemp ?? 0,
-            $createdAt,
-            $cpuData->serverIdFk ?? 0
-        );
+        $mapper = new JsonMapper();
 
-        // System Stats
+        $cpuInformationData = $inputs['cpuInformation'];
+        $hardwareInformationData = $inputs['hardwareInformation'];
+        $operatingSystemInformationData = $inputs['operatingSystemInformation'];
+        $cpuReadingData = $inputs['cpuReading'];
         $systemStatsData = $inputs['systemStats'];
 
-        $systemStats = new SystemStats(-1,
-            $systemStatsData->uptime ?? 0,
-            $createdAt,
-            $systemStatsData->serverIdFk ?? 0
-        );
+        
+        // Mapping the json data to the custom php classes.
+        $cpuInformation = $mapper->map($cpuInformationData, new CpuInformation());
+        $hardwareInformation = $mapper->map($hardwareInformationData, new HardwareInformation());
+        $operatingSystemInformation = $mapper->map($operatingSystemInformationData, new OperatingSystemInformation());
+        $cpuReading = $mapper->map($cpuReadingData, new CpuReading());
+        $systemStats = $mapper->map($systemStatsData, new SystemStats());
 
-        $vitals = new Vitals($cpuReading, $systemStats);
+        var_dump($systemStats);
 
-        $response = $this->vitalsDAO->createVitalsReading($vitals);
-        Response::json(200, $response);
+
+        // $response = $this->vitalsDAO->createVitalsReading($vitals);
+        // Response::json(200, $response);
+    }
+
+    public function createSystemInformation() {
+
     }
 }

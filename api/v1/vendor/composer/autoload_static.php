@@ -29,6 +29,13 @@ class ComposerStaticInit251396a14f96fa8e9d6192feaffc42dc
     );
 
     public static $prefixesPsr0 = array (
+        'J' => 
+        array (
+            'JsonMapper' => 
+            array (
+                0 => __DIR__ . '/..' . '/netresearch/jsonmapper/src',
+            ),
+        ),
         'B' => 
         array (
             'Bramus' => 
