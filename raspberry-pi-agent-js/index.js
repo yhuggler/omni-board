@@ -18,24 +18,42 @@ let vitals = {
 let systemInformation = {
     cpuInformation: {},
     hardwareInformation: {
-        system: {},
-        bios: {}
+        manufacturer: "",
+        model: "",
+        version: "",
+        serial: "",
+        uuid: "",
+        sku: "",
+        biosVendor: "",
+        biosVersion: "",
+        biosReleaseDate: "",
+        biosRevision: ""
     },
     operatingSystemInformation: {},
 }
 
 
 // Initial System Information Retrieval
-
-//getSystemInformation();
+getSystemInformation();
 
 async function getSystemInformation() {
     try {
         const data = await si.getAllData();
         systemInformation.cpuInformation = data['cpu'];
-        systemInformation.hardwareInformation.system = data['system'];
-        systemInformation.hardwareInformation.bios = data['bios'];
+
+        systemInformation.hardwareInformation.manufacturer = data['system']['manufacturer'];
+        systemInformation.hardwareInformation.model = data['system']['model'];
+        systemInformation.hardwareInformation.version = data['system']['version'];
+        systemInformation.hardwareInformation.serial = data['system']['serial'];
+        systemInformation.hardwareInformation.uuid = data['system']['uuid'];
+        systemInformation.hardwareInformation.sku = data['system']['sku'];
+        systemInformation.hardwareInformation.biosVendor = data['bios']['vendor'];
+        systemInformation.hardwareInformation.biosVersion = data['bios']['version'];
+        systemInformation.hardwareInformation.biosReleaseDate = data['bios']['releaseDate'];
+        systemInformation.hardwareInformation.biosRevision = data['bios']['revision'];
+
         systemInformation.operatingSystemInformation =  data['os'];
+        
         postSystemInformationToServer();
     } catch (e) {
         console.log(e);
