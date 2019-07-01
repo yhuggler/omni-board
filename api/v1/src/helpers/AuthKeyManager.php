@@ -34,13 +34,41 @@ class AuthKeyManager {
 
             return $authKey;    
         } catch (Exception $e) {
-            echo $e->getMessage();
             return false;
         } 
     }
 
-    public function verifyAuthKey() {
+    public function verifyAuthKey($authKey) {
+        try {
+            $sql = "SELECT * FROM auth_keys WHERE auth_key = :auth_key";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':auth_key', $authKey, PDO::PARAM_STR);
+            $stmt->execute();
 
+            $results = $stmt->fetchAll();
+            
+            return !empty($results);
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+    
+    public function getServerIdByAuthKey($authKey) {
+        try {
+            $sql = "SELECT * FROM auth_keys WHERE auth_key = :auth_key";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':auth_key', $authKey, PDO::PARAM_STR);
+            $stmt->execute();
+
+            $results = $stmt->fetchAll();
+            
+            if (!empty($results)) {
+                return $results[0]['server_id'];
+            }
+            return false;
+        } catch (Exception $e) {
+            return false;
+        }
     }
 
     public function deleteAuthKey($authKeyId): bool {

@@ -50,9 +50,14 @@ $router->mount('/servers', function () use ($router) {
     $router->delete('/', 'ServerController@deleteServer');
 });
 
-// Route: /servers
+// Route: /vitals
 $router->mount('/vitals', function () use ($router) {
     $router->post('/', 'VitalsController@createVitalsReading');
+});
+
+// Route: /systeminformation
+$router->mount('/systeminformation', function () use ($router) {
+    $router->post('/', 'SystemInformationController@createSystemInformationEntry');
 });
 
 $router->run();

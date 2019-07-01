@@ -10,54 +10,37 @@ class VitalsController {
     }
 
     public function createVitalsReading() {
-        $request = $this->middleware->checkAuth();
-        $this->middleware->checkPrivilegies($request['user'], 2);
-
+        $request = $this->middleware->checkAuthKey();
         $inputs = $request["inputs"];
 
         $createdAt = time();        
+        $serverId = $request['serverId'];
+        // First of all, I have to handle the recieval of the data.
 
-        // Cpu-Reading
-        $cpuData = $inputs['cpuReading'];
+        $mapper = new JsonMapper();
 
-        $cpuReading = new CpuReading(-1, 
-            $cpuData->currentLoad ?? 0,
-            $cpuData->currentClockspeed ?? 0,
-            $cpuData->maxClockspeed ?? 0,
-            $cpuData->minClockspeed ?? 0,
-            $cpuData->currentTemp ?? 0,
-            $cpuData->tempLimitTdp ?? 0, 
-            $createdAt,
-            $cpuData->serverIdFk ?? 0
-        );
-
-        // Gpu-Reading
-        $gpuData = $inputs['gpuReading'];
-
-        $gpuReading = new GpuReading(-1, 
-            $gpuData->currentLoad ?? 0,
-            $gpuData->currentClockspeed ?? 0,
-            $gpuData->maxClockspeed ?? 0,
-            $gpuData->minClockspeed ?? 0,
-            $gpuData->currentTemp ?? 0,
-            $gpuData->tempLimitTdp ?? 0,
-            $gpuData->memoryClockspeed ?? 0, 
-            $createdAt,
-            $gpuData->serverIdFk ?? 0
-        );
-
-        // System Stats
+        $cpuReadingData = $inputs['cpuReading'];
         $systemStatsData = $inputs['systemStats'];
+        
+        // Mapping the json data to the custom php classes.
+        $cpuReading = $mapper->map($cpuReadingData, new CpuReading());
+        $systemStats = $mapper->map($systemStatsData, new SystemStats());
 
-        $systemStats = new SystemStats(-1,
-            $systemStatsData->uptime ?? 0,
-            $createdAt,
-            $systemStatsData->serverIdFk ?? 0
-        );
+        $cpuReading->cpuReadingId = -1;
+        $cpuReading->createdAt = $createdAt;
+        $cpuReading->serverIdFk = $serverId;
+        
+        $systemStats->systemStatId = -1;
+        $systemStats->createdAt = $createdAt;
+        $systemStats->serverIdFk = $serverId;
 
-        $vitals = new Vitals($cpuReading, $gpuReading, $systemStats);
+        $vitals = new Vitals($cpuReading, $systemStats);
 
         $response = $this->vitalsDAO->createVitalsReading($vitals);
         Response::json(200, $response);
+    }
+
+    public function createSystemInformation() {
+
     }
 }

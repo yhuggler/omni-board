@@ -2,12 +2,10 @@
 
 class VitalsDAO {
     private $cpuReadingDAO;
-    private $gpuReadingDAO;
     private $systemStatsDAO;
 
     public function __construct() {
         $this->cpuReadingDAO = new CpuReadingDAO();
-        $this->gpuReadingDAO = new GpuReadingDAO();
         $this->systemStatsDAO = new SystemStatsDAO();
     }
 
@@ -16,11 +14,6 @@ class VitalsDAO {
             $response = array();
             
             if (!$this->cpuReadingDAO->createCpuReading($vitals->cpuReading)) {
-                $response['error'] = Errors::BAD_REQUEST;
-                return $response;
-            }
-            
-            if (!$this->gpuReadingDAO->createGpuReading($vitals->gpuReading)) {
                 $response['error'] = Errors::BAD_REQUEST;
                 return $response;
             }
