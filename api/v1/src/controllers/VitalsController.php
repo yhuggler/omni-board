@@ -30,20 +30,6 @@ class VitalsController {
             $cpuData->serverIdFk ?? 0
         );
 
-        // Gpu-Reading
-        $gpuData = $inputs['gpuReading'];
-
-        $gpuReading = new GpuReading(-1, 
-            $gpuData->currentLoad ?? 0,
-            $gpuData->currentClockspeed ?? 0,
-            $gpuData->maxClockspeed ?? 0,
-            $gpuData->minClockspeed ?? 0,
-            $gpuData->currentTemp ?? 0,
-            $gpuData->memoryClockspeed ?? 0, 
-            $createdAt,
-            $gpuData->serverIdFk ?? 0
-        );
-
         // System Stats
         $systemStatsData = $inputs['systemStats'];
 
@@ -53,7 +39,7 @@ class VitalsController {
             $systemStatsData->serverIdFk ?? 0
         );
 
-        $vitals = new Vitals($cpuReading, $gpuReading, $systemStats);
+        $vitals = new Vitals($cpuReading, $systemStats);
 
         $response = $this->vitalsDAO->createVitalsReading($vitals);
         Response::json(200, $response);

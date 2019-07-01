@@ -4,6 +4,12 @@ require('dotenv').config();
 const systemInformation = require('systeminformation');
 const osUtils = require('os-utils');
 
+let vitals = {
+    "cpuReading": {},
+    "gpuReading": {},
+    "systemStats": {}
+}
+
 let cpuReading = {
     "currentLoad": 0,
     "currentClockspeed": 0,
@@ -13,27 +19,31 @@ let cpuReading = {
     "tempLimitTdp": 0
 };
 
-// Retrieve System Vitals
-systemInformation.cpu()
-    .then(data => {
-        cpuReading.currentClockspeed = data['speed'];
-        cpuReading.maxClockspeed = data['speedmax'];
-        cpuReading.minClockspeed = data['speedmin'];
-    })
-    .catch(error => console.log(error));
 
-systemInformation.cpuTemperature()
-    .then(data => {
-        cpuReading.currentTemp = data['main']
-    })
-    .catch(error => console.log(error));
+// For now, I'm getting the data in this sequential approach. It's not the prettiest thing ever, but it kinda works.
 
+setTimeout(function () {
+    getSystemVitals();
+}, 4000);
 
-// CPU Usage
-osUtils.cpuUsage(function(cpuUsage) {
-    cpuReading.currentLoad = cpuUsage; 
-});
+function getSystemVitals() {
+    systemInformation.getAllData()
+        .then(data => {
+            cpuReading.currentClockspeed = data['cpu']['speed'];
+            cpuReading.maxClockspeed = data['cpu']['speedmax'];
+            cpuReading.minClockspeed = data['cpu']['speedmin'];
+            cpuReading.currentTemp = data['temp']['main'];
 
-// Post the data to the server
+            getCPUUsage();
+        })
+        .catch(error => console.log(error));
+}
+
+function getCPUUsage() {
+    osUtils.cpuUsage(function(cpuUsage) {
+        cpuReading.currentLoad = cpuUsage; 
+        console.log(cpuReading);
+    });
+}
 
 
