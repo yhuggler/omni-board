@@ -39,8 +39,4 @@ class VitalsController {
         $response = $this->vitalsDAO->createVitalsReading($vitals);
         Response::json(200, $response);
     }
-
-    public function createSystemInformation() {
-
-    }
 }

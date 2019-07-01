@@ -31,7 +31,7 @@ class Validator {
 
     public static function checkArrayForEmptyInput($array) {
         foreach ($array as $key => $value) {
-            if ($array[$key] == null && $array[$key] !== "")
+            if ($array[$key] == null && $array[$key] !== "" && $array[$key] !== 0)
                 return $key . " can't be empty."; 
         }
     }
