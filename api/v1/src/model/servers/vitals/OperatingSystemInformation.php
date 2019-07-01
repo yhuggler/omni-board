@@ -15,8 +15,6 @@ class OperatingSystemInformation {
     public $serial;
     public $build;
     public $servicePack;
-    public $uuid;
-    public $defaultShell;
     public $updatedAt;
 
     /*
@@ -43,7 +41,7 @@ class OperatingSystemInformation {
 
     }
 
-    public function setData($operatingSystemInformationId, $serverIdFk, $platform, $distro, $osRelease, $codename, $kernel, $arch, $hostname, $codepage, $logofile, $serial, $build, $servicePack, $uuid, $defaultShell, $updatedAt) {
+    public function setData($operatingSystemInformationId, $serverIdFk, $platform, $distro, $osRelease, $codename, $kernel, $arch, $hostname, $codepage, $logofile, $serial, $build, $servicePack, $updatedAt) {
         $this->operatingSystemInformationId = $operatingSystemInformationId;
         $this->serverIdFk = $serverIdFk;
         $this->platform = $platform;
@@ -56,8 +54,6 @@ class OperatingSystemInformation {
         $this->codepage = $codepage;
         $this->logofile = $logofile;
         $this->serial = $serial;
-        $this->uuid = $uuid;
-        $this->defaultShell = $defaultShell;
         $this->updatedAt = $updatedAt;
     }
 }

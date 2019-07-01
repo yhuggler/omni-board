@@ -15,8 +15,8 @@ class VitalsController {
 
         $createdAt = time();        
         $serverId = $request['serverId'];
-        // First of all, I have to handle the recieval of the data.
 
+        // First of all, I have to handle the recieval of the data.
         $mapper = new JsonMapper();
 
         $cpuReadingData = $inputs['cpuReading'];
