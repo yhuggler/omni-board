@@ -72,7 +72,7 @@ function postSystemInformationToServer() {
 
 setInterval(function () {
     getSystemVitals();
-}, 10000);
+}, 2500);
 
 async function getSystemVitals() {
     try {

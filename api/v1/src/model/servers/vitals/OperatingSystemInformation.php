@@ -17,26 +17,6 @@ class OperatingSystemInformation {
     public $servicePack;
     public $updatedAt;
 
-    /*
-    public function __construct($operatingSystemInformationId, $serverIdFk, $platform, $distro, $osRelease, $codename, $kernel, $arch, $hostname, $codepage, $logofile, $serial, $build, $servicePack, $uuid, $defaultShell, $updatedAt) {
-        $this->operatingSystemInformationId = $operatingSystemInformationId;
-        $this->serverIdFk = $serverIdFk;
-        $this->platform = $platform;
-        $this->distro = $distro;
-        $this->osRelease = $osRelease;
-        $this->codename = $codename;
-        $this->kernel = $kernel;
-        $this->arch = $arch;
-        $this->hostname = $hostname;
-        $this->codepage = $codepage;
-        $this->logofile = $logofile;
-        $this->serial = $serial;
-        $this->uuid = $uuid;
-        $this->defaultShell = $defaultShell;
-        $this->updatedAt = $updatedAt;
-    }
-     */
-
     public function __construct() {
 
     }
@@ -54,6 +34,8 @@ class OperatingSystemInformation {
         $this->codepage = $codepage;
         $this->logofile = $logofile;
         $this->serial = $serial;
+        $this->build = $build;
+        $this->servicePack = $servicePack;
         $this->updatedAt = $updatedAt;
     }
 }

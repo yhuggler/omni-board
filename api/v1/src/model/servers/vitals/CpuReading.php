@@ -8,17 +8,6 @@ class CpuReading {
     public $createdAt;
     public $serverIdFk;
 
-    /*
-    public function __construct(int $cpuReadingId, float $currentLoad, float $currentClockspeed, float $currentTemp, int $createdAt, int $serverIdFk) {
-        $this->cpuReadingId = $cpuReadingId;
-        $this->currentLoad = $currentLoad;
-        $this->currentClockspeed = $currentClockspeed;
-        $this->currentTemp = $currentTemp;
-        $this->createdAt = $createdAt;
-        $this->serverIdFk = $serverIdFk;
-    }
-     */
-
     public function __construct() {
 
     }

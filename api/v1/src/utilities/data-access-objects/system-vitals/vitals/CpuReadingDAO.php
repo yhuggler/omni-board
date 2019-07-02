@@ -33,21 +33,50 @@ class CpuReadingDAO {
         } 
     }
 
-    public function getCpuReadingByServerId($serverId) {
+    public function getCpuReadingsByServerId($serverId) {
         try {
             $response = array();
 
             $sql = "SELECT * FROM cpu_readings WHERE server_id_fk = :server_id_fk";
 
             $stmt = $this->conn->prepare($sql);
-            $stmt->bindParam(':server_id_fk', $serverIdFk, PDO::PARAM_INT);
+            $stmt->bindParam(':server_id_fk', $serverId, PDO::PARAM_INT);
 
             $stmt->execute();
-            return true;
+
+            foreach ($stmt as $row) {
+                $cpuReading = new CpuReading();
+
+                $cpuReading->setData($row['cpu_reading_id'],
+                    $row['current_load'],
+                    $row['current_clockspeed'],
+                    $row['current_temp'],
+                    $row['created_at'],
+                    $row['server_id_fk']);
+
+                array_push($response, $cpuReading);
+            }
+
+            return $response;
         } catch (Exception $e) {
             $response['error'] = Errors::INTERNAL_MYSQL_ERROR;
             return $response;
         } 
+    }
+
+    public function deleteCpuReadingsByServerId($serverId) {
+        try {
+            $response = array();
+
+            $sql = "DELETE FROM cpu_readings WHERE server_id_fk = :server_id_fk";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':server_id_fk', $serverId, PDO::PARAM_INT);
+
+            $stmt->execute();
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
     }
 }
 

@@ -15,24 +15,6 @@ class HardwareInformation {
     public $biosRevision; 
     public $updatedAt;
 
-    /*
-    public function __construct($hardwareInformationId, $serverIdFk, $manufacturer, $model, $version, $serial, $uuid, $sku, $biosVendor, $biosVersion, $biosReleaseDate, $biosRevision, $updatedAt) {
-        $this->hardwareInformationId = $hardwareInformationId;
-        $this->serverIdFk = $serverIdFk;
-        $this->manufacturer = $manufacturer;
-        $this->model = $model;
-        $this->version = $version;
-        $this->serial = $serial;
-        $this->uuid = $uuid;
-        $this->sku = $sku;
-        $this->biosVendor = $biosVendor;
-        $this->biosVersion = $biosVersion;
-        $this->biosReleaseDate = $biosReleaseDate;
-        $this->biosRevision = $biosRevision;
-        $this->updatedAt = $updatedAt;
-    }
-     */
-
     public function __construct() {
 
     }

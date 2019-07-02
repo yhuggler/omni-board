@@ -42,7 +42,7 @@ class ServerDAO {
             $stmt = $this->conn->prepare($sql);
             $stmt->execute();
 
-            $servers = array();
+            $response['servers'] = array();
 
             foreach ($stmt as $row) {
                 $authKey = array(
@@ -51,10 +51,8 @@ class ServerDAO {
                 );
 
                 $server = new Server($row['server_id'], $row['friendly_name'], $row['description'], $authKey);
-                array_push($servers, $server);
+                array_push($response['servers'], $server);
             }
-
-            $response['servers'] = $servers;
 
             return $response;
         } catch (Exception $e) {
