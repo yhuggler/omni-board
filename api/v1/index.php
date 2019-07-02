@@ -53,11 +53,13 @@ $router->mount('/servers', function () use ($router) {
 // Route: /vitals
 $router->mount('/vitals', function () use ($router) {
     $router->post('/', 'VitalsController@createVitalsReading');
+    $router->get('/', 'VitalsController@getVitalReadings');
 });
 
 // Route: /systeminformation
 $router->mount('/systeminformation', function () use ($router) {
     $router->post('/', 'SystemInformationController@createSystemInformationEntry');
+    $router->get('/', 'SystemInformationController@getSystemInformationEntries');
 });
 
 $router->run();

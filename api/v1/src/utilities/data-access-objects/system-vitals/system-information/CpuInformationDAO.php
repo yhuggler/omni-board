@@ -104,6 +104,47 @@ class CpuInformationDAO {
             return false;
         } 
     }
+
+    public function getCpuInformationByServerId($serverId) {
+        try {
+            $response = array();
+
+            $sql = "SELECT * FROM cpu_information WHERE server_id_fk = :server_id_fk";
+
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':server_id_fk', $serverId, PDO::PARAM_INT);
+
+            $stmt->execute();
+
+            foreach ($stmt as $row) {
+                $cpuInformation = new CpuInformation();
+
+                $cpuInformation->setData($row['cpu_information_id'],
+                    $row['server_id_fk'],
+                    $row['manufacturer'],
+                    $row['brand'],
+                    $row['speed_min'],
+                    $row['speed_max'],
+                    $row['cores'],
+                    $row['physical_cores'],
+                    $row['processors'],
+                    $row['socket'],
+                    $row['vendor'],
+                    $row['family'],
+                    $row['model'],
+                    $row['stepping'],
+                    $row['revision'],
+                    $row['voltage'],
+                    $row['updated_at']);
+
+                array_push($response, $cpuInformation);
+            }
+
+            return $response;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
 }
 
 ?>

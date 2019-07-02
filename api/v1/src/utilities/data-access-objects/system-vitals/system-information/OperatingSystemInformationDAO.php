@@ -100,6 +100,45 @@ class OperatingSystemInformationDAO {
             return false;
         } 
     }
+    
+    public function getOperatingSystemInformationByServerId($serverId) {
+        try {
+            $response = array();
+
+            $sql = "SELECT * FROM operating_system_information WHERE server_id_fk = :server_id_fk";
+
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':server_id_fk', $serverId, PDO::PARAM_INT);
+
+            $stmt->execute();
+
+            foreach ($stmt as $row) {
+                $operatingSystemInformation = new OperatingSystemInformation();
+
+                $operatingSystemInformation->setData($row['operating_system_information_id'],
+                    $row['server_id_fk'],
+                    $row['platform'],
+                    $row['distro'],
+                    $row['os_release'],
+                    $row['codename'],
+                    $row['kernel'],
+                    $row['arch'],
+                    $row['hostname'],
+                    $row['codepage'],
+                    $row['logofile'],
+                    $row['serial'],
+                    $row['build'],
+                    $row['servicepack'],
+                    $row['updated_at']);
+
+                array_push($response, $operatingSystemInformation);
+            }
+
+            return $response;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
 }
 
 ?>

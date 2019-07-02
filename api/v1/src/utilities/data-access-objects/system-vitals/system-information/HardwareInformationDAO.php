@@ -93,6 +93,43 @@ class HardwareInformationDAO {
             return false;
         } 
     }
+    
+    public function getHardwareInformationByServerId($serverId) {
+        try {
+            $response = array();
+
+            $sql = "SELECT * FROM hardware_information WHERE server_id_fk = :server_id_fk";
+
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':server_id_fk', $serverId, PDO::PARAM_INT);
+
+            $stmt->execute();
+
+            foreach ($stmt as $row) {
+                $hardwareInformation = new HardwareInformation();
+
+                $hardwareInformation->setData($row['hardware_information_id'],
+                    $row['server_id_fk'],
+                    $row['manufacturer'],
+                    $row['model'],
+                    $row['version'],
+                    $row['serial'],
+                    $row['uuid'],
+                    $row['sku'],
+                    $row['bios_vendor'],
+                    $row['bios_version'],
+                    $row['bios_release_date'],
+                    $row['bios_revision'],
+                    $row['updated_at']);
+
+                array_push($response, $hardwareInformation);
+            }
+
+            return $response;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
 
 }
 

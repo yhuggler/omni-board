@@ -6,7 +6,7 @@
     class JWTHelper {
         // Der Secret-Key wird verwendet, um den JWT zu signieren. Dieser sollte nicht in die Hände der Benutzer kommen, da man dadurch die Signatur fälschen kann.
         private $secret = "PEo9zwRUd1H75WhiJI2HurrjthtesWW85t";
-        private $expiration_time = 36000;
+        private $expiration_time = 3600;
         private $alg = 'HS256';
 
         public function __construct() {
