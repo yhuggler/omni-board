@@ -54,12 +54,14 @@ $router->mount('/servers', function () use ($router) {
 $router->mount('/vitals', function () use ($router) {
     $router->post('/', 'VitalsController@createVitalsReading');
     $router->get('/', 'VitalsController@getVitalReadings');
+    $router->delete('/', 'VitalsController@deleteVitalReadingsByServerId');
 });
 
 // Route: /systeminformation
 $router->mount('/systeminformation', function () use ($router) {
     $router->post('/', 'SystemInformationController@createSystemInformationEntry');
     $router->get('/', 'SystemInformationController@getSystemInformationEntries');
+    $router->delete('/', 'SystemInformationController@deleteSystemInformationEntriesByServerId');
 });
 
 $router->run();

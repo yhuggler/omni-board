@@ -43,10 +43,18 @@ class VitalsController {
     public function getVitalReadings() {
         $request = $this->middleware->checkAuth();
         $this->middleware->checkPrivilegies($request['user'], 2);
-
-        $inputs = $request["inputs"];
     
         $response = $this->vitalsDAO->getVitalReadings();
+        Response::json(200, $response);
+    }
+
+    public function deleteVitalReadingsByServerId() {
+        $request = $this->middleware->checkAuth();
+        $this->middleware->checkPrivilegies($request['user'], 2);
+
+        $inputs = $request["inputs"];
+
+        $response = $this->vitalsDAO->deleteVitalReadingsByServerId($inputs['serverId']);
         Response::json(200, $response);
     }
 }

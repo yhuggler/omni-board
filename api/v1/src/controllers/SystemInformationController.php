@@ -49,12 +49,20 @@ class SystemInformationController {
     public function getSystemInformationEntries() {
         $request = $this->middleware->checkAuth();
         $this->middleware->checkPrivilegies($request['user'], 2);
-
-        $inputs = $request["inputs"];
     
         $response = $this->systemInformationDAO->getSystemInformationEntries();
         Response::json(200, $response);
 
+    }
+    
+    public function deleteSystemInformationEntriesByServerId() {
+        $request = $this->middleware->checkAuth();
+        $this->middleware->checkPrivilegies($request['user'], 2);
+
+        $inputs = $request["inputs"];
+    
+        $response = $this->systemInformationDAO->deleteSystemInformationEntriesByServerId($inputs['serverId']);
+        Response::json(200, $response);
     }
 }
 

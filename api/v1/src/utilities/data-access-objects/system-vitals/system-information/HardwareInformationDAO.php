@@ -131,6 +131,21 @@ class HardwareInformationDAO {
         }
     }
 
+    public function deleteHardwareInformationByServerId($serverId) {
+        try {
+            $response = array();
+
+            $sql = "DELETE FROM hardware_information WHERE server_id_fk = :server_id_fk";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':server_id_fk', $serverId, PDO::PARAM_INT);
+
+            $stmt->execute();
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
 }
 
 ?>

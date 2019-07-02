@@ -59,9 +59,23 @@ class SystemStatsDAO {
             $response['error'] = Errors::INTERNAL_MYSQL_ERROR;
             return $response;
         } 
-
     }
+    
+    public function deleteSystemStatsByServerId($serverId) {
+        try {
+            $response = array();
 
+            $sql = "DELETE FROM system_stats WHERE server_id = :server_id";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':server_id', $serverId, PDO::PARAM_INT);
+
+            $stmt->execute();
+            return true;
+        } catch (Exception $e) {
+            echo $e->getMessage();
+            return false;
+        }
+    }
 }
 
 ?>

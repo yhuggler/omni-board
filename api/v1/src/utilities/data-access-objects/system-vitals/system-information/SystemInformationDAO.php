@@ -63,8 +63,36 @@ class SystemInformationDAO {
             $response['error'] = Errors::INTERNAL_MYSQL_ERROR;
             return $response;
         }
-
     } 
+
+    public function deleteSystemInformationEntriesByServerId($serverId) {
+        try {
+            $response = array();
+
+            if (!$this->cpuInformationDAO->deleteCpuInformationByServerId($serverId)) {
+                $response['error'] = Errors::INTERNAL_MYSQL_ERROR;
+                return $response;
+            }
+            
+            if (!$this->hardwareInformationDAO->deleteHardwareInformationByServerId($serverId)) {
+                $response['error'] = Errors::INTERNAL_MYSQL_ERROR;
+                return $response;
+            }
+            
+            if (!$this->operatingSystemInformationDAO->deleteOperatingSystemInformationByServerId($serverId)) {
+                $response['error'] = Errors::INTERNAL_MYSQL_ERROR;
+                return $response;
+            }
+
+            $response['message'] = "200 | OK - The system information entries were deleted successfully.";
+            return $response;
+
+        } catch (Exception $e) {
+            $response['error'] = Errors::INTERNAL_MYSQL_ERROR;
+            return $response;
+        }
+
+    }
 
 }
 
