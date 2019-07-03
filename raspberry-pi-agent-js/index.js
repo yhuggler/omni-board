@@ -27,9 +27,12 @@ let systemInformation = {
         biosVendor: "",
         biosVersion: "",
         biosReleaseDate: "",
-        biosRevision: ""
+        obiosRevision: ""
+
+
     },
     operatingSystemInformation: {},
+
 }
 
 
