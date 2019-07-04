@@ -163,7 +163,6 @@ class CpuReadingDAO {
 
             return true;
         } catch (Exception $e) {
-
             echo $e->getMessage();
             return false;
         }
