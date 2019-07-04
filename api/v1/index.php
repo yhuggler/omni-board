@@ -50,11 +50,24 @@ $router->mount('/servers', function () use ($router) {
     $router->delete('/', 'ServerController@deleteServer');
 });
 
-// Route: /vitals
-$router->mount('/vitals', function () use ($router) {
-    $router->post('/', 'VitalsController@createVitalsReading');
-    $router->get('/', 'VitalsController@getVitalReadings');
-    $router->delete('/', 'VitalsController@deleteVitalReadingsByServerId');
+// Route: /cpu-readings
+$router->mount('/cpu-readings', function () use ($router) {
+    $router->post('/', 'CpuReadingController@createCpuReading');
+    $router->get('/', 'CpuReadingController@getCpuReadings');
+    $router->get('/(\d+)', 'CpuReadingController@getCpuReadingsByServerId');
+    $router->get('/archive/(\d+)', 'CpuReadingController@getArchivedCpuReadingsByServerId');
+    $router->delete('/', 'CpuReadingController@deleteCpuReadingsByServerId');
+    $router->delete('/archive', 'CpuReadingController@deleteArchivedCpuReadingsByServerId');
+});
+
+// Route: /system-stats
+$router->mount('/system-stats', function () use ($router) {
+    $router->post('/', 'SystemStatsController@createSystemStats');
+    $router->get('/', 'SystemStatsController@getSystemStats');
+    $router->get('/(\d+)', 'SystemStatsController@getSystemStatsByServerId');
+    $router->get('/archive/(\d+)', 'SystemStatsController@getArchivedSystemStatsByServerId');
+    $router->delete('/', 'SystemStatsController@deleteSystemStatsByServerId');
+    $router->delete('/archive', 'SystemStatsController@deleteArchivedSystemStatsByServerId');
 });
 
 // Route: /systeminformation
