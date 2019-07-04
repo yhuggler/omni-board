@@ -8,11 +8,10 @@ const axios = require('axios')
 
 axios.defaults.headers.post['Authorization'] = 'Bearer ' + process.env.ACCESS_TOKEN;
 
-let vitals = {
-    cpuReading: {},
-    systemStats: {
-        uptime: 0
-    }
+let cpuReading = {};
+
+let systemStats = {
+    uptime: 0
 };
 
 let systemInformation = {
@@ -37,7 +36,7 @@ let systemInformation = {
 
 
 // Initial System Information Retrieval
-getSystemInformation();
+// getSystemInformation();
 
 async function getSystemInformation() {
     try {
@@ -56,7 +55,7 @@ async function getSystemInformation() {
         systemInformation.hardwareInformation.biosRevision = data['bios']['revision'];
 
         systemInformation.operatingSystemInformation =  data['os'];
-        
+
         postSystemInformationToServer();
     } catch (e) {
         console.log(e);
@@ -80,10 +79,10 @@ setInterval(function () {
 async function getSystemVitals() {
     try {
         const data = await si.getAllData();
-        vitals.cpuReading.currentTemp = data['temp']['main'];
-        vitals.cpuReading.currentClockspeed = data['cpu']['speed'];
+        cpuReading.currentTemp = data['temp']['main'];
+        cpuReading.currentClockspeed = data['cpu']['speed'];
 
-        vitals.systemStats.uptime = data['time']['uptime'];
+        systemStats.uptime = data['time']['uptime'];
 
         getCPUUsage();
     } catch (e) {
@@ -93,13 +92,29 @@ async function getSystemVitals() {
 
 function getCPUUsage() {
     osUtils.cpuUsage(function(cpuUsage) {
-        vitals.cpuReading.currentLoad = cpuUsage;
+        cpuReading.currentLoad = cpuUsage;
         postVitalsToServer();
     });
 }
 
 function postVitalsToServer() {
-    axios.post('http://[::1]:8000/vitals', JSON.stringify(vitals))
+    const bodyCpuReading = {
+        cpuReading: cpuReading
+    };
+    
+    const bodySystemStats = {
+        systemStats: systemStats
+    };
+
+    axios.post('http://[::1]:8000/cpu-readings', JSON.stringify(bodyCpuReading))
+        .then(response => {
+            console.log(response.data);
+        })
+        .catch (error => {
+            console.log(error);
+        });
+    
+    axios.post('http://[::1]:8000/system-stats', JSON.stringify(bodySystemStats))
         .then(response => {
             console.log(response.data);
         })
