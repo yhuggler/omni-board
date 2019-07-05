@@ -2,7 +2,7 @@
 
 class RoleCapabilityDAO {
     private $conn;
-    
+
     public function __construct() {
         $dbConn = new DBConnection();
         $this->conn = $dbConn->conn;
@@ -25,7 +25,7 @@ class RoleCapabilityDAO {
             return $response;
         }
     }
-        
+
     public function getRolesWithCapabilities() {
         try {
             $response['roles'] = array();
@@ -36,26 +36,32 @@ class RoleCapabilityDAO {
 
             $rolesResults = $stmt->fetchAll();
 
+            $usedRoles = array();
+
             foreach ($rolesResults as $roleResult) {
                 $roleId = $roleResult['role_id'];
-                $roleTitle = $roleResult['role_title'];
-                $roleDescription = $roleResult['role_description'];
-                $capabilities = array();
+                
+                if (!in_array($roleId, $usedRoles)) {
+                    $roleTitle = $roleResult['role_title'];
+                    $roleDescription = $roleResult['role_description'];
+                    $capabilities = array();
 
-                $sql = "SELECT * FROM roles_capabilities INNER JOIN capabilities ON roles_capabilities.capability_id = capabilities.capability_id WHERE role_id = :role_id";
-                $stmt = $this->conn->prepare($sql);
-                $stmt->bindParam(':role_id', $roleId, PDO::PARAM_INT);
-                $stmt->execute();
+                    $sql = "SELECT * FROM roles_capabilities INNER JOIN capabilities ON roles_capabilities.capability_id = capabilities.capability_id WHERE role_id = :role_id";
+                    $stmt = $this->conn->prepare($sql);
+                    $stmt->bindParam(':role_id', $roleId, PDO::PARAM_INT);
+                    $stmt->execute();
 
-                $capabilitiesResults = $stmt->fetchAll();
+                    $capabilitiesResults = $stmt->fetchAll();
 
-                foreach ($capabilitiesResults as $capabilityResult) {
-                    $capability = new Capability($capabilityResult['capability_id'], $capabilityResult['capability']);
-                    array_push($capabilities, $capability);
+                    foreach ($capabilitiesResults as $capabilityResult) {
+                        $capability = new Capability($capabilityResult['capability_id'], $capabilityResult['capability']);
+                        array_push($capabilities, $capability);
+                    }
+
+                    $role = new Role($roleId, $roleTitle, $roleDescription, $capabilities);
+                    array_push($response['roles'], $role);
+                    array_push($usedRoles, $roleId);
                 }
-
-                $role = new Role($roleId, $roleTitle, $roleDescription, $capabilities);
-                array_push($response['roles'], $role);
             }
 
             return $response;
