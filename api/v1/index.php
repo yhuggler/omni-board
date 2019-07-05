@@ -87,10 +87,10 @@ $router->mount('/capabilities', function () use ($router) {
 
 // Route: /roles
 $router->mount('/roles', function () use ($router) {
-    $router->post('/', 'CapabilityController@createCapability');
-    $router->get('/', 'CapabilityController@getCapabilities');
-    $router->put('/', 'CapabilityController@updateCapability');
-    $router->delete('/', 'CapabilityController@deleteCapability');
+    $router->post('/', 'RoleController@createRole');
+    $router->get('/', 'RoleController@getRoles');
+    $router->put('/', 'RoleController@updateRole');
+    $router->delete('/', 'RoleController@deleteRole');
 });
 
 $router->run();
