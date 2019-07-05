@@ -16,7 +16,7 @@ class RoleController {
        
         $inputs = $request["inputs"];
 
-        $role = new Role(-1, $inputs['roleTitle'], $inputs['roleDescription']);
+        $role = new Role(-1, $inputs['roleTitle'], $inputs['roleDescription'], array());
         
         $response = $this->roleDAO->createRole($role);
         Response::json(200, $response);
@@ -38,7 +38,7 @@ class RoleController {
        
         $inputs = $request["inputs"];
 
-        $role = new Role($inputs['roleId'], $inputs['roleTitle'], $inputs['roleDescription']);
+        $role = new Role($inputs['roleId'], $inputs['roleTitle'], $inputs['roleDescription'], array());
         
         $response = $this->roleDAO->updateRole($role);
         Response::json(200, $response);

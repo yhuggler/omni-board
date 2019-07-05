@@ -41,7 +41,7 @@ class RoleDAO {
             $stmt->execute();
 
             foreach ($stmt as $row) {
-                $role = new Role($row['role_id'], $row['role_title'], $row['role_description']);
+                $role = new Role($row['role_id'], $row['role_title'], $row['role_description'], array());
                 array_push($response['roles'], $role);
             }
 
