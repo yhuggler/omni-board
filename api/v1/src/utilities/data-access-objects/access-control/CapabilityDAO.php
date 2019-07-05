@@ -19,7 +19,7 @@ class CapabilityDAO {
             }
 
             $sql = "INSERT INTO capabilities(capability) VALUES(:capability)";
-            $stmt = $this->$conn->prepare($sql);
+            $stmt = $this->conn->prepare($sql);
             $stmt->bindParam(':capability', $capability->capability, PDO::PARAM_STR);
             $stmt->execute();
 
@@ -33,15 +33,10 @@ class CapabilityDAO {
 
     public function getCapabilities() {
         try {
-            $response = array();
+            $response['capabilities'] = array();
 
-            if (Validator::checkArrayForEmptyInput((array)$capability)) {
-                $response['error'] = Validator::checkArrayForEmptyInput((array)$capability);
-                return $response;
-            }
-
-            $sql = "SELECT * FROM capabilities";
-            $stmt = $this->$conn->prepare($sql);
+            $sql = "SELECT * FROM capabilities ORDER BY capability_id ASC";
+            $stmt = $this->conn->prepare($sql);
             $stmt->execute();
 
             foreach ($stmt as $row) {
@@ -66,8 +61,8 @@ class CapabilityDAO {
             }
 
             $sql = "UPDATE capabilities SET capability = :capability WHERE capability_id = :capability_id";
-            $stmt = $this->$conn->prepare($sql);
-            $stmt->bindParam(':capability_id', $capability->capabilityId, PDO::PARAM_STR);
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':capability_id', $capability->capabilityId, PDO::PARAM_INT);
             $stmt->bindParam(':capability', $capability->capability, PDO::PARAM_STR);
             $stmt->execute();
 
@@ -85,7 +80,7 @@ class CapabilityDAO {
 
             $sql = "DELETE FROM capabilities WHERE capability_id = :capability_id";
             $stmt = $this->conn->prepare($sql);
-            $stmt->bindParam(':capability_id', $capability->capabilityId, PDO::PARAM_STR);
+            $stmt->bindParam(':capability_id', $capabilityId, PDO::PARAM_INT);
             $stmt->execute();
 
             $response['message'] = "200 | OK - The capability was deleted successfully.";

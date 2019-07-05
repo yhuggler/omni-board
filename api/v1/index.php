@@ -77,5 +77,21 @@ $router->mount('/systeminformation', function () use ($router) {
     $router->delete('/', 'SystemInformationController@deleteSystemInformationEntriesByServerId');
 });
 
+// Route: /capabilites
+$router->mount('/capabilities', function () use ($router) {
+    $router->post('/', 'CapabilityController@createCapability');
+    $router->get('/', 'CapabilityController@getCapabilities');
+    $router->put('/', 'CapabilityController@updateCapability');
+    $router->delete('/', 'CapabilityController@deleteCapability');
+});
+
+// Route: /roles
+$router->mount('/roles', function () use ($router) {
+    $router->post('/', 'CapabilityController@createCapability');
+    $router->get('/', 'CapabilityController@getCapabilities');
+    $router->put('/', 'CapabilityController@updateCapability');
+    $router->delete('/', 'CapabilityController@deleteCapability');
+});
+
 $router->run();
 
