@@ -11,7 +11,7 @@ class ServerController {
 
     public function createServer() {
         $request = $this->middleware->checkAuth();
-        $this->middleware->checkPrivilegies($request['user'], 2);
+        $this->middleware->hasCapability('ADD_SERVER', $request['user']);
 
         $inputs = $request["inputs"];
 
@@ -26,7 +26,7 @@ class ServerController {
 
     public function getServers() {
         $request = $this->middleware->checkAuth();
-        $this->middleware->checkPrivilegies($request['user'], 2);
+        $this->middleware->hasCapability('GET_SERVERS', $request['user']);
 
         $response = $this->serverDAO->getServers($server);
         Response::json(200, $response);
@@ -34,7 +34,7 @@ class ServerController {
 
     public function getServerById($id) {
         $request = $this->middleware->checkAuth();
-        $this->middleware->checkPrivilegies($request['user'], 2);
+        $this->middleware->hasCapability('GET_SERVER_BY_ID', $request['user']);
 
         $response = $this->serverDAO->getServerById($id);
         Response::json(200, $response);
@@ -42,7 +42,7 @@ class ServerController {
 
     public function updateServer() {
         $request = $this->middleware->checkAuth();
-        $this->middleware->checkPrivilegies($request['user'], 2);
+        $this->middleware->hasCapability('UPDATE_SERVER', $request['user']);
 
         $inputs = $request["inputs"];
 
@@ -58,7 +58,7 @@ class ServerController {
 
     public function deleteServer() {
         $request = $this->middleware->checkAuth();
-        $this->middleware->checkPrivilegies($request['user'], 2);
+        $this->middleware->hasCapability('DELETE_SERVER', $request['user']);
 
         $inputs = $request["inputs"];
 

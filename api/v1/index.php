@@ -77,5 +77,35 @@ $router->mount('/systeminformation', function () use ($router) {
     $router->delete('/', 'SystemInformationController@deleteSystemInformationEntriesByServerId');
 });
 
+// Route: /capabilites
+$router->mount('/capabilities', function () use ($router) {
+    $router->post('/', 'CapabilityController@createCapability');
+    $router->get('/', 'CapabilityController@getCapabilities');
+    $router->put('/', 'CapabilityController@updateCapability');
+    $router->delete('/', 'CapabilityController@deleteCapability');
+});
+
+// Route: /roles
+$router->mount('/roles', function () use ($router) {
+    $router->post('/', 'RoleController@createRole');
+    $router->get('/', 'RoleController@getRoles');
+    $router->put('/', 'RoleController@updateRole');
+    $router->delete('/', 'RoleController@deleteRole');
+});
+
+// Route: /roles-capabilities
+$router->mount('/roles-capabilities', function () use ($router) {
+    $router->get('/', 'RoleCapabilityController@getRolesWithCapabilities');
+    $router->post('/', 'RoleCapabilityController@assignCapabilityToRole');
+    $router->delete('/', 'RoleCapabilityController@removeCapabilityFromRole');
+});
+
+// Route: /users-roles
+$router->mount('/users-roles', function () use ($router) {
+    $router->get('/(\d+)', 'UserRoleController@getRolesWithCapabilitiesByUserId');
+    $router->post('/', 'UserRoleController@assignUserToRole');
+    $router->delete('/', 'UserRoleController@removeUserFromRole');
+});
+
 $router->run();
 

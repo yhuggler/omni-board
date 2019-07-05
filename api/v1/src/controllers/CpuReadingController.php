@@ -32,7 +32,7 @@ class CpuReadingController {
 
     public function getCpuReadings() {
         $request = $this->middleware->checkAuth();
-        $this->middleware->checkPrivilegies($request['user'], 2);
+        $this->middleware->hasCapability('GET_CPU_READINGS', $request['user']);
 
         $response = $this->cpuReadingDAO->getCpuReadings();
         Response::json(200, $response);
@@ -40,7 +40,7 @@ class CpuReadingController {
 
     public function getCpuReadingsByServerId($id) {
         $request = $this->middleware->checkAuth();
-        $this->middleware->checkPrivilegies($request['user'], 2);
+        $this->middleware->hasCapability('GET_CPU_READINGS_BY_SERVER_ID', $request['user']);
 
         $response = $this->cpuReadingDAO->getCpuReadingsByServerId($id);
         Response::json(200, $response);
@@ -48,7 +48,7 @@ class CpuReadingController {
 
     public function getArchivedCpuReadingsByServerId($id) {
         $request = $this->middleware->checkAuth();
-        $this->middleware->checkPrivilegies($request['user'], 2);
+        $this->middleware->hasCapability('GET_ARCHIVED_CPU_READINGS_BY_SERVER_ID', $request['user']);
 
         $response = $this->cpuReadingDAO->getArchivedCpuReadingsByServerId($id);
         Response::json(200, $response);
@@ -56,7 +56,7 @@ class CpuReadingController {
 
     public function deleteCpuReadingsByServerId() {
         $request = $this->middleware->checkAuth();
-        $this->middleware->checkPrivilegies($request['user'], 2);
+        $this->middleware->hasCapability('DELETE_CPU_READINGS_BY_SERVER_ID', $request['user']);
 
         $inputs = $request["inputs"];
 
@@ -66,7 +66,7 @@ class CpuReadingController {
 
     public function deleteArchivedCpuReadingsByServerId() {
         $request = $this->middleware->checkAuth();
-        $this->middleware->checkPrivilegies($request['user'], 2);
+        $this->middleware->hasCapability('DELETE_ARCHIVED_CPU_READINGS_BY_SERVER_ID', $request['user']);
 
         $inputs = $request["inputs"];
 
