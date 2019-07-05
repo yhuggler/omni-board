@@ -25,9 +25,9 @@ class UserController {
         Response::json(200, $response);
     }
 
+    // Tinker with this later...
     public function createUser() {
         $request = $this->middleware->checkAuth();
-        $this->middleware->checkPrivilegies($request['user'], 2);
 
         $inputs = $request["inputs"];
 

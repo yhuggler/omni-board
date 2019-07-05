@@ -32,7 +32,7 @@ class SystemStatsController {
 
     public function getSystemStats() {
         $request = $this->middleware->checkAuth();
-        $this->middleware->checkPrivilegies($request['user'], 2);
+        $this->middleware->hasCapability('GET_SYSTEM_STATS', $request['user']);
 
         $response = $this->systemStatsDAO->getSystemStats();
         Response::json(200, $response);
@@ -40,7 +40,7 @@ class SystemStatsController {
 
     public function getSystemStatsByServerId($id) {
         $request = $this->middleware->checkAuth();
-        $this->middleware->checkPrivilegies($request['user'], 2);
+        $this->middleware->hasCapability('GET_SYSTEM_STATS_BY_SERVER_ID', $request['user']);
 
         $response = $this->systemStatsDAO->getSystemStatsByServerId($id);
         Response::json(200, $response);
@@ -48,7 +48,7 @@ class SystemStatsController {
 
     public function getArchivedSystemStatsByServerId($id) {
         $request = $this->middleware->checkAuth();
-        $this->middleware->checkPrivilegies($request['user'], 2);
+        $this->middleware->hasCapability('GET_ARCHIVED_SYSTEM_STATS_BY_SERVER_ID', $request['user']);
 
         $response = $this->systemStatsDAO->getArchivedSystemStatsByServerId($id);
         Response::json(200, $response);
@@ -56,7 +56,7 @@ class SystemStatsController {
 
     public function deleteSystemStatsByServerId() {
         $request = $this->middleware->checkAuth();
-        $this->middleware->checkPrivilegies($request['user'], 2);
+        $this->middleware->hasCapability('DELETE_SYSTEM_STATS_BY_SERVER_ID', $request['user']);
 
         $inputs = $request["inputs"];
 
@@ -66,7 +66,7 @@ class SystemStatsController {
 
     public function deleteArchivedSystemStatsByServerId() {
         $request = $this->middleware->checkAuth();
-        $this->middleware->checkPrivilegies($request['user'], 2);
+        $this->middleware->hasCapability('DELETE_ARCHIVED_SYSTEM_STATS_BY_SERVER_ID', $request['user']);
 
         $inputs = $request["inputs"];
 

@@ -12,7 +12,7 @@ class RoleController {
 
     public function createRole() {
         $request = $this->middleware->checkAuth();
-        $this->middleware->checkPrivilegies($request['user'], 2);
+        $this->middleware->hasCapability('ADD_ROLE', $request['user']);
        
         $inputs = $request["inputs"];
 
@@ -24,9 +24,7 @@ class RoleController {
     
     public function getRoles() {
         $request = $this->middleware->checkAuth();
-        $this->middleware->checkPrivilegies($request['user'], 2);
-       
-        $inputs = $request["inputs"];
+        $this->middleware->hasCapability('GET_ROLES', $request['user']);
         
         $response = $this->roleDAO->getRoles();
         Response::json(200, $response);
@@ -34,7 +32,7 @@ class RoleController {
     
     public function updateRole() {
         $request = $this->middleware->checkAuth();
-        $this->middleware->checkPrivilegies($request['user'], 2);
+        $this->middleware->hasCapability('UPDATE_ROLE', $request['user']);
        
         $inputs = $request["inputs"];
 
@@ -46,7 +44,7 @@ class RoleController {
     
     public function deleteRole() {
         $request = $this->middleware->checkAuth();
-        $this->middleware->checkPrivilegies($request['user'], 2);
+        $this->middleware->hasCapability('DELETE_ROLE', $request['user']);
        
         $inputs = $request["inputs"];
 

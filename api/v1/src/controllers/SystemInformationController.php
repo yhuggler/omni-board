@@ -48,7 +48,7 @@ class SystemInformationController {
 
     public function getSystemInformationEntries() {
         $request = $this->middleware->checkAuth();
-        $this->middleware->checkPrivilegies($request['user'], 2);
+        $this->middleware->hasCapability('GET_SYSTEM_INFORMATION_ENTRIES', $request['user']);
     
         $response = $this->systemInformationDAO->getSystemInformationEntries();
         Response::json(200, $response);
@@ -57,7 +57,7 @@ class SystemInformationController {
     
     public function deleteSystemInformationEntriesByServerId() {
         $request = $this->middleware->checkAuth();
-        $this->middleware->checkPrivilegies($request['user'], 2);
+        $this->middleware->hasCapability('DELETE_SYSTEM_INFORMATION_ENTRIES_BY_SERVER_ID', $request['user']);
 
         $inputs = $request["inputs"];
     

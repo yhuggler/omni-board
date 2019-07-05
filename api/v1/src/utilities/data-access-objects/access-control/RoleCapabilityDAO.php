@@ -82,7 +82,6 @@ class RoleCapabilityDAO {
             $response['error'] = Errors::INTERNAL_MYSQL_ERROR;
             return $response;
         }
-
     }
 }
 

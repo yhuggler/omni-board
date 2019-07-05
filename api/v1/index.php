@@ -100,5 +100,12 @@ $router->mount('/roles-capabilities', function () use ($router) {
     $router->delete('/', 'RoleCapabilityController@removeCapabilityFromRole');
 });
 
+// Route: /users-roles
+$router->mount('/users-roles', function () use ($router) {
+    $router->get('/(\d+)', 'UserRoleController@getRolesWithCapabilitiesByUserId');
+    $router->post('/', 'UserRoleController@assignUserToRole');
+    $router->delete('/', 'UserRoleController@removeUserFromRole');
+});
+
 $router->run();
 

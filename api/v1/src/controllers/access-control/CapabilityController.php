@@ -12,7 +12,7 @@ class CapabilityController {
 
     public function createCapability() {
         $request = $this->middleware->checkAuth();
-        $this->middleware->checkPrivilegies($request['user'], 2);
+        $this->middleware->hasCapability('ADD_CAPABILITY', $request['user']);
        
         $inputs = $request["inputs"];
 
@@ -24,7 +24,7 @@ class CapabilityController {
     
     public function getCapabilities() {
         $request = $this->middleware->checkAuth();
-        $this->middleware->checkPrivilegies($request['user'], 2);
+        $this->middleware->hasCapability('GET_CAPABILITIES', $request['user']);
        
         $inputs = $request["inputs"];
         
@@ -34,7 +34,7 @@ class CapabilityController {
     
     public function updateCapability() {
         $request = $this->middleware->checkAuth();
-        $this->middleware->checkPrivilegies($request['user'], 2);
+        $this->middleware->hasCapability('UPDATE_CAPABILITY', $request['user']);
        
         $inputs = $request["inputs"];
 
@@ -46,7 +46,7 @@ class CapabilityController {
     
     public function deleteCapability() {
         $request = $this->middleware->checkAuth();
-        $this->middleware->checkPrivilegies($request['user'], 2);
+        $this->middleware->hasCapability('DELETE_CAPABILITY', $request['user']);
        
         $inputs = $request["inputs"];
 

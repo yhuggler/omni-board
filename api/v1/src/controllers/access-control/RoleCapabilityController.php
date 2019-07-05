@@ -11,7 +11,7 @@ class RoleCapabilityController {
 
     public function assignCapabilityToRole() {
         $request = $this->middleware->checkAuth();
-        $this->middleware->checkPrivilegies($request['user'], 2);
+        $this->middleware->hasCapability('ASSIGN_CAPABILITY_TO_ROLE', $request['user']);
 
         $inputs = $request['inputs'];
         
@@ -21,7 +21,7 @@ class RoleCapabilityController {
     
     public function getRolesWithCapabilities() {
         $request = $this->middleware->checkAuth();
-        $this->middleware->checkPrivilegies($request['user'], 2);
+        $this->middleware->hasCapability('GET_ROLES_WITH_CAPABILITIES', $request['user']);
         
         $response = $this->roleCapabilityDAO->getRolesWithCapabilities();
         Response::json(200, $response);
@@ -29,7 +29,7 @@ class RoleCapabilityController {
     
     public function removeCapabilityFromRole() {
         $request = $this->middleware->checkAuth();
-        $this->middleware->checkPrivilegies($request['user'], 2);
+        $this->middleware->hasCapability('REMOVE_CAPABILITY_FROM_ROLE', $request['user']);
 
         $inputs = $request['inputs'];
         
