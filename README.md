@@ -4,14 +4,18 @@ Omni-Board: The dashboard for your raspberry pi vitals. The way it works is simp
 
 This getting started guide is not ready for production yet. Whenever I implement a new feature, I add it to the installation guide.
 
+## Todos
+
+Since this is a work in progress, here is a quick todo list. It's mostly for me, tbh.
+
+- [x] Role Based Access Control
+- [ ] Transaction Handling 
+- [ ] Logging-System
+- [ ] Refactoring of Error Messages using an Enum
+- [ ] Settings
+
 ## Getting Started
 
 To ensure the best possible experience, please follow the following steps in chronological order, otherwise, there might be complications, which would force you to redo all the steps, and we really don't want any more headaches, right? :)
 
-### Installing the agent on the raspberry pi
-
-- First of all, clone this repository to your raspberry pi. To do so, make sure you have git installed. If not, install it using this command `sudo apt-get install git`. Then run `git clone https://github.com/yhuggler/omni-board.git`
-- Now, assuming you cloned it into your home directory, the cloned directory should be at `/home/pi/omni-board/`
-- CD into the new directory `cd omni-board/`
-- Run the following command: `chmod +x -R /raspberry-pi-agent` in order to fix all the permission issues in linux.
 
