@@ -21,7 +21,7 @@ class UserController {
         $username = isset($inputs['username']) ? $inputs['username'] : "";
         $password = isset($inputs['password']) ? $inputs['password'] : "";
 
-        $response= $this->userDAO->handleSignin($username, $password);
+        $response = $this->userDAO->handleSignin($username, $password);
         Response::json(200, $response);
     }
 

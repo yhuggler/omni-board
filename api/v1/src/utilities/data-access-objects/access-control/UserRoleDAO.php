@@ -19,8 +19,10 @@ class UserRoleDAO {
             $stmt->execute();
 
             $response['message'] = "200 | OK - Successfully assigned the user to the role.";
+            LoggerHelper::log(LoggingLevels::INFO, "User " . $userId . " was assigned to role " . $roleId);
             return $response;
         } catch (Exception $e) {
+            LoggerHelper::log(LoggingLevels::SEVERE, $e->getMessage());
             $response['error'] = Errors::INTERNAL_MYSQL_ERROR;
             return $response;
         }
@@ -63,7 +65,7 @@ class UserRoleDAO {
 
             return $response;
         } catch (Exception $e) {
-            echo $e->getMessage();
+            LoggerHelper::log(LoggingLevels::SEVERE, $e->getMessage());
             $response['error'] = Errors::INTERNAL_MYSQL_ERROR;
             return $response;
         }
@@ -80,8 +82,10 @@ class UserRoleDAO {
             $stmt->execute();
 
             $response['message'] = "200 | OK - Successfully removed the user from the role.";
+            LoggerHelper::log(LoggingLevels::INFO, "User " . $userId . " was removed from role " . $roleId);
             return $response;
         } catch (Exception $e) {
+            LoggerHelper::log(LoggingLevels::SEVERE, $e->getMessage());
             $response['error'] = Errors::INTERNAL_MYSQL_ERROR;
             return $response;
         }

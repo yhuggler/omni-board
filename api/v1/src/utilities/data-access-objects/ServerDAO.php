@@ -29,6 +29,7 @@ class ServerDAO {
 
             return $response;
         } catch (Exception $e) {
+            LoggerHelper::log(LoggingLevels::SEVERE, $e->getMessage());
             $response['error'] = $e->getMessage();
             return $response;
         } 
@@ -56,6 +57,7 @@ class ServerDAO {
 
             return $response;
         } catch (Exception $e) {
+            LoggerHelper::log(LoggingLevels::SEVERE, $e->getMessage());
             $response['error'] = $e->getMessage();
             return $response;
         } 
@@ -87,6 +89,7 @@ class ServerDAO {
 
             return $response;
         } catch (Exception $e) {
+            LoggerHelper::log(LoggingLevels::SEVERE, $e->getMessage());
             $response['error'] = $e->getMessage();
             return $response;
         } 
@@ -108,6 +111,7 @@ class ServerDAO {
 
             return $response;
         } catch (Exception $e) {
+            LoggerHelper::log(LoggingLevels::SEVERE, $e->getMessage());
             $response['error'] = $e->getMessage();
             return $response;
         }
@@ -126,6 +130,7 @@ class ServerDAO {
 
             return $response;
         } catch (Exception $e) {
+            LoggerHelper::log(LoggingLevels::SEVERE, $e->getMessage());
             $response['error'] = $e->getMessage();
             return $response;
         }

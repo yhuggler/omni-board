@@ -110,5 +110,11 @@ $router->mount('/users-roles', function () use ($router) {
     $router->delete('/', 'UserRoleController@removeUserFromRole');
 });
 
+// Route: /logs
+$router->mount('/logs', function () use ($router) {
+    $router->get('/', 'LogController@getLogs');
+    $router->delete('/', 'LogController@deleteLogs');
+});
+
 $router->run();
 
