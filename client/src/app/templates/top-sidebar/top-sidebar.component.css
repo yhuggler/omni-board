@@ -1,0 +1,59 @@
+div.navbar-item {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 1.25em;
+    align-items: center;
+    color: #424242;
+}
+
+.full-width {
+    width: 100%;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.active {
+    color: #6AB4AC;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.sidenav-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.is-mobile .toolbar {
+    position: fixed;
+    z-index: 2;
+}
+
+h1.active-route {
+    margin-left: 8px;
+}
+
+.sidenav-container {
+    flex: 1;
+}
+
+.is-mobile .sidenav-container {
+    flex: 1 0 auto;
+}
+
+mat-sidenav {
+    width: 250px;
+}

@@ -5,10 +5,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialImports } from "./material-imports";
+import { TopSidebarComponent } from './templates/top-sidebar/top-sidebar.component';
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        TopSidebarComponent
     ],
     imports: [
         BrowserModule,
