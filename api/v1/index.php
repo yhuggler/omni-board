@@ -29,6 +29,9 @@ $router = new Router();
 
 //Define Routes
 $router->get('/', function () {
+    $logDAO = new LogDAO();
+
+
     Response::json(200, array(
         "message" => "Welcome to the ombi-board-api"
     ));
@@ -105,6 +108,12 @@ $router->mount('/users-roles', function () use ($router) {
     $router->get('/(\d+)', 'UserRoleController@getRolesWithCapabilitiesByUserId');
     $router->post('/', 'UserRoleController@assignUserToRole');
     $router->delete('/', 'UserRoleController@removeUserFromRole');
+});
+
+// Route: /logs
+$router->mount('/logs', function () use ($router) {
+    $router->get('/', 'LogController@getLogs');
+    $router->delete('/', 'LogController@deleteLogs');
 });
 
 $router->run();

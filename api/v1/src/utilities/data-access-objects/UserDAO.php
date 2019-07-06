@@ -61,6 +61,7 @@ class UserDAO {
 
             if ($username === "" || $password === "") {
                 $response['error'] = "Please fill in all the fields.";
+                LoggerHelper::log(LoggingLevels::INFO, Errors::INVALID_REQUEST);
             }
 
             $username = strtolower($username);
@@ -78,16 +79,20 @@ class UserDAO {
                 if (password_verify($password, $passwordHash)) {
                     $response['user'] = new User($userResult['id'], $userResult['username'], $userResult['role']);
                     $response['message'] = "You successfully signed in.";
+                    LoggerHelper::log(LoggingLevels::INFO, "Successfully signed in");
                 } else {
                     $response['error'] = "Auth failed. Please try again using diifferent credentials.";
+                    LoggerHelper::log(LoggingLevels::WARNING, "Unsuccessfull signin. Invalid password.");
                 }
                 
                 return $response;
             } else {
                 $response['error'] = "Auth failed. Please try again using diifferent credentials.";
+                LoggerHelper::log(LoggingLevels::WARNING, "Unsuccessfull signin. Invalid username.");
                 return $response;
             }
         } catch (Exception $e) {
+            LoggerHelper::log(LoggingLevels::SEVERE, $e->getMessage());
             $response['error'] = $e->getMessage();
             return $response;
         } 
@@ -121,6 +126,7 @@ class UserDAO {
             $response['message'] = "You successfully created a new user.";
             return $response;
         } catch (Exception $e) {
+            LoggerHelper::log(LoggingLevels::SEVERE, $e->getMessage());
             $response['error'] = $e->getMessage();
             return $response;
         }

@@ -1,7 +1,6 @@
 <?php
 
 class CapabilityDAO {
-
     private $conn;
 
     public function __construct() {
