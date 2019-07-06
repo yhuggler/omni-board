@@ -29,9 +29,6 @@ $router = new Router();
 
 //Define Routes
 $router->get('/', function () {
-    $logDAO = new LogDAO();
-
-
     Response::json(200, array(
         "message" => "Welcome to the omni-board-api"
     ));
