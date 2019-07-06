@@ -33,7 +33,7 @@ $router->get('/', function () {
 
 
     Response::json(200, array(
-        "message" => "Welcome to the ombi-board-api"
+        "message" => "Welcome to the omni-board-api"
     ));
 });
 
