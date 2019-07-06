@@ -10,7 +10,7 @@ Since this is a work in progress, here is a quick todo list. It's mostly for me,
 
 - [x] Role Based Access Control
 - [ ] Transaction Handling 
-- [ ] Logging-System
+- [x] Logging-System
 - [ ] Refactoring of Error Messages using an Enum
 - [ ] Settings
 
