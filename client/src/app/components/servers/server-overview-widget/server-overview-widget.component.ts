@@ -16,10 +16,6 @@ export class ServerOverviewWidgetComponent implements OnInit {
     public systemStats: Object[];
     public systemInformation: Object[];
 
-    gaugeType = "semi";
-    gaugeValue = 28.3;
-    gaugeLabel = "Speed";
-    gaugeAppendText = "km/hr";
 
     constructor(private serversService: ServersService,
         private cpuReadingsService: CpuReadingsService,
@@ -31,6 +27,10 @@ export class ServerOverviewWidgetComponent implements OnInit {
         this.fetchCpuReadings();
         this.fetchSystemStats();
         this.fetchSystemInformation();
+
+        setInterval(() => {
+            this.fetchCpuReadings();
+        }, 2000);
     }
 
     private fetchServers() {
@@ -57,7 +57,14 @@ export class ServerOverviewWidgetComponent implements OnInit {
         });
     }
 
+    public getLatestCpuReading(index: number) {
+        const cpuReadingsByServer = this.cpuReadings[index]['cpuReadings'];
+        return cpuReadingsByServer[cpuReadingsByServer.length - 1];
+    }
+
     public isServerActive(index: number) {
+        
+
         // If there were no updated in the last minute, the server is shown as offline.
         const currentCpuReadings = this.cpuReadings[index]['cpuReadings'];
 

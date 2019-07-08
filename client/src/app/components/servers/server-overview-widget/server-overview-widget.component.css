@@ -3,6 +3,7 @@ div.flex-view {
     flex-wrap: nowrap;
     overflow-x: auto;
     padding-bottom: 10px;
+    overflow-y: hidden;
 }
 
 div.server {
@@ -21,6 +22,7 @@ mat-card.server {
     display: inline;
     padding-left: 10px;
     padding-right: 10px;
+    margin-right: 10px;
 }
 
 .server-active {

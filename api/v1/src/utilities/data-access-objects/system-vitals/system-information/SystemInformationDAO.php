@@ -24,12 +24,14 @@ class SystemInformationDAO {
             }
             
             if (!$this->hardwareInformationDAO->createHardwareInformation($systemInformation->hardwareInformation)) {
+	            echo "test 2";    
                 $response['error'] = Errors::BAD_REQUEST;
                 return $response;
             }
             
             if (!$this->operatingSystemInformationDAO->createOperatingSystemInformation($systemInformation->operatingSystemInformation)) {
-                $response['error'] = Errors::BAD_REQUEST;
+	            echo "test 3";    
+				$response['error'] = Errors::BAD_REQUEST;
                 return $response;
             }
                     
