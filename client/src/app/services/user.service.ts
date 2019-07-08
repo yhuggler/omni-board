@@ -29,7 +29,7 @@ export class UserService {
                 this.matSnackBar.open(response['message'], 'Dismiss', {
                     duration: 5000
                 });
-                
+
                 localStorage.clear();
                 localStorage.setItem('jwt', response['user']);
 
@@ -44,6 +44,75 @@ export class UserService {
 
     public isLoggedIn() {
         return localStorage.getItem('jwt') !== null;
+    }
+
+    private urlBase64Decode(str: string) {
+        let output = str.replace(/-/g, '+').replace(/_/g, '/');
+        switch (output.length % 4) {
+            case 0:
+                break;
+            case 2:
+                output += '==';
+                break;
+            case 3:
+                output += '=';
+                break;
+            default:
+                // tslint:disable-next-line:no-string-throw
+                throw 'Illegal base64url string!';
+        }
+        return decodeURIComponent((<any>window).escape(window.atob(output)));
+    }
+
+    public getUser() {
+        const token = localStorage.getItem('jwt');  
+
+        if (token === null || token === '') { return { 'upn': '' }; }
+        const parts = token.split('.');
+        if (parts.length !== 3) {
+
+            throw new Error('JWT must have 3 parts');
+        }
+        const decoded = this.urlBase64Decode(parts[1]);
+        if (!decoded) {
+            throw new Error('Cannot decode the token');
+        }
+        return JSON.parse(decoded)['user'];
+    }
+
+    public isJWTExpired() {
+        const token = localStorage.getItem('jwt');  
+
+        if (token === null || token === '') { return { 'upn': '' }; }
+        const parts = token.split('.');
+        if (parts.length !== 3) {
+
+            throw new Error('JWT must have 3 parts');
+        }
+        const decoded = this.urlBase64Decode(parts[1]);
+
+        if (!decoded) {
+            throw new Error('Cannot decode the token');
+        }
+
+        const expirationTime = decoded['exp'];
+        return expirationTime <= Date.now() / 1000;
+    }
+
+    public handleLogout() {
+        localStorage.removeItem('jwt');
+
+        this.matSnackBar.open('You successfully logged out.', 'Dismiss', {
+            duration: 5000,
+        });
+    }
+
+    public expireSession() {
+        localStorage.removeItem('jwt');
+
+        this.matSnackBar.open('Your session expired. Please signin again.', 'Dismiss', {
+            duration: 5000,
+        });
     }
 
 }

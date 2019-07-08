@@ -11,6 +11,7 @@ import { ServerOverviewWidgetComponent } from './components/servers/server-overv
 import { SigninComponent } from './routes/signin/signin.component';
 import { HttpClientModule } from "@angular/common/http/";
 import { ReactiveFormsModule } from "@angular/forms/";
+import { NgxGaugeModule } from 'ngx-gauge';
 
 @NgModule({
     declarations: [
@@ -26,7 +27,8 @@ import { ReactiveFormsModule } from "@angular/forms/";
         BrowserAnimationsModule,
         MaterialImports,
         ReactiveFormsModule,
-        HttpClientModule
+        HttpClientModule,
+        NgxGaugeModule
     ],
     providers: [],
     bootstrap: [AppComponent]

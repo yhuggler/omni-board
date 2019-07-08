@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { Router  } from '@angular/router';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material';
+import { UserService } from "../../services/user.service";
 
 @Component({
     selector: 'app-top-sidebar',
@@ -17,7 +18,8 @@ export class TopSidebarComponent implements OnInit {
 
     constructor(private router: Router,
         private changeDetectorRef: ChangeDetectorRef, 
-        private media: MediaMatcher) {
+        private media: MediaMatcher,
+        private userService: UserService) {
 
         this.mobileQuery = media.matchMedia('(max-width: 600px)');
         this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -39,5 +41,13 @@ export class TopSidebarComponent implements OnInit {
 
     public getUpperCaseWord(word: string) {
         return word.charAt(0).toUpperCase() + word.substring(1);
+    }
+
+    public getUser() {
+        return this.userService.getUser();
+    }
+
+    public handleLogout() {
+        this.userService.handleLogout();
     }
 }

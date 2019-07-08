@@ -1,1 +1,27 @@
-<p>server-overview-widget works!</p>
+<div>
+    <p class="heading-small">Servers</p>
+    <hr class="horizontal-line-light">
+</div>
+
+<div class="flex-view" *ngIf="servers && cpuReadings && systemStats && systemInformation">
+    <div class="server" *ngFor="let server of servers; let i = index">
+        <mat-card class="server">
+            <mat-card-header>
+                <mat-card-title>{{server['friendlyName']}}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="center-aligned">
+                    <p class="server-status-indicator" [ngClass]="{'server-active': isServerActive(i), 'server-inactive': !isServerActive(i)}">
+                        {{isServerActive(i) ? "Running" : "Inactive"}}
+                    </p>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
+
+<ngx-gauge [type]="gaugeType" 
+           [value]="gaugeValue" 
+           [label]="gaugeLabel"  
+           [append]="gaugeAppendText">
+</ngx-gauge>

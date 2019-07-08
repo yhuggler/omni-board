@@ -45,14 +45,26 @@ div.icon-logo {
 
 img.icon-logo {
     width: 33%;
-	border-radius: 17.544%;
+    border-radius: 17.544%;
 }
 
 img.icon-logo-small {
     width: 25%;
-	border-radius: 17.544%;
+    border-radius: 17.544%;
 }
 
 .full-width {
     width: 100%;
+}
+
+.heading-small {
+    font-size: 1.5em;
+    color: #424242;
+}
+
+.horizontal-line-light {
+    border: 0; 
+    height: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1); 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }

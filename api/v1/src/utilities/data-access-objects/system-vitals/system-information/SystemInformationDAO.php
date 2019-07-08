@@ -43,7 +43,7 @@ class SystemInformationDAO {
 
     public function getSystemInformationEntries() {
         try {
-            $response = array();
+            $response['systemInformation'] = array();
 
             $servers = $this->serverDAO->getServers()['servers'];
 
@@ -55,7 +55,7 @@ class SystemInformationDAO {
                 $systemInformation['hardwareInformation'] = $this->hardwareInformationDAO->getHardwareInformationByServerId($server->serverId);
                 $systemInformation['operatingSystemInformation'] = $this->operatingSystemInformationDAO->getOperatingSystemInformationByServerId($server->serverId);
 
-                array_push($response, $systemInformation);
+                array_push($response['systemInformation'], $systemInformation);
             }
 
             return $response; 

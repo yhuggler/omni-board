@@ -61,3 +61,12 @@ mat-sidenav {
 mat-toolbar {
     overflow: hidden;
 }
+
+h1.active-user {
+}
+
+button.active-user {
+    font-size: 1em;
+    margin-left: 10px;
+    font-weight: 400;
+}

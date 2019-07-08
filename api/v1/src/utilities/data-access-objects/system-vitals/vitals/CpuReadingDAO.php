@@ -48,7 +48,7 @@ class CpuReadingDAO {
 
     public function getCpuReadings() {
         try {
-            $response = array();
+            $response['cpuReadings'] = array();
             
             $servers = $this->serverDAO->getServers()['servers'];
 
@@ -58,7 +58,7 @@ class CpuReadingDAO {
                 $cpuReadings['server'] = $server;
                 $cpuReadings['cpuReadings'] = $this->getCpuReadingsByServerId($server->serverId)['cpuReadings'];
 
-                array_push($response, $cpuReadings);
+                array_push($response['cpuReadings'], $cpuReadings);
             }
 
             return $response;

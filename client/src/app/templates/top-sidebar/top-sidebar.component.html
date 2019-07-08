@@ -5,6 +5,22 @@
         </button>
 
         <h1 class="active-route">{{getActiveRoute()}}</h1>
+        <span class="spacer"></span>
+
+        <h1 class="active-user">Logged in as </h1>
+        <button class="active-user" mat-button [matMenuTriggerFor]="userMenu">{{getUser()['username']}}</button>
+
+        <mat-menu #userMenu="matMenu">
+            <button mat-menu-item>
+                <mat-icon>settings</mat-icon>
+                <span>Settings</span>
+            </button>
+            <button mat-menu-item (click)="handleLogout()">
+                <mat-icon>logout</mat-icon>
+                <span>Logout</span>
+            </button>
+        </mat-menu>
+
     </mat-toolbar>
     <mat-sidenav-container class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
         <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches"

@@ -111,8 +111,12 @@ class OperatingSystemInformationDAO {
             $stmt->bindParam(':server_id_fk', $serverId, PDO::PARAM_INT);
 
             $stmt->execute();
+            
+            $results = $stmt->fetchAll();
 
-            foreach ($stmt as $row) {
+            if (!empty($results)) {
+                $row = $results[0];
+
                 $operatingSystemInformation = new OperatingSystemInformation();
 
                 $operatingSystemInformation->setData($row['operating_system_information_id'],
@@ -130,11 +134,11 @@ class OperatingSystemInformationDAO {
                     $row['build'],
                     $row['servicepack'],
                     $row['updated_at']);
-
-                array_push($response, $operatingSystemInformation);
+        
+                return $operatingSystemInformation;
             }
 
-            return $response;
+            return null;
         } catch (Exception $e) {
             return false;
         }
