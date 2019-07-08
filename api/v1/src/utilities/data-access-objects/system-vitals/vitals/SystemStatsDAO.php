@@ -47,7 +47,7 @@ class SystemStatsDAO {
 
     public function getSystemStats() {
         try {
-            $response = array();
+            $response['systemStats'] = array();
 
             $servers = $this->serverDAO->getServers()['servers'];
 
@@ -57,7 +57,7 @@ class SystemStatsDAO {
                 $cpuReadings['server'] = $server;
                 $cpuReadings['systemStats'] = $this->getSystemStatsByServerId($server->serverId)['systemStats'];
 
-                array_push($response, $cpuReadings);
+                array_push($response['systemStats'], $cpuReadings);
             }
 
             return $response;

@@ -62,7 +62,7 @@ class ServerDAO {
             return $response;
         } 
     }
-
+    
     public function getServerById($serverId) {
         try {
             $response = array();

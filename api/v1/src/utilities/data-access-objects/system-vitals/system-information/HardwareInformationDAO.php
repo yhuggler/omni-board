@@ -93,7 +93,7 @@ class HardwareInformationDAO {
             return false;
         } 
     }
-    
+
     public function getHardwareInformationByServerId($serverId) {
         try {
             $response = array();
@@ -105,7 +105,11 @@ class HardwareInformationDAO {
 
             $stmt->execute();
 
-            foreach ($stmt as $row) {
+            $results = $stmt->fetchAll();
+
+            if (!empty($results)) {
+                $row = $results[0];
+
                 $hardwareInformation = new HardwareInformation();
 
                 $hardwareInformation->setData($row['hardware_information_id'],
@@ -122,10 +126,11 @@ class HardwareInformationDAO {
                     $row['bios_revision'],
                     $row['updated_at']);
 
-                array_push($response, $hardwareInformation);
-            }
 
-            return $response;
+                return $hardwareInformation;
+            }
+            
+            return null; 
         } catch (Exception $e) {
             return false;
         }

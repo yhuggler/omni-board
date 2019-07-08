@@ -1,0 +1,21 @@
+<div class="fullpage-background">
+    <mat-card class="login-container mat-elevation-z12">
+            <div class="logo-container">
+                <img src="../../assets/img/icon-omni-board.svg" class="icon-logo-small">
+            </div>
+            <form [formGroup]="signinForm">
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Benutzername</mat-label>
+                <input matInput formControlName="username">
+              </mat-form-field>
+
+              <br>
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Passwort</mat-label>
+                <input  matInput type="password" formControlName="password">
+              </mat-form-field>
+              <br>
+              <button mat-raised-button type="submit" color="accent" class="full-width"  mat-close [disabled]="signinForm.invalid" (click)="signin()">Anmelden</button>
+            </form>
+        </mat-card>
+</div>

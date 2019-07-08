@@ -24,12 +24,14 @@ class SystemInformationDAO {
             }
             
             if (!$this->hardwareInformationDAO->createHardwareInformation($systemInformation->hardwareInformation)) {
+	            echo "test 2";    
                 $response['error'] = Errors::BAD_REQUEST;
                 return $response;
             }
             
             if (!$this->operatingSystemInformationDAO->createOperatingSystemInformation($systemInformation->operatingSystemInformation)) {
-                $response['error'] = Errors::BAD_REQUEST;
+	            echo "test 3";    
+				$response['error'] = Errors::BAD_REQUEST;
                 return $response;
             }
                     
@@ -43,7 +45,7 @@ class SystemInformationDAO {
 
     public function getSystemInformationEntries() {
         try {
-            $response = array();
+            $response['systemInformation'] = array();
 
             $servers = $this->serverDAO->getServers()['servers'];
 
@@ -55,7 +57,7 @@ class SystemInformationDAO {
                 $systemInformation['hardwareInformation'] = $this->hardwareInformationDAO->getHardwareInformationByServerId($server->serverId);
                 $systemInformation['operatingSystemInformation'] = $this->operatingSystemInformationDAO->getOperatingSystemInformationByServerId($server->serverId);
 
-                array_push($response, $systemInformation);
+                array_push($response['systemInformation'], $systemInformation);
             }
 
             return $response; 

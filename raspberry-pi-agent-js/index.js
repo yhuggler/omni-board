@@ -36,7 +36,7 @@ let systemInformation = {
 
 
 // Initial System Information Retrieval
-// getSystemInformation();
+getSystemInformation();
 
 async function getSystemInformation() {
     try {

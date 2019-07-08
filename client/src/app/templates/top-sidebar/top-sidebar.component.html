@@ -1,0 +1,80 @@
+<div class="container" [class.is-mobile]="mobileQuery.matches" >
+    <mat-toolbar color="accent" class="toolbar">
+        <button mat-icon-button id="toggleMenu" (click)="snav.toggle()">
+            <mat-icon>menu</mat-icon>
+        </button>
+
+        <h1 class="active-route">{{getActiveRoute()}}</h1>
+        <span class="spacer"></span>
+
+        <h1 class="active-user">Logged in as </h1>
+        <button class="active-user" mat-button [matMenuTriggerFor]="userMenu">{{getUser()['username']}}</button>
+
+        <mat-menu #userMenu="matMenu">
+            <button mat-menu-item>
+                <mat-icon>settings</mat-icon>
+                <span>Settings</span>
+            </button>
+            <button mat-menu-item (click)="handleLogout()">
+                <mat-icon>logout</mat-icon>
+                <span>Logout</span>
+            </button>
+        </mat-menu>
+
+    </mat-toolbar>
+    <mat-sidenav-container class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+        <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches"
+                           fixedTopGap="56">
+            <mat-nav-list>
+                <div class="icon-logo">
+                    <img class="icon-logo" src="../../assets/img/icon-omni-board.svg">
+                </div>
+                <a mat-list-item routerLink="dashboard">
+                    <div class="navbar-item" [class.active]="isRouteActive('/dashboard')">
+                        <mat-icon>dashboard</mat-icon>
+                        <p>Dashboard</p>
+                    </div>
+                </a>
+                <a mat-list-item routerLink="servers">
+                    <div class="navbar-item" [class.active]="isRouteActive('/servers')">
+                        <mat-icon>dns</mat-icon>
+                        <p>Servers</p>
+                    </div>
+                </a>
+                <a mat-list-item routerLink="users">
+                    <div class="navbar-item" [class.active]="isRouteActive('/users')">
+                        <mat-icon>people</mat-icon>
+                        <p>Users</p>
+                    </div>
+                </a>
+                <a mat-list-item routerLink="permissions">
+                    <div class="navbar-item" [class.active]="isRouteActive('/permissions')">
+                        <mat-icon>security</mat-icon>
+                        <p>Permissions</p>
+                    </div>
+                </a>
+                <a mat-list-item routerLink="logs">
+                    <div class="navbar-item" [class.active]="isRouteActive('/logs')">
+                        <mat-icon>poll</mat-icon>
+                        <p>Logs</p>
+                    </div>
+                </a>
+                <a mat-list-item routerLink="settings">
+                    <div class="navbar-item" [class.active]="isRouteActive('/settings')">
+                        <mat-icon>settings</mat-icon>
+                        <p>Settings</p>
+                    </div>
+                </a>
+            </mat-nav-list>
+
+            <div class="sidenav-footer center-aligned">
+                <p class="footer-text">Version 0.1 - Nightly Build</p>
+                <p class="footer-text">&copy; Yannick Huggler 2019</p>
+            </div>
+        </mat-sidenav>
+
+        <mat-sidenav-content>
+            <router-outlet></router-outlet>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>

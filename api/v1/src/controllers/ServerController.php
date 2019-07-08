@@ -28,7 +28,7 @@ class ServerController {
         $request = $this->middleware->checkAuth();
         $this->middleware->hasCapability('GET_SERVERS', $request['user']);
 
-        $response = $this->serverDAO->getServers($server);
+        $response = $this->serverDAO->getServers();
         Response::json(200, $response);
     }
 

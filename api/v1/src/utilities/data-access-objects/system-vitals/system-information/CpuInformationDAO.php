@@ -116,7 +116,11 @@ class CpuInformationDAO {
 
             $stmt->execute();
 
-            foreach ($stmt as $row) {
+            $results = $stmt->fetchAll();
+
+            if (!empty($results)) {
+                $row = $results[0];
+
                 $cpuInformation = new CpuInformation();
 
                 $cpuInformation->setData($row['cpu_information_id'],
@@ -137,15 +141,16 @@ class CpuInformationDAO {
                     $row['voltage'],
                     $row['updated_at']);
 
-                array_push($response, $cpuInformation);
+
+                return $cpuInformation;
             }
 
-            return $response;
+            return null;
         } catch (Exception $e) {
             return false;
         }
     }
-    
+
     public function deleteCpuInformationByServerId($serverId) {
         try {
             $response = array();
