@@ -1,0 +1,53 @@
+<h1 mat-dialog-title>
+
+    <span class="server-status-indicator" [ngClass]="{'server-active': isServerActive(), 'server-inactive': !isServerActive()}">
+        {{ isServerActive(i) ? "Running" : "Inactive" }}
+    </span>
+    {{server['friendlyName']}} - Uptime: {{secondsToHms(systemStats[systemStats.length - 1]['uptime'])}}
+</h1>
+<div mat-dialog-content>
+    <div style="text-align: center;">
+        <ngx-gauge type="semi" 
+                   [value]="cpuReadings[cpuReadings.length - 1]['currentLoad'] * 100" 
+                   label="CPU Usage"  
+                   append="%"
+                   min="0"
+                   max=100
+                   [thresholds]="thresholdConfigCpu">
+        </ngx-gauge>
+
+        <ngx-gauge type="semi" 
+                   [value]="cpuReadings[cpuReadings.length - 1]['currentTemp']" 
+                   label="CPU Temperature"  
+                   append="°C"
+                   min="0"
+                   max="102">
+        </ngx-gauge>
+
+        <ngx-gauge type="semi" 
+                   [value]="cpuReadings[cpuReadings.length - 1]['currentClockspeed']" 
+                   label="CPU Frequency"  
+                   append="Ghz"
+                   min="0"
+                   [max]="systemInformation['cpuInformation']['speedMax']">
+        </ngx-gauge>
+
+    </div>
+
+    <div style="width: 50%">
+        <ngx-charts-bar-vertical
+            [scheme]="colorScheme"
+            [results]="cpuUsageForChart"
+            [gradient]="gradient"
+            [xAxis]="showXAxis"
+            [yAxis]="showYAxis"
+            [legend]="showLegend"
+            [showXAxisLabel]="showXAxisLabel"
+            [showYAxisLabel]="showYAxisLabel"
+            [xAxisLabel]="xAxisLabel"
+            [yAxisLabel]="yAxisLabel">
+        </ngx-charts-bar-vertical>
+
+    </div>
+
+</div>

@@ -27,6 +27,7 @@ export class TopSidebarComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.snav.open();
     }
 
     public isRouteActive(route: String) {

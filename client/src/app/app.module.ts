@@ -12,6 +12,9 @@ import { SigninComponent } from './routes/signin/signin.component';
 import { HttpClientModule } from "@angular/common/http/";
 import { ReactiveFormsModule } from "@angular/forms/";
 import { NgxGaugeModule } from 'ngx-gauge';
+import { ServerOverviewComponent } from './components/servers/server-overview/server-overview.component';
+import { PermissionsComponent } from './routes/permissions/permissions.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
     declarations: [
@@ -19,7 +22,9 @@ import { NgxGaugeModule } from 'ngx-gauge';
         TopSidebarComponent,
         DashboardComponent,
         ServerOverviewWidgetComponent,
-        SigninComponent
+        SigninComponent,
+        ServerOverviewComponent,
+        PermissionsComponent
     ],
     imports: [
         BrowserModule,
@@ -28,9 +33,13 @@ import { NgxGaugeModule } from 'ngx-gauge';
         MaterialImports,
         ReactiveFormsModule,
         HttpClientModule,
-        NgxGaugeModule
+        NgxGaugeModule,
+        NgxChartsModule
     ],
     providers: [],
+    entryComponents: [
+        ServerOverviewComponent
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

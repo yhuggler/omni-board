@@ -1,17 +1,25 @@
 <div>
-    <p class="heading-small">Servers</p>
+    <div style="display: grid; grid-template-columns: auto auto;">
+        <p class="heading-small">Servers</p>
+
+        <div style="width: 100%; text-align: right;">
+            <button mat-icon-button (click)="refresh()"> 
+                <mat-icon>refresh</mat-icon>
+            </button>
+        </div>
+    </div>
     <hr class="horizontal-line-light">
 </div>
 
 <div class="flex-view" *ngIf="servers && cpuReadings && systemStats && systemInformation">
     <div class="server" *ngFor="let server of servers; let i = index">
-        <mat-card class="server">
+        <mat-card class="server" (click)="showServerOverview(i)">
             <mat-card-header>
                 <mat-card-title>
                     <p class="server-status-indicator" [ngClass]="{'server-active': isServerActive(i), 'server-inactive': !isServerActive(i)}">
-                    {{isServerActive(i) ? "Running" : "Inactive"}}
+                    {{ isServerActive(i) ? "Running" : "Inactive" }}
                     </p>
-                    {{server['friendlyName']}}
+                    {{server['friendlyName']}} - Uptime: {{getLatestUptime(i)}}
                 </mat-card-title>
             </mat-card-header>
             <mat-card-content>
@@ -20,9 +28,10 @@
                            label="CPU Usage"  
                            append="%"
                            min="0"
-                           max=100>
+                           max=100
+                           [thresholds]="thresholdConfigCpu">
                 </ngx-gauge>
-                
+
                 <ngx-gauge type="semi" 
                            [value]="getLatestCpuReading(i)['currentTemp']" 
                            label="CPU Temperature"  
@@ -33,7 +42,7 @@
 
                 <ngx-gauge type="semi" 
                            [value]="getLatestCpuReading(i)['currentClockspeed']" 
-                           label="CPU Usage"  
+                           label="CPU Frequency"  
                            append="Ghz"
                            min="0"
                            [max]="systemInformation[i]['cpuInformation']['speedMax']">

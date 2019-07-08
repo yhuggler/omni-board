@@ -63,7 +63,7 @@ async function getSystemInformation() {
 }
 
 function postSystemInformationToServer() {
-    axios.post('http://[::1]:8000/systeminformation', JSON.stringify(systemInformation))
+    axios.post(process.env.API_ENDPOINT + '/systeminformation', JSON.stringify(systemInformation))
         .then(response => {
             console.log(response.data);
         })
@@ -106,7 +106,7 @@ function postVitalsToServer() {
         systemStats: systemStats
     };
 
-    axios.post('http://[::1]:8000/cpu-readings', JSON.stringify(bodyCpuReading))
+    axios.post(process.env.API_ENDPOINT + '/cpu-readings', JSON.stringify(bodyCpuReading))
         .then(response => {
             console.log(response.data);
         })
@@ -114,7 +114,7 @@ function postVitalsToServer() {
             console.log(error);
         });
     
-    axios.post('http://[::1]:8000/system-stats', JSON.stringify(bodySystemStats))
+    axios.post(process.env.API_ENDPOINT + '/system-stats', JSON.stringify(bodySystemStats))
         .then(response => {
             console.log(response.data);
         })

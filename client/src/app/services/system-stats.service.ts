@@ -23,5 +23,13 @@ export class SystemStatsService {
     public getSystemStats() {
         return this.httpClient.get(AppSettings.API_ENDPOINT + 'system-stats', httpOptions);
     }
+    
+    public getSystemStatsByServerId(serverId: string) {
+        return this.httpClient.get(AppSettings.API_ENDPOINT + 'system-stats/' + serverId, httpOptions);
+    }
+
+    public getArchivedSystemStatsByServerId(serverId: string) {
+        return this.httpClient.get(AppSettings.API_ENDPOINT + 'system-stats/archive/' + serverId, httpOptions);
+    }
 
 }

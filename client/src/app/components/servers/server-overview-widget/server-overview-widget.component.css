@@ -9,6 +9,7 @@ div.flex-view {
 div.server {
     flex: 0 0 auto;
     margin-right: 25px;
+    cursor: pointer;
 }
 
 mat-card.server {

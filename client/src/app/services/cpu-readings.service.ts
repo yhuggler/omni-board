@@ -24,4 +24,12 @@ export class CpuReadingsService {
     public getCpuReadings() {
         return this.httpClient.get(AppSettings.API_ENDPOINT + 'cpu-readings', httpOptions);
     }
+    
+    public getCpuReadingsByServerId(serverId: string) {
+        return this.httpClient.get(AppSettings.API_ENDPOINT + 'cpu-readings/' + serverId, httpOptions);
+    }
+
+    public getArchivedCpuReadingsByServerId(serverId: string) {
+        return this.httpClient.get(AppSettings.API_ENDPOINT + 'cpu-readings/archive/' + serverId, httpOptions);
+    }
 }

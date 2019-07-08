@@ -1,0 +1,17 @@
+.server-status-indicator {
+    border-radius: 8px;
+    color: white;
+    display: inline;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-right: 10px;
+}
+
+.server-active {
+    background-color: #45A74B;
+}
+
+.server-inactive {
+    background-color: #D55053;
+}
+
