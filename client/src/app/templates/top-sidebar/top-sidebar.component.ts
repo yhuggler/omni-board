@@ -31,4 +31,13 @@ export class TopSidebarComponent implements OnInit {
         return route == this.router.url;
     }
 
+    public getActiveRoute(): string {
+        const currentRoute = this.router.url.replace('/', '');
+    
+        return this.getUpperCaseWord(currentRoute);
+    }
+
+    public getUpperCaseWord(word: string) {
+        return word.charAt(0).toUpperCase() + word.substring(1);
+    }
 }

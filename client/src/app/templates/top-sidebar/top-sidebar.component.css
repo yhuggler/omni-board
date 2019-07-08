@@ -14,7 +14,7 @@ div.navbar-item {
 }
 
 .active {
-    color: #6AB4AC;
+    color: #D55053 !important;
 }
 
 .spacer {
@@ -42,7 +42,7 @@ div.navbar-item {
     z-index: 2;
 }
 
-h1.active-route {
+.active-route {
     margin-left: 8px;
 }
 
@@ -56,4 +56,8 @@ h1.active-route {
 
 mat-sidenav {
     width: 250px;
+}
+
+mat-toolbar {
+    overflow: hidden;
 }

@@ -1,1 +1,2 @@
-<app-top-sidebar></app-top-sidebar>
+<app-top-sidebar *ngIf="isLoggedIn()"></app-top-sidebar>
+<app-signin *ngIf="!isLoggedIn()"></app-signin>
