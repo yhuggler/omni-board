@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import "assets/css/material-theme.css";
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700&display=swap');
 
 html, body {
     font-family: 'Roboto', sans-serif;
@@ -66,9 +66,23 @@ img.icon-logo-small {
     color: #424242;
 }
 
+.subtitle-small {
+    font-size: 1.25em;
+    color: #424242;
+}
+
+.strong {
+    font-weight: 500;
+}
+
 .horizontal-line-light {
     border: 0; 
     height: 0;
     border-top: 1px solid rgba(0, 0, 0, 0.1); 
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.grid-50-50 {
+    display: grid;
+    grid-template-columns: 0.5fr 0.5fr;
 }

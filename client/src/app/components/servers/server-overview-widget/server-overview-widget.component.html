@@ -19,9 +19,6 @@
         <mat-card class="server" (click)="showServerOverview(i)">
             <mat-card-header>
                 <mat-card-title>
-                    <p class="server-status-indicator" [ngClass]="{'server-active': isServerActive(i), 'server-inactive': !isServerActive(i)}">
-                    {{ isServerActive(i) ? "Running" : "Inactive" }}
-                    </p>
                     {{server['friendlyName']}} - Uptime: {{getLatestUptime(i)}}
                 </mat-card-title>
             </mat-card-header>
@@ -55,3 +52,6 @@
     </div>
 </div>
 
+<div *ngIf="!servers || !cpuReadings || !systemStats || !systemInformation">
+    <mat-spinner style="margin: 0 auto;" color="accent"></mat-spinner>
+</div>

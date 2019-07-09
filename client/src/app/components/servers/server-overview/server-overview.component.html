@@ -1,74 +1,200 @@
-<h1 mat-dialog-title>
+<div *ngIf="server && cpuReadings && systemStats && systemInformation">
+    <h1 mat-dialog-title>
+        {{server['friendlyName']}} - Uptime: {{secondsToDhms(systemStats[systemStats.length - 1]['uptime'])}}
+    </h1>
+    <div mat-dialog-content>
+        <div style="text-align: center;">
+            <ngx-gauge type="semi" 
+                       [value]="cpuReadings[cpuReadings.length - 1]['currentLoad'] * 100" 
+                       label="CPU Usage"  
+                       append="%"
+                       min="0"
+                       max=100
+                       [thresholds]="thresholdConfigCpu">
+            </ngx-gauge>
 
-    <span class="server-status-indicator" [ngClass]="{'server-active': isServerActive(), 'server-inactive': !isServerActive()}">
-        {{ isServerActive(i) ? "Running" : "Inactive" }}
-    </span>
-    {{server['friendlyName']}} - Uptime: {{secondsToHms(systemStats[systemStats.length - 1]['uptime'])}}
-</h1>
-<div mat-dialog-content>
-    <div style="text-align: center;">
-        <ngx-gauge type="semi" 
-                   [value]="cpuReadings[cpuReadings.length - 1]['currentLoad'] * 100" 
-                   label="CPU Usage"  
-                   append="%"
-                   min="0"
-                   max=100
-                   [thresholds]="thresholdConfigCpu">
-        </ngx-gauge>
+            <ngx-gauge type="semi" 
+                       [value]="cpuReadings[cpuReadings.length - 1]['currentTemp']" 
+                       label="CPU Temperature"  
+                       append="°C"
+                       min="0"
+                       max="102">
+            </ngx-gauge>
 
-        <ngx-gauge type="semi" 
-                   [value]="cpuReadings[cpuReadings.length - 1]['currentTemp']" 
-                   label="CPU Temperature"  
-                   append="°C"
-                   min="0"
-                   max="102">
-        </ngx-gauge>
-
-        <ngx-gauge type="semi" 
-                   [value]="cpuReadings[cpuReadings.length - 1]['currentClockspeed']" 
-                   label="CPU Frequency"  
-                   append="Ghz"
-                   min="0"
-                   [max]="systemInformation['cpuInformation']['speedMax']">
-        </ngx-gauge>
-
-    </div>
-
-    <div class="flex-view">
-
-        <div style="width: 45%; height: 350px;">
-            <ngx-charts-bar-vertical
-                [scheme]="colorScheme"
-                [results]="cpuUsageForChart"
-                [gradient]="gradient"
-                [xAxis]="showXAxis"
-                [yAxis]="showYAxis"
-                [legend]="showLegend"
-                [showXAxisLabel]="showXAxisLabel"
-                [showYAxisLabel]="showYAxisLabel"
-                [xAxisLabel]="xAxisLabel"
-                [yAxisLabel]="yAxisLabel"
-                [animations]="enableAnimations">
-            </ngx-charts-bar-vertical>
-
-        </div>
-        <div style="width: 45%; height: 350px;">
-            <ngx-charts-bar-vertical
-                [scheme]="colorScheme"
-                [results]="cpuTempsForChart"
-                [gradient]="gradient"
-                [xAxis]="showXAxis"
-                [yAxis]="showYAxis"
-                [legend]="showLegend"
-                [showXAxisLabel]="showXAxisLabel"
-                [showYAxisLabel]="showYAxisLabel"
-                xAxisLabel="Time"
-                yAxisLabel="CPU Temps in °C"
-                [animations]="enableAnimations">
-            </ngx-charts-bar-vertical>
+            <ngx-gauge type="semi" 
+                       [value]="cpuReadings[cpuReadings.length - 1]['currentClockspeed']" 
+                       label="CPU Frequency"  
+                       append="Ghz"
+                       min="0"
+                       [max]="systemInformation['cpuInformation']['speedMax']">
+            </ngx-gauge>
 
         </div>
 
-    </div>
+        <div class="flex-view">
+            <div style="width: 45%; height: 350px;">
+                <ngx-charts-bar-vertical
+                    [scheme]="colorScheme"
+                    [results]="cpuUsageForChart"
+                    [gradient]="gradient"
+                    [xAxis]="showXAxis"
+                    [yAxis]="showYAxis"
+                    [legend]="showLegend"
+                    [showXAxisLabel]="showXAxisLabel"
+                    [showYAxisLabel]="showYAxisLabel"
+                    [xAxisLabel]="xAxisLabel"
+                    [yAxisLabel]="yAxisLabel"
+                    [animations]="enableAnimations">
+                </ngx-charts-bar-vertical>
+            </div>
+            <div style="width: 45%; height: 350px;">
+                <ngx-charts-bar-vertical
+                    [scheme]="colorScheme"
+                    [results]="cpuTempsForChart"
+                    [gradient]="gradient"
+                    [xAxis]="showXAxis"
+                    [yAxis]="showYAxis"
+                    [legend]="showLegend"
+                    [showXAxisLabel]="showXAxisLabel"
+                    [showYAxisLabel]="showYAxisLabel"
+                    xAxisLabel="Time"
+                    yAxisLabel="CPU Temps in °C"
+                    [animations]="enableAnimations">
+                </ngx-charts-bar-vertical>
+            </div>
+        </div>
 
+        <hr class="horizontal-line-light">
+
+        <!-- Static system information -->
+        <div class="flex-view">
+            <!-- CPU -->
+            <div style="width: 45%;">
+                <p class="subtitle-small strong">CPU Information</p>
+                <br> 
+                <div class="grid-50-50">
+                    <div>
+                        <p class="strong">Manufacturer</p>
+                    </div>
+                    <div class="right-aligned">
+                        <p>{{systemInformation['cpuInformation']['manufacturer']}}</p>
+                    </div>
+                </div>
+                <div class="grid-50-50">
+                    <div>
+                        <p class="strong">Brand</p>
+                    </div>
+                    <div class="right-aligned">
+                        <p>{{systemInformation['cpuInformation']['brand']}}</p>
+                    </div>
+                </div>
+                <div class="grid-50-50">
+                    <div>
+                        <p class="strong">Physical Cores</p>
+                    </div>
+                    <div class="right-aligned">
+                        <p>{{systemInformation['cpuInformation']['physicalCores']}}</p>
+                    </div>
+                </div>
+                <div class="grid-50-50">
+                    <div>
+                        <p class="strong">Threads</p>
+                    </div>
+                    <div class="right-aligned">
+                        <p>{{systemInformation['cpuInformation']['cores']}}</p>
+                    </div>
+                </div>
+                <div class="grid-50-50">
+                    <div>
+                        <p class="strong">Processors</p>
+                    </div>
+                    <div class="right-aligned">
+                        <p>{{systemInformation['cpuInformation']['processors']}}</p>
+                    </div>
+                </div>
+                <div class="grid-50-50">
+                    <div>
+                        <p class="strong">Minimum Clockspeed</p>
+                    </div>
+                    <div class="right-aligned">
+                        <p>{{systemInformation['cpuInformation']['speedMin']}} Ghz</p>
+                    </div>
+                </div>
+                <div class="grid-50-50">
+                    <div>
+                        <p class="strong">Maximum Clockspeed</p>
+                    </div>
+                    <div class="right-aligned">
+                        <p>{{systemInformation['cpuInformation']['speedMax']}} Ghz</p>
+                    </div>
+                </div>
+
+            </div>
+            <!-- Operating System -->
+            <div style="width: 45%;">
+                <p class="subtitle-small strong">OS Information</p>
+                <br> 
+                <div class="grid-50-50">
+                    <div>
+                        <p class="strong">Platform</p>
+                    </div>
+                    <div class="right-aligned">
+                        <p>{{systemInformation['operatingSystemInformation']['platform']}}</p>
+                    </div>
+                </div>
+                <div class="grid-50-50">
+                    <div>
+                        <p class="strong">Distro</p>
+                    </div>
+                    <div class="right-aligned">
+                        <p>{{systemInformation['operatingSystemInformation']['distro']}}</p>
+                    </div>
+                </div>
+                <div class="grid-50-50">
+                    <div>
+                        <p class="strong">Codename</p>
+                    </div>
+                    <div class="right-aligned">
+                        <p>{{systemInformation['operatingSystemInformation']['codename']}}</p>
+                    </div>
+                </div>
+                <div class="grid-50-50">
+                    <div>
+                        <p class="strong">Build</p>
+                    </div>
+                    <div class="right-aligned">
+                        <p>{{systemInformation['operatingSystemInformation']['build']}}</p>
+                    </div>
+                </div>
+                <div class="grid-50-50">
+                    <div>
+                        <p class="strong">Arch</p>
+                    </div>
+                    <div class="right-aligned">
+                        <p>{{systemInformation['operatingSystemInformation']['arch']}}</p>
+                    </div>
+                </div>
+                <div class="grid-50-50">
+                    <div>
+                        <p class="strong">Release</p>
+                    </div>
+                    <div class="right-aligned">
+                        <p>{{systemInformation['operatingSystemInformation']['release']}}</p>
+                    </div>
+                </div>
+                <div class="grid-50-50">
+                    <div>
+                        <p class="strong">Kernel</p>
+                    </div>
+                    <div class="right-aligned">
+                        <p>{{systemInformation['operatingSystemInformation']['kernel']}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="!server && !cpuReadings && !systemStats && !systemInformation" style="width: 100%;">
+    <mat-spinner style="margin: 0 auto;" color="accent"></mat-spinner>
 </div>

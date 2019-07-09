@@ -5,6 +5,7 @@ import { CpuReadingsService } from "../../../services/cpu-readings.service";
 import { SysteminformationService } from "../../../services/systeminformation.service";
 import { MatDialog } from "@angular/material";
 import { ServerOverviewComponent } from "../server-overview/server-overview.component";
+import { secondsToDhms } from "../../../helpers/conversions";
 
 @Component({
     selector: 'app-server-overview-widget',
@@ -93,7 +94,7 @@ export class ServerOverviewWidgetComponent implements OnInit, OnDestroy {
         const systemStatsByServer = this.systemStats[index]['systemStats'];
         const uptimeInSeconds = systemStatsByServer[systemStatsByServer.length - 1]['uptime'];
 
-        return this.secondsToHms(uptimeInSeconds);
+        return secondsToDhms(uptimeInSeconds);
     }
 
     public showServerOverview(index: number) {
@@ -117,33 +118,4 @@ export class ServerOverviewWidgetComponent implements OnInit, OnDestroy {
             this.isRefreshing = true;
         });
     }
-
-    public isServerActive(index: number) {
-        // If there were no updated in the last minute, the server is shown as offline.
-        // const currentCpuReadings = this.cpuReadings[index]['cpuReadings'];
-
-        // let lastUpdate = currentCpuReadings[currentCpuReadings.length - 1]['createdAt'];
-        // const currentTimeInSeconds = (new Date).getTime() / 1000;
-
-        // return currentTimeInSeconds - lastUpdate < 60;
-    }
-
-    public secondsToHms(d) {
-        let seconds = parseInt(d, 10);
-
-        let days = Math.floor(seconds / (3600*24));
-        seconds  -= days*3600*24;
-        let hours   = Math.floor(seconds / 3600);
-        seconds  -= hours*3600;
-        let minutes = Math.floor(seconds / 60);
-        seconds  -= minutes*60;
-
-        let dayDisplay = days > 0 ? days + (days == 1 ? " day, " : " days, ") : "";
-        let hourDisplay = hours > 0 ? hours + (hours == 1 ? " hour, " : " hours, ") : "";
-        let minuteDisplay = minutes > 0 ? minutes + (minutes == 1 ? " minute, " : " minutes, ") : "";
-        let secondDisplay = seconds > 0 ? seconds + (seconds == 1 ? " second" : " seconds") : "";
-
-        return dayDisplay + hourDisplay + minuteDisplay + secondDisplay; 
-    }
-
 }
