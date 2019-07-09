@@ -96,13 +96,19 @@ export class ServerOverviewComponent implements OnInit {
                 value: this.cpuReadings[i]['currentLoad'] * 100
             }
             this.cpuUsageForChart.push(cpuUsage);
-            
+
             const cpuTemp = {
                 name: this.cpuReadings[i]['createdAt'],
                 value: this.cpuReadings[i]['currentTemp']
             }
             this.cpuTempsForChart.push(cpuTemp);
         }
+    }
+
+    public secondsToDate(seconds: number) {
+        var date = new Date(1970, 0, 1); // Epoch
+        date.setSeconds(seconds);
+        return date;
     }
 
     public secondsToDhms(d) {

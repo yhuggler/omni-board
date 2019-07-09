@@ -128,7 +128,7 @@
                         <p>{{systemInformation['cpuInformation']['speedMax']}} Ghz</p>
                     </div>
                 </div>
-
+                <p class="footnote">Last update at {{ secondsToDate(systemInformation['cpuInformation']['updatedAt']) }}</p>
             </div>
             <!-- Operating System -->
             <div style="width: 45%;">
@@ -190,6 +190,64 @@
                         <p>{{systemInformation['operatingSystemInformation']['kernel']}}</p>
                     </div>
                 </div>
+                <p class="footnote">Last update at {{ secondsToDate(systemInformation['operatingSystemInformation']['updatedAt']) }}</p>
+            </div>
+        </div>
+        <br>
+        <div class="flex-view">
+            <!-- Hardware -->
+            <div style="width: 45%;">
+                <p class="subtitle-small strong">Hardware Information</p>
+                <br> 
+                <div class="grid-50-50">
+                    <div>
+                        <p class="strong">Manufacturer</p>
+                    </div>
+                    <div class="right-aligned">
+                        <p>{{systemInformation['hardwareInformation']['manufacturer']}}</p>
+                    </div>
+                </div>
+                <div class="grid-50-50">
+                    <div>
+                        <p class="strong">Model</p>
+                    </div>
+                    <div class="right-aligned">
+                        <p>{{systemInformation['hardwareInformation']['model']}}</p>
+                    </div>
+                </div>
+                <div class="grid-50-50">
+                    <div>
+                        <p class="strong">Version</p>
+                    </div>
+                    <div class="right-aligned">
+                        <p>{{systemInformation['hardwareInformation']['version']}}</p>
+                    </div>
+                </div>
+                <div class="grid-50-50">
+                    <div>
+                        <p class="strong">Serial</p>
+                    </div>
+                    <div class="right-aligned">
+                        <p>{{systemInformation['hardwareInformation']['serial']}}</p>
+                    </div>
+                </div>
+                <div class="grid-50-50">
+                    <div>
+                        <p class="strong">UUID</p>
+                    </div>
+                    <div class="right-aligned">
+                        <p>{{systemInformation['hardwareInformation']['uuid']}}</p>
+                    </div>
+                </div>
+                <div class="grid-50-50">
+                    <div>
+                        <p class="strong">SKU</p>
+                    </div>
+                    <div class="right-aligned">
+                        <p>{{systemInformation['hardwareInformation']['sku']}}</p>
+                    </div>
+                </div>
+                <p class="footnote">Last update at {{ secondsToDate(systemInformation['operatingSystemInformation']['updatedAt']) }}</p>
             </div>
         </div>
     </div>

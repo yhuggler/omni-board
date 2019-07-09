@@ -61,6 +61,12 @@ img.icon-logo-small {
     width: 100%;
 }
 
+.footnote {
+    font-size: 0.75em;
+    color: rgba(0, 0, 0, 0.5);
+    margin-top: 5px;
+}
+
 .heading-small {
     font-size: 1.5em;
     color: #424242;
@@ -84,5 +90,5 @@ img.icon-logo-small {
 
 .grid-50-50 {
     display: grid;
-    grid-template-columns: 0.5fr 0.5fr;
+    grid-template-columns: auto auto;
 }
