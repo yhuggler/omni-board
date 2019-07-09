@@ -15,3 +15,9 @@
     background-color: #D55053;
 }
 
+.flex-view {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    height: 50%;
+}

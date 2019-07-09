@@ -34,19 +34,40 @@
 
     </div>
 
-    <div style="width: 50%">
-        <ngx-charts-bar-vertical
-            [scheme]="colorScheme"
-            [results]="cpuUsageForChart"
-            [gradient]="gradient"
-            [xAxis]="showXAxis"
-            [yAxis]="showYAxis"
-            [legend]="showLegend"
-            [showXAxisLabel]="showXAxisLabel"
-            [showYAxisLabel]="showYAxisLabel"
-            [xAxisLabel]="xAxisLabel"
-            [yAxisLabel]="yAxisLabel">
-        </ngx-charts-bar-vertical>
+    <div class="flex-view">
+
+        <div style="width: 45%; height: 350px;">
+            <ngx-charts-bar-vertical
+                [scheme]="colorScheme"
+                [results]="cpuUsageForChart"
+                [gradient]="gradient"
+                [xAxis]="showXAxis"
+                [yAxis]="showYAxis"
+                [legend]="showLegend"
+                [showXAxisLabel]="showXAxisLabel"
+                [showYAxisLabel]="showYAxisLabel"
+                [xAxisLabel]="xAxisLabel"
+                [yAxisLabel]="yAxisLabel"
+                [animations]="enableAnimations">
+            </ngx-charts-bar-vertical>
+
+        </div>
+        <div style="width: 45%; height: 350px;">
+            <ngx-charts-bar-vertical
+                [scheme]="colorScheme"
+                [results]="cpuTempsForChart"
+                [gradient]="gradient"
+                [xAxis]="showXAxis"
+                [yAxis]="showYAxis"
+                [legend]="showLegend"
+                [showXAxisLabel]="showXAxisLabel"
+                [showYAxisLabel]="showYAxisLabel"
+                xAxisLabel="Time"
+                yAxisLabel="CPU Temps in °C"
+                [animations]="enableAnimations">
+            </ngx-charts-bar-vertical>
+
+        </div>
 
     </div>
 

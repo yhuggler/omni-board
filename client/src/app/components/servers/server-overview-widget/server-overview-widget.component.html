@@ -3,6 +3,9 @@
         <p class="heading-small">Servers</p>
 
         <div style="width: 100%; text-align: right;">
+            <button mat-icon-button (click)="toggleRefreshInterval()"> 
+                <mat-icon>{{isRefreshing ? "pause" : "play_arrow"}}</mat-icon>
+            </button>
             <button mat-icon-button (click)="refresh()"> 
                 <mat-icon>refresh</mat-icon>
             </button>

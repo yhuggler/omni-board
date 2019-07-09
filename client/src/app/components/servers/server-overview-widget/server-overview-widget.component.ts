@@ -35,19 +35,22 @@ export class ServerOverviewWidgetComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.fetchServers();
-        this.fetchCpuReadings();
-        this.fetchSystemStats();
         this.fetchSystemInformation();
 
         this.refreshInterval = setInterval(() => {
             if (this.isRefreshing) {
                 this.fetchCpuReadings();
+                this.fetchSystemStats();
             }
         }, 2000);
     }
 
     ngOnDestroy() {
         clearInterval(this.refreshInterval);
+    }
+
+    public toggleRefreshInterval() {
+        this.isRefreshing = !this.isRefreshing;
     }
 
     public refresh() {
@@ -117,12 +120,12 @@ export class ServerOverviewWidgetComponent implements OnInit, OnDestroy {
 
     public isServerActive(index: number) {
         // If there were no updated in the last minute, the server is shown as offline.
-        const currentCpuReadings = this.cpuReadings[index]['cpuReadings'];
+        // const currentCpuReadings = this.cpuReadings[index]['cpuReadings'];
 
-        let lastUpdate = currentCpuReadings[currentCpuReadings.length - 1]['createdAt'];
-        const currentTimeInSeconds = (new Date).getTime() / 1000;
+        // let lastUpdate = currentCpuReadings[currentCpuReadings.length - 1]['createdAt'];
+        // const currentTimeInSeconds = (new Date).getTime() / 1000;
 
-        return currentTimeInSeconds - lastUpdate < 60;
+        // return currentTimeInSeconds - lastUpdate < 60;
     }
 
     public secondsToHms(d) {
@@ -138,7 +141,7 @@ export class ServerOverviewWidgetComponent implements OnInit, OnDestroy {
         let dayDisplay = days > 0 ? days + (days == 1 ? " day, " : " days, ") : "";
         let hourDisplay = hours > 0 ? hours + (hours == 1 ? " hour, " : " hours, ") : "";
         let minuteDisplay = minutes > 0 ? minutes + (minutes == 1 ? " minute, " : " minutes, ") : "";
-        let secondDisplay = seconds > 0 ? seconds + (seconds == 1 ? " second, " : " seconds, ") : "";
+        let secondDisplay = seconds > 0 ? seconds + (seconds == 1 ? " second" : " seconds") : "";
 
         return dayDisplay + hourDisplay + minuteDisplay + secondDisplay; 
     }

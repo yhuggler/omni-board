@@ -16,34 +16,32 @@ export class ServerOverviewComponent implements OnInit {
     public cpuReadings: Object[];
     public systemStats: Object[];
     public systemInformation: Object[];
-    
+
     public cpuUsageForChart: Object[] = [];
+    public cpuTempsForChart: Object[] = [];
 
     public refreshInterval = null;
     public isRefreshing: boolean = true;
 
-    thresholdConfigCpu = {
+    public thresholdConfigCpu = {
         '0': {color: 'green'},
         '50': {color: 'orange'},
         '75.5': {color: 'red'}
     };
 
-    view: any[] = [700, 400];
+    public showXAxis = false;
+    public showYAxis = true;
+    public gradient = false;
+    public showLegend = false;
+    public showXAxisLabel = true;
+    public xAxisLabel = 'Time';
+    public showYAxisLabel = true;
+    public yAxisLabel = 'CPU-Usage in %';
+    public enableAnimations = true;
 
-    showXAxis = false;
-    showYAxis = true;
-    gradient = false;
-    showLegend = false;
-    showXAxisLabel = true;
-    xAxisLabel = 'Time';
-    showYAxisLabel = true;
-    yAxisLabel = 'CPU-Usage';
-
-    colorScheme = {
+    public colorScheme = {
         domain: ['#45A74B']
     };
-    
-
 
     constructor(public dialogRef: MatDialogRef<ServerOverviewComponent>,
         @Inject(MAT_DIALOG_DATA) public data: Object,
@@ -57,16 +55,15 @@ export class ServerOverviewComponent implements OnInit {
         this.cpuReadings = data['cpuReadings'];
         this.systemStats = data['systemStats'];
         this.systemInformation = data['systemInformation'];
-
-
     }
 
     ngOnInit() {
-            this.prepareCpuUsageForChart();
+        this.prepareCpuReadingsForChart();
+
         this.refreshInterval = setInterval(() => {
             this.fetchCpuReadings();
             this.fetchSystemStats();
-            this.prepareCpuUsageForChart();
+            this.prepareCpuReadingsForChart();
         }, 2500);
     }
 
@@ -86,24 +83,33 @@ export class ServerOverviewComponent implements OnInit {
         });
     }
 
-    public prepareCpuUsageForChart() {
+    public prepareCpuReadingsForChart() {
         this.cpuUsageForChart = [];
 
         for (let i = 0; i < this.cpuReadings.length; i++) {
-            const cpuReading = {
+            const cpuUsage = {
                 name: this.cpuReadings[i]['createdAt'],
                 value: this.cpuReadings[i]['currentLoad'] * 100
             }
-            this.cpuUsageForChart.push(cpuReading);
+            this.cpuUsageForChart.push(cpuUsage);
+            
+            const cpuTemp = {
+                name: this.cpuReadings[i]['createdAt'],
+                value: this.cpuReadings[i]['currentTemp']
+            }
+            this.cpuTempsForChart.push(cpuTemp);
         }
+
+        console.log("test");
     }
 
+    // Find a better solution than this, since this is cpu hungry.
     public isServerActive() {
         // If there were no updated in the last minute, the server is shown as offline.
-        let lastUpdate = this.cpuReadings[this.cpuReadings.length - 1]['createdAt'];
-        const currentTimeInSeconds = (new Date).getTime() / 1000;
+        // let lastUpdate = this.cpuReadings[this.cpuReadings.length - 1]['createdAt'];
+        // const currentTimeInSeconds = (new Date).getTime() / 1000;
 
-        return currentTimeInSeconds - lastUpdate < 60;
+        // return currentTimeInSeconds - lastUpdate < 60;
     }
 
     public secondsToHms(d) {
@@ -119,7 +125,7 @@ export class ServerOverviewComponent implements OnInit {
         let dayDisplay = days > 0 ? days + (days == 1 ? " day, " : " days, ") : "";
         let hourDisplay = hours > 0 ? hours + (hours == 1 ? " hour, " : " hours, ") : "";
         let minuteDisplay = minutes > 0 ? minutes + (minutes == 1 ? " minute, " : " minutes, ") : "";
-        let secondDisplay = seconds > 0 ? seconds + (seconds == 1 ? " second, " : " seconds, ") : "";
+        let secondDisplay = seconds > 0 ? seconds + (seconds == 1 ? " second" : " seconds") : "";
 
         return dayDisplay + hourDisplay + minuteDisplay + secondDisplay; 
     }
