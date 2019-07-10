@@ -1,0 +1,38 @@
+<div>
+    <div style="display: grid; grid-template-columns: auto auto;">
+        <p class="heading-small">Roles and Capabilities Assignement</p>
+
+        <div style="width: 100%; text-align: right;">
+            <button mat-icon-button (click)="refresh()"> 
+                <mat-icon>refresh</mat-icon>
+            </button>
+        </div>
+    </div>
+    <hr class="horizontal-line-light">
+</div>
+
+<mat-card>
+    <div *ngIf="rolesWithCapabilities && capabilities && roles" class="flex-view">
+        <div class="full-width">
+
+            <table class="full-width">
+                <tr>
+                    <td style="border: none;"></td>
+                    <td *ngFor="let role of roles" class="center-aligned" style="color: #424242;">{{role['roleTitle']}}</td>
+                </tr>
+                <tr *ngFor="let capability of capabilities;">
+                    <td style="color: #424242;">{{capability['capability']}}</td>
+                    <td *ngFor="let role of roles; let i = index;" class="center-aligned">
+                        <mat-checkbox [checked]="isCapabilityInRole(capability['capabilityId'], role['roleId'])" (change)="toggleCapabilityToRoleAssignement(capability['capabilityId'], role['roleId'])"></mat-checkbox>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</mat-card>
+
+<div *ngIf="!rolesWithCapabilities || !capabilities || !roles">
+    <mat-spinner style="margin: 0 auto;" color="accent"></mat-spinner>
+</div>
+
+

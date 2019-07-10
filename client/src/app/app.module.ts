@@ -15,6 +15,9 @@ import { NgxGaugeModule } from 'ngx-gauge';
 import { ServerOverviewComponent } from './components/servers/server-overview/server-overview.component';
 import { PermissionsComponent } from './routes/permissions/permissions.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { RolesOverviewComponent } from './components/permissions/roles-overview/roles-overview.component';
+import { CapabilitiesOverviewComponent } from './components/permissions/capabilities-overview/capabilities-overview.component';
+import { RoleCapabilityOverviewComponent } from './components/permissions/role-capability-overview/role-capability-overview.component';
 
 @NgModule({
     declarations: [
@@ -24,7 +27,10 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
         ServerOverviewWidgetComponent,
         SigninComponent,
         ServerOverviewComponent,
-        PermissionsComponent
+        PermissionsComponent,
+        RolesOverviewComponent,
+        CapabilitiesOverviewComponent,
+        RoleCapabilityOverviewComponent
     ],
     imports: [
         BrowserModule,

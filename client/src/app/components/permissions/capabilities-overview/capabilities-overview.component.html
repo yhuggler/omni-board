@@ -1,0 +1,32 @@
+<div>
+    <div style="display: grid; grid-template-columns: auto auto;">
+        <p class="heading-small">Capabilities</p>
+
+        <div style="width: 100%; text-align: right;">
+            <button mat-icon-button (click)="refresh()"> 
+                <mat-icon>refresh</mat-icon>
+            </button>
+        </div>
+    </div>
+    <hr class="horizontal-line-light">
+</div>
+
+<div [hidden]="!capabilities">
+    <mat-card>
+        <table mat-table [dataSource]="capabilitiesDataSource" class="full-width">
+            <ng-container matColumnDef="capability">
+                <th mat-header-cell *matHeaderCellDef> Capability </th>
+                <td mat-cell *matCellDef="let element"> {{element.capability}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsCapabilities"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsCapabilities;"></tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </mat-card>
+</div>
+
+<div *ngIf="!capabilities">
+    <mat-spinner style="margin: 0 auto;" color="accent"></mat-spinner>
+</div>

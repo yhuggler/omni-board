@@ -1,0 +1,13 @@
+th, td {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 8px;
+}
+
+div.flex-view {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    overflow-y: hidden;
+}
