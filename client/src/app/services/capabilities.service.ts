@@ -21,7 +21,9 @@ export class CapabilitiesService {
         private router: Router) { }
 
     public createCapability(capability: Object) {
+        const body = JSON.stringify(capability);
 
+        return this.httpClient.post(AppSettings.API_ENDPOINT + 'capabilities', body, httpOptions);
     }
 
     public getCapabilities() {
@@ -29,11 +31,13 @@ export class CapabilitiesService {
     } 
 
     public updateCapability(capability: Object) {
+        const body = JSON.stringify(capability);
 
+        return this.httpClient.put(AppSettings.API_ENDPOINT + 'capabilities', body, httpOptions);
     }
 
     public deleteCapability(capabilityId: string) {
-
+        return this.httpClient.delete(AppSettings.API_ENDPOINT + 'capabilities/' + capabilityId, httpOptions);
     }
 
 }

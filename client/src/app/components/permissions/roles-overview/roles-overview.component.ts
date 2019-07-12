@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { RolesService } from "../../../services/roles.service";
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
+import { MatDialog } from "@angular/material";
+import { RoleCreationComponent } from "../role-creation/role-creation.component";
 
 @Component({
     selector: 'app-roles-overview',
@@ -17,7 +19,8 @@ export class RolesOverviewComponent implements OnInit {
 
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
-    constructor(private rolesService: RolesService) { }
+    constructor(private rolesService: RolesService,
+        private matDialog: MatDialog) { }
 
     ngOnInit() {
         this.refresh();
@@ -32,6 +35,14 @@ export class RolesOverviewComponent implements OnInit {
             this.roles = response['roles'];
             this.rolesDataSource = new MatTableDataSource(response['roles']);
             this.rolesDataSource.paginator = this.paginator;
+        });
+    }
+
+    public showRoleCreationDialog() {
+        const dialogRef = this.matDialog.open(RoleCreationComponent);
+
+        dialogRef.afterClosed().subscribe(() => {
+
         });
     }
 }

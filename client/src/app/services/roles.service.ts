@@ -21,7 +21,9 @@ export class RolesService {
         private router: Router) { }
 
     public createRole(role: Object) {
+        const body = JSON.stringify(role);
 
+        return this.httpClient.post(AppSettings.API_ENDPOINT + 'roles', body, httpOptions);
     }
 
     public getRoles() {
@@ -29,10 +31,12 @@ export class RolesService {
     } 
 
     public updateRole(role: Object) {
+        const body = JSON.stringify(role);
 
+        return this.httpClient.put(AppSettings.API_ENDPOINT + 'roles', body, httpOptions);
     }
 
     public deleteRole(roleId: string) {
-
+        return this.httpClient.delete(AppSettings.API_ENDPOINT + 'roles/' + roleId, httpOptions);
     }
 }

@@ -61,12 +61,9 @@ export class RoleCapabilityOverviewComponent implements OnInit {
         if (role) {
             const capabilitiesInRole = role['capabilities'];
 
-            for (let i = 0; i < capabilitiesInRole.length; i++) {
+            for (let i = 0; i < capabilitiesInRole.length; i++)
                 if (capabilitiesInRole[i]['capabilityId'] == capabilityId)
                     return true;
-            }
-
-            return false;
         }
 
         return false;
@@ -75,12 +72,10 @@ export class RoleCapabilityOverviewComponent implements OnInit {
     public toggleCapabilityToRoleAssignement(capabilityId: number, roleId: number) {
         if (this.isCapabilityInRole(capabilityId, roleId)) {
             this.roleCapabilityService.removeCapabilityFromRole(capabilityId, roleId).subscribe(response => {
-                console.log(response);
                 this.refresh();
             });
         } else {
             this.roleCapabilityService.assignCapabilityToRole(capabilityId, roleId).subscribe(response => {
-                console.log(response);
                 this.refresh();
             });
         }

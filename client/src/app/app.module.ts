@@ -18,6 +18,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { RolesOverviewComponent } from './components/permissions/roles-overview/roles-overview.component';
 import { CapabilitiesOverviewComponent } from './components/permissions/capabilities-overview/capabilities-overview.component';
 import { RoleCapabilityOverviewComponent } from './components/permissions/role-capability-overview/role-capability-overview.component';
+import { RoleCreationComponent } from './components/permissions/role-creation/role-creation.component';
 
 @NgModule({
     declarations: [
@@ -30,7 +31,8 @@ import { RoleCapabilityOverviewComponent } from './components/permissions/role-c
         PermissionsComponent,
         RolesOverviewComponent,
         CapabilitiesOverviewComponent,
-        RoleCapabilityOverviewComponent
+        RoleCapabilityOverviewComponent,
+        RoleCreationComponent
     ],
     imports: [
         BrowserModule,
@@ -44,7 +46,8 @@ import { RoleCapabilityOverviewComponent } from './components/permissions/role-c
     ],
     providers: [],
     entryComponents: [
-        ServerOverviewComponent
+        ServerOverviewComponent,
+        RoleCreationComponent
     ],
     bootstrap: [AppComponent]
 })
