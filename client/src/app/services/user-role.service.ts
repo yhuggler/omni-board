@@ -27,6 +27,10 @@ export class UserRoleService {
     public getRolesWithCapabilitiesByUserId() {
         return this.httpClient.get(AppSettings.API_ENDPOINT + 'users-roles', httpOptions);
     } 
+    
+    public getRolesWithCapabilitiesByUsernameFuzzy(usernameSearchValue: string) {
+        return this.httpClient.get(AppSettings.API_ENDPOINT + 'users-roles/' + usernameSearchValue, httpOptions);
+    } 
 
     public removeUserFromRole() {
 

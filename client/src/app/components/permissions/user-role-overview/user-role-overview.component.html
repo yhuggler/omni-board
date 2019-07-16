@@ -1,0 +1,28 @@
+<div>
+    <div style="display: grid; grid-template-columns: auto auto;">
+        <p class="heading-small">User and Role Assignement</p>
+
+        <div style="width: 100%; text-align: right;">
+            <button mat-icon-button (click)="refresh()"> 
+                <mat-icon>refresh</mat-icon>
+            </button>
+        </div>
+    </div>
+    <hr class="horizontal-line-light">
+</div>
+
+
+<div>
+    <mat-card>
+        <div class="grid-view">
+            <mat-form-field appearance="outline">
+                <input matInput placeholder="Start searching for users" [(ngModel)]="usernameSearchValue">
+                <mat-label>Search for users</mat-label>
+            </mat-form-field>
+            <button mat-raised-button style="margin-left: 10px;" (click)="initiateUserSearch()">
+                Search
+            </button>
+        </div>
+
+    </mat-card>
+</div>

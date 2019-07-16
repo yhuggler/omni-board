@@ -26,6 +26,14 @@ class UserRoleController {
         $response = $this->userRoleDAO->getRolesWithCapabilitiesByUserId($id);
         Response::json(200, $response);
     }
+
+    public function getRolesWithCapabilitiesByUsernameFuzzy($username) {
+        $request = $this->middleware->checkAuth();
+        $this->middleware->hasCapability('GET_ROLES_WITH_CAPABILITIES_BY_USER_ID', $request['user']);
+
+        $response = $this->userRoleDAO->getRolesWithCapabilitiesByUsernameFuzzy($username);
+        Response::json(200, $response);
+    }
     
     public function removeUserFromRole() {
         $request = $this->middleware->checkAuth();

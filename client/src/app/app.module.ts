@@ -23,6 +23,8 @@ import { RoleOverviewComponent } from './components/permissions/role-overview/ro
 import { DeleteConfirmationComponent } from './dialogs/delete-confirmation/delete-confirmation.component';
 import { CapabilityCreationComponent } from './components/permissions/capability-creation/capability-creation.component';
 import { CapabilityOverviewComponent } from './components/permissions/capability-overview/capability-overview.component';
+import { UserRoleOverviewComponent } from './components/permissions/user-role-overview/user-role-overview.component';
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
     declarations: [
@@ -40,7 +42,8 @@ import { CapabilityOverviewComponent } from './components/permissions/capability
         RoleOverviewComponent,
         DeleteConfirmationComponent,
         CapabilityCreationComponent,
-        CapabilityOverviewComponent
+        CapabilityOverviewComponent,
+        UserRoleOverviewComponent
     ],
     imports: [
         BrowserModule,
@@ -50,7 +53,8 @@ import { CapabilityOverviewComponent } from './components/permissions/capability
         ReactiveFormsModule,
         HttpClientModule,
         NgxGaugeModule,
-        NgxChartsModule
+        NgxChartsModule,
+        FormsModule
     ],
     providers: [],
     entryComponents: [

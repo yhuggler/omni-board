@@ -103,6 +103,7 @@ $router->mount('/roles-capabilities', function () use ($router) {
 // Route: /users-roles
 $router->mount('/users-roles', function () use ($router) {
     $router->get('/(\d+)', 'UserRoleController@getRolesWithCapabilitiesByUserId');
+    $router->get('/(.*)', 'UserRoleController@getRolesWithCapabilitiesByUsernameFuzzy');
     $router->post('/', 'UserRoleController@assignUserToRole');
     $router->delete('/', 'UserRoleController@removeUserFromRole');
 });
