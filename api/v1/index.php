@@ -82,7 +82,7 @@ $router->mount('/capabilities', function () use ($router) {
     $router->post('/', 'CapabilityController@createCapability');
     $router->get('/', 'CapabilityController@getCapabilities');
     $router->put('/', 'CapabilityController@updateCapability');
-    $router->delete('/', 'CapabilityController@deleteCapability');
+    $router->delete('/(\d+)', 'CapabilityController@deleteCapability');
 });
 
 // Route: /roles

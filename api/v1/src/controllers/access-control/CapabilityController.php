@@ -44,15 +44,11 @@ class CapabilityController {
         Response::json(200, $response);
     }
     
-    public function deleteCapability() {
+    public function deleteCapability($id) {
         $request = $this->middleware->checkAuth();
         $this->middleware->hasCapability('DELETE_CAPABILITY', $request['user']);
        
-        $inputs = $request["inputs"];
-
-        $capabilityId = $inputs['capabilityId'];
-
-        $response = $this->capabilityDAO->deleteCapability($capabilityId);
+        $response = $this->capabilityDAO->deleteCapability($id);
         Response::json(200, $response);
     }
 }

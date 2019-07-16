@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>Capability Overview</h1>
+
+<div mat-dialog-content>
+    <form [formGroup]="capabilityFormGroup">
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Capability</mat-label>
+            <input matInput formControlName="capability">
+        </mat-form-field>
+        <br>
+    </form>
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button color="primary" mat-dialog-close>Cancel</button>
+    <button mat-raised-button type="submit" color="accent" [disabled]="capabilityFormGroup.invalid" (click)="updateCapability()">Update</button>
+    <button mat-raised-button type="submit" color="primary" (click)="deleteCapability()">Delete</button>
+</div>
+
+
