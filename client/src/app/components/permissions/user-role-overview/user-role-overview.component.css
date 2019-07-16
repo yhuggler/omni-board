@@ -1,0 +1,22 @@
+table {
+    border-collapse: collapse;
+}
+
+tr {
+    border-bottom: 1px solid #ccc;
+}
+
+th {
+    color: rgba(0, 0, 0, 0.54);
+    font-size: 0.625em;
+}
+
+th, td {
+    padding: 16px;
+    padding-left: 25px;
+}
+
+td {
+    font-size: 0.9em;
+}
+

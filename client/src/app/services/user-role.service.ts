@@ -20,8 +20,13 @@ export class UserRoleService {
         private matSnackBar: MatSnackBar,
         private router: Router) { }
 
-    public assignUserToRole() {
+    public assignUserToRole(userId: number, roleId: number) {
+        const body = {
+            userId: userId,
+            roleId: roleId
+        }
 
+        return this.httpClient.post(AppSettings.API_ENDPOINT + 'users-roles', body, httpOptions);
     }
 
     public getRolesWithCapabilitiesByUserId() {
@@ -32,7 +37,12 @@ export class UserRoleService {
         return this.httpClient.get(AppSettings.API_ENDPOINT + 'users-roles/' + usernameSearchValue, httpOptions);
     } 
 
-    public removeUserFromRole() {
+    public removeUserFromRole(userId: number, roleId: number) {
+        const body = {
+            userId: userId,
+            roleId: roleId
+        }
 
+        return this.httpClient.post(AppSettings.API_ENDPOINT + 'users-roles/revoke', body, httpOptions);
     }
 }

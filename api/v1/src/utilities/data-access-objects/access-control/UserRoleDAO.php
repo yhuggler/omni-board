@@ -71,9 +71,9 @@ class UserRoleDAO {
         }
     }
 
-    public function getRolesWithCapabilitiesByUsernameFuzzy(string $username) {
+    public function getRolesByUsernameFuzzy(string $username) {
         try {
-            $response['roles'] = array();
+            $response['usersWithRoles'] = array();
 
             $username = "%$username%";
 
@@ -93,34 +93,23 @@ class UserRoleDAO {
                 $stmt->execute();
 
                 $rolesResults = $stmt->fetchAll();
+                $roles = array();
 
                 foreach ($rolesResults as $roleResult) {
                     $roleId = $roleResult['role_id'];
                     $roleTitle = $roleResult['role_title'];
                     $roleDescription = $roleResult['role_description'];
 
-                    $capabilities = array();
+                    $role = new Role($roleId, $roleTitle, $roleDescription, array());
 
-                    $sql = "SELECT * FROM roles_capabilities INNER JOIN capabilities ON roles_capabilities.capability_id = capabilities.capability_id WHERE role_id = :role_id";
-                    $stmt = $this->conn->prepare($sql);
-                    $stmt->bindParam(':role_id', $roleId, PDO::PARAM_INT);
-                    $stmt->execute();
-
-                    $capabilitiesResults = $stmt->fetchAll();
-
-                    foreach ($capabilitiesResults as $capabilityResult) {
-                        $capability = new Capability($capabilityResult['capability_id'], $capabilityResult['capability']);
-                        array_push($capabilities, $capability);
-                    }
-
-                    $role = new Role($roleId, $roleTitle, $roleDescription, $capabilities);
-
-                    $output = array(); 
-                    $output['user'] = $user;
-                    $output['role'] = $role;
-
-                    array_push($response['roles'], $output);
+                    array_push($roles, $role); 
                 }
+
+                $userWithRoles = array(); 
+                $userWithRoles['user'] = $user;
+                $userWithRoles['roles'] = $roles;
+
+                array_push($response['usersWithRoles'], $userWithRoles);
             }
 
             return $response;

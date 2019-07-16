@@ -24,5 +24,23 @@
             </button>
         </div>
 
+        <table class="full-width" *ngIf="usersWithRoles">
+            <tr>
+                <th style="border: none;"></th>
+                <th *ngFor="let role of roles" class="center-aligned">{{role['roleTitle']}}</th>
+            </tr>
+            <tr *ngFor="let userWithRoles of usersWithRoles;">
+                <td style="color: #424242;">{{userWithRoles['user']['username']}}</td>
+                <td *ngFor="let role of roles; let i = index;" class="center-aligned">
+                    <mat-checkbox [checked]="isUserInRole(userWithRoles['user']['id'], role['roleId'])" (change)="toggleUserToRoleAssignement(userWithRoles['user']['id'], role['roleId'])"></mat-checkbox>
+                </td>
+            </tr>
+        </table>
+
+        <div *ngIf="!usersWithRoles">
+            <p>To start assigning users to roles, please search for a user in the textfield above.</p> 
+        </div>
+
+
     </mat-card>
 </div>
