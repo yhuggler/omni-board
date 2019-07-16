@@ -4,6 +4,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import { MatDialog } from "@angular/material";
 import { RoleCreationComponent } from "../role-creation/role-creation.component";
+import { RoleOverviewComponent } from "../role-overview/role-overview.component";
 
 @Component({
     selector: 'app-roles-overview',
@@ -15,7 +16,7 @@ export class RolesOverviewComponent implements OnInit {
     public roles: Object[];
     public rolesDataSource: MatTableDataSource<Object>;
 
-    public displayedColumnsRoles: string[] = ['roleTitle', 'roleDescription'];
+    public displayedColumnsRoles: string[] = ['roleTitle', 'roleDescription', 'actions'];
 
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
@@ -42,7 +43,19 @@ export class RolesOverviewComponent implements OnInit {
         const dialogRef = this.matDialog.open(RoleCreationComponent);
 
         dialogRef.afterClosed().subscribe(() => {
+            this.refresh();        
+        });
+    }
 
+    public showRoleOverviewDialog(role: object) {
+        const dialogRef = this.matDialog.open(RoleOverviewComponent, {
+            data: {
+                role: role
+            }
+        });
+
+        dialogRef.afterClosed().subscribe(() => {
+            this.refresh();
         });
     }
 }

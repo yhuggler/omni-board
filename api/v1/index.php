@@ -90,7 +90,7 @@ $router->mount('/roles', function () use ($router) {
     $router->post('/', 'RoleController@createRole');
     $router->get('/', 'RoleController@getRoles');
     $router->put('/', 'RoleController@updateRole');
-    $router->delete('/', 'RoleController@deleteRole');
+    $router->delete('/(\d+)', 'RoleController@deleteRole');
 });
 
 // Route: /roles-capabilities

@@ -42,15 +42,11 @@ class RoleController {
         Response::json(200, $response);
     }
     
-    public function deleteRole() {
+    public function deleteRole($id) {
         $request = $this->middleware->checkAuth();
         $this->middleware->hasCapability('DELETE_ROLE', $request['user']);
        
-        $inputs = $request["inputs"];
-
-        $roleId = $inputs['roleId'];
-
-        $response = $this->roleDAO->deleteRole($roleId);
+        $response = $this->roleDAO->deleteRole($id);
         Response::json(200, $response);
     }
 }

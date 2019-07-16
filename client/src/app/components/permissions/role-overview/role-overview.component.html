@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Create new role</h1>
+<h1 mat-dialog-title>Role Overview</h1>
 
 <div mat-dialog-content>
     <form [formGroup]="roleFormGroup">
@@ -17,5 +17,7 @@
 </div>
 <div mat-dialog-actions>
     <button mat-raised-button color="primary" mat-dialog-close>Cancel</button>
-    <button mat-raised-button type="submit" color="accent" [disabled]="roleFormGroup.invalid" (click)="createRole()">Create</button>
+    <button mat-raised-button type="submit" color="accent" [disabled]="roleFormGroup.invalid" (click)="updateRole()">Update</button>
+    <button mat-raised-button type="submit" color="primary" (click)="deleteRole()">Delete</button>
 </div>
+

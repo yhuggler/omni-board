@@ -19,6 +19,8 @@ import { RolesOverviewComponent } from './components/permissions/roles-overview/
 import { CapabilitiesOverviewComponent } from './components/permissions/capabilities-overview/capabilities-overview.component';
 import { RoleCapabilityOverviewComponent } from './components/permissions/role-capability-overview/role-capability-overview.component';
 import { RoleCreationComponent } from './components/permissions/role-creation/role-creation.component';
+import { RoleOverviewComponent } from './components/permissions/role-overview/role-overview.component';
+import { DeleteConfirmationComponent } from './dialogs/delete-confirmation/delete-confirmation.component';
 
 @NgModule({
     declarations: [
@@ -32,7 +34,9 @@ import { RoleCreationComponent } from './components/permissions/role-creation/ro
         RolesOverviewComponent,
         CapabilitiesOverviewComponent,
         RoleCapabilityOverviewComponent,
-        RoleCreationComponent
+        RoleCreationComponent,
+        RoleOverviewComponent,
+        DeleteConfirmationComponent
     ],
     imports: [
         BrowserModule,
@@ -47,7 +51,9 @@ import { RoleCreationComponent } from './components/permissions/role-creation/ro
     providers: [],
     entryComponents: [
         ServerOverviewComponent,
-        RoleCreationComponent
+        RoleCreationComponent,
+        RoleOverviewComponent,
+        DeleteConfirmationComponent
     ],
     bootstrap: [AppComponent]
 })
