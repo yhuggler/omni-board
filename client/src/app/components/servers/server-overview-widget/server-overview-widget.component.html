@@ -50,6 +50,16 @@
             </mat-card-content>
         </mat-card>
     </div>
+
+    <div class="server">
+        <mat-card class="server" style="cursor: default;">
+                <div class="create-icon">
+                    <mat-icon class="create-icon" (click)="showServerCreationDialog()" matTooltip="Click here to open up the server creation dialog.">
+                        add_circle_outline
+                    </mat-icon>
+                </div>
+        </mat-card>
+    </div>
 </div>
 
 <div *ngIf="!servers || !cpuReadings || !systemStats || !systemInformation">

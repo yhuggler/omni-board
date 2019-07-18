@@ -25,6 +25,8 @@ import { CapabilityCreationComponent } from './components/permissions/capability
 import { CapabilityOverviewComponent } from './components/permissions/capability-overview/capability-overview.component';
 import { UserRoleOverviewComponent } from './components/permissions/user-role-overview/user-role-overview.component';
 import { FormsModule } from "@angular/forms";
+import { ServersComponent } from './routes/servers/servers.component';
+import { ServerCreationComponent } from './components/servers/server-creation/server-creation.component';
 
 @NgModule({
     declarations: [
@@ -43,7 +45,9 @@ import { FormsModule } from "@angular/forms";
         DeleteConfirmationComponent,
         CapabilityCreationComponent,
         CapabilityOverviewComponent,
-        UserRoleOverviewComponent
+        UserRoleOverviewComponent,
+        ServersComponent,
+        ServerCreationComponent
     ],
     imports: [
         BrowserModule,
@@ -63,7 +67,8 @@ import { FormsModule } from "@angular/forms";
         RoleOverviewComponent,
         DeleteConfirmationComponent,
         CapabilityCreationComponent,
-        CapabilityOverviewComponent
+        CapabilityOverviewComponent,
+        ServerCreationComponent
     ],
     bootstrap: [AppComponent]
 })

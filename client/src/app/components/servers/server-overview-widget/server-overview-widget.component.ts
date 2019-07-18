@@ -6,6 +6,7 @@ import { SysteminformationService } from "../../../services/systeminformation.se
 import { MatDialog } from "@angular/material";
 import { ServerOverviewComponent } from "../server-overview/server-overview.component";
 import { secondsToDhms } from "../../../helpers/conversions";
+import { ServerCreationComponent } from "../server-creation/server-creation.component";
 
 @Component({
     selector: 'app-server-overview-widget',
@@ -22,7 +23,7 @@ export class ServerOverviewWidgetComponent implements OnInit, OnDestroy {
     public refreshInterval = null;
     public isRefreshing: boolean = true;
 
-    thresholdConfigCpu = {
+    public thresholdConfigCpu = {
         '0': {color: 'green'},
         '50': {color: 'orange'},
         '75.5': {color: 'red'}
@@ -113,6 +114,16 @@ export class ServerOverviewWidgetComponent implements OnInit, OnDestroy {
                 }
             }
         });
+
+        dialogRef.afterClosed().subscribe(() => {
+            this.isRefreshing = true;
+        });
+    }
+
+    public showServerCreationDialog() {
+        this.isRefreshing = false;
+
+        const dialogRef = this.matDialog.open(ServerCreationComponent);
 
         dialogRef.afterClosed().subscribe(() => {
             this.isRefreshing = true;
