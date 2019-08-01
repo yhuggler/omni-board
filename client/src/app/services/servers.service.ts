@@ -21,7 +21,8 @@ export class ServersService {
         private router: Router) { }
 
     public createServer(server: Object) {
-
+        const body = JSON.stringify(server);
+        return this.httpClient.post(AppSettings.API_ENDPOINT + 'servers', body, httpOptions);
     }
 
     public getServers() {

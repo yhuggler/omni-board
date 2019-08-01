@@ -14,7 +14,8 @@ export class ServerCreationComponent implements OnInit {
     public serverFormGroup: FormGroup;
 
     constructor(private serversService: ServersService,
-        public dialogRef: MatDialogRef<ServerCreationComponent>) { }
+        public dialogRef: MatDialogRef<ServerCreationComponent>,
+        private matSnackBar: MatSnackBar) { }
 
     ngOnInit() {
         this.createFormGroup();
@@ -24,6 +25,23 @@ export class ServerCreationComponent implements OnInit {
         this.serverFormGroup = new FormGroup({
             friendlyName: new FormControl('', Validators.required),
             description: new FormControl('', Validators.required)
+        });
+    }
+
+    public createServer() {
+        const server = {
+            friendlyName: this.serverFormGroup.value['friendlyName'],
+            description: this.serverFormGroup.value['description']
+        }
+
+        this.serversService.createServer(server).subscribe(response => {
+            if (response['message']) {
+                this.dialogRef.close();
+            }
+
+            this.matSnackBar.open(response['message'] ? response['message'] : response['error'], 'Dismiss', {
+                duration: 5000
+            });
         });
     }
 }
