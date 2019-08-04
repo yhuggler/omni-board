@@ -27,6 +27,7 @@ import { UserRoleOverviewComponent } from './components/permissions/user-role-ov
 import { FormsModule } from "@angular/forms";
 import { ServersComponent } from './routes/servers/servers.component';
 import { ServerCreationComponent } from './components/servers/server-creation/server-creation.component';
+import { LogsComponent } from './routes/logs/logs.component';
 
 @NgModule({
     declarations: [
@@ -47,7 +48,8 @@ import { ServerCreationComponent } from './components/servers/server-creation/se
         CapabilityOverviewComponent,
         UserRoleOverviewComponent,
         ServersComponent,
-        ServerCreationComponent
+        ServerCreationComponent,
+        LogsComponent
     ],
     imports: [
         BrowserModule,

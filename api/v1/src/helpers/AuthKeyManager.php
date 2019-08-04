@@ -3,9 +3,9 @@
 class AuthKeyManager {
 
     private $conn;
-    
+
     public function __construct() {
-	    $dbConn = new DBConnection();
+        $dbConn = new DBConnection();
         $this->conn = $dbConn->conn;
     }
 
@@ -24,18 +24,15 @@ class AuthKeyManager {
                 $authKeyResults = $stmt->fetchAll(); 
             } while (!empty($authKeyResults));
 
-            echo $authKey;
+            $results = $stmt->fetchAll();
 
-            $sql = "INSERT INTO auth_keys(auth_key, server_id) VALUES(:authKey, :serverId)";
-            $stmt  = $this->conn->prepare($sql);
-            $stmt->bindParam(':authKey', $authKey, PDO::PARAM_STR);
-            $stmt->bindParam(':serverId', $serverId, PDO::PARAM_INT);
-            $stmt->execute();
-
-            return $authKey;    
+            if (!empty($results)) {
+                return $results[0]['server_id'];
+            }
+            return false;
         } catch (Exception $e) {
             return false;
-        } 
+        }
     }
 
     public function verifyAuthKey($authKey) {
@@ -46,13 +43,13 @@ class AuthKeyManager {
             $stmt->execute();
 
             $results = $stmt->fetchAll();
-            
+
             return !empty($results);
         } catch (Exception $e) {
             return false;
         }
     }
-    
+
     public function getServerIdByAuthKey($authKey) {
         try {
             $sql = "SELECT * FROM auth_keys WHERE auth_key = :auth_key";
@@ -61,7 +58,7 @@ class AuthKeyManager {
             $stmt->execute();
 
             $results = $stmt->fetchAll();
-            
+
             if (!empty($results)) {
                 return $results[0]['server_id'];
             }

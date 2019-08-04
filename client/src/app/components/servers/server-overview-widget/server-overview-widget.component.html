@@ -19,45 +19,52 @@
         <mat-card class="server" (click)="showServerOverview(i)">
             <mat-card-header>
                 <mat-card-title>
-                    {{server['friendlyName']}} - Uptime: {{getLatestUptime(i)}}
+                    <span *ngIf="hasReadings(i)">
+                        {{server['friendlyName']}} - Uptime: {{getLatestUptime(i)}}
+                    </span>
+                    <span *ngIf="!hasReadings(i)">
+                        {{server['friendlyName']}} - No data available
+                    </span>
                 </mat-card-title>
             </mat-card-header>
             <mat-card-content>
-                <ngx-gauge type="semi" 
-                           [value]="getLatestCpuReading(i)['currentLoad'] * 100" 
-                           label="CPU Usage"  
-                           append="%"
-                           min="0"
-                           max=100
-                           [thresholds]="thresholdConfigCpu">
-                </ngx-gauge>
+                <div *ngIf="hasReadings(i)">
+                    <ngx-gauge type="semi" 
+                               [value]="getLatestCpuReading(i)['currentLoad'] * 100" 
+                               label="CPU Usage"  
+                               append="%"
+                               min="0"
+                               max=100
+                               [thresholds]="thresholdConfigCpu">
+                    </ngx-gauge>
 
-                <ngx-gauge type="semi" 
-                           [value]="getLatestCpuReading(i)['currentTemp']" 
-                           label="CPU Temperature"  
-                           append="°C"
-                           min="0"
-                           max="102">
-                </ngx-gauge>
+                    <ngx-gauge type="semi" 
+                               [value]="getLatestCpuReading(i)['currentTemp']" 
+                               label="CPU Temperature"  
+                               append="°C"
+                               min="0"
+                               max="102">
+                    </ngx-gauge>
 
-                <ngx-gauge type="semi" 
-                           [value]="getLatestCpuReading(i)['currentClockspeed']" 
-                           label="CPU Frequency"  
-                           append="Ghz"
-                           min="0"
-                           [max]="systemInformation[i]['cpuInformation']['speedMax']">
-                </ngx-gauge>
+                    <ngx-gauge type="semi" 
+                               [value]="getLatestCpuReading(i)['currentClockspeed']" 
+                               label="CPU Frequency"  
+                               append="Ghz"
+                               min="0"
+                               [max]="systemInformation[i]['cpuInformation']['speedMax']">
+                    </ngx-gauge>
+                </div>
             </mat-card-content>
         </mat-card>
     </div>
 
     <div class="server">
         <mat-card class="server" style="cursor: default;">
-                <div class="create-icon">
-                    <mat-icon class="create-icon" (click)="showServerCreationDialog()" matTooltip="Click here to open up the server creation dialog.">
-                        add_circle_outline
-                    </mat-icon>
-                </div>
+            <div class="create-icon">
+                <mat-icon class="create-icon" (click)="showServerCreationDialog()" matTooltip="Click here to open up the server creation dialog.">
+                    add_circle_outline
+                </mat-icon>
+            </div>
         </mat-card>
     </div>
 </div>

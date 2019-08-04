@@ -36,8 +36,8 @@ export class ServerOverviewWidgetComponent implements OnInit, OnDestroy {
         private matDialog: MatDialog) { }
 
     ngOnInit() {
-        this.fetchServers();
-        this.fetchSystemInformation();
+        // Intial fetching of data, berfore interval fetching starts.
+        this.refresh();
 
         this.refreshInterval = setInterval(() => {
             if (this.isRefreshing) {
@@ -66,6 +66,15 @@ export class ServerOverviewWidgetComponent implements OnInit, OnDestroy {
         this.serversService.getServers().subscribe(response => {
             this.servers = response['servers'];
         });
+    }
+
+    private hasReadings(index: number) {
+        if (this.cpuReadings[index]['cpuReadings'].length == 0 || 
+            this.systemStats[index]['systemStats'].length == 0) {
+            return false;
+        }
+
+        return true;
     }
 
     private fetchCpuReadings() {
