@@ -2,3 +2,10 @@ div.content-container {
     padding: 25px;
 }
 
+.severe {
+    color: #D55053;
+}
+
+.warning {
+    color: #f9e502;
+}
