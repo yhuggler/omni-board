@@ -28,6 +28,7 @@ import { FormsModule } from "@angular/forms";
 import { ServersComponent } from './routes/servers/servers.component';
 import { ServerCreationComponent } from './components/servers/server-creation/server-creation.component';
 import { LogsComponent } from './routes/logs/logs.component';
+import { ServerOverviewContainerWidgetComponent } from './components/servers/server-overview-container-widget/server-overview-container-widget.component';
 
 @NgModule({
     declarations: [
@@ -49,7 +50,8 @@ import { LogsComponent } from './routes/logs/logs.component';
         UserRoleOverviewComponent,
         ServersComponent,
         ServerCreationComponent,
-        LogsComponent
+        LogsComponent,
+        ServerOverviewContainerWidgetComponent
     ],
     imports: [
         BrowserModule,
