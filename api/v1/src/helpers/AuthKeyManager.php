@@ -9,7 +9,7 @@ class AuthKeyManager {
         $this->conn = $dbConn->conn;
     }
 
-    public function generateAuthKey($serverId) {
+    public function generateAuthKey(int $serverId) {
         try {
             $authKey = ""; 
 

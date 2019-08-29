@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
         this.router.events.subscribe((val) => {
             if (this.userService.isJWTExpired()) {
                 this.userService.expireSession();
-            } 
+            }
         });
     }
 

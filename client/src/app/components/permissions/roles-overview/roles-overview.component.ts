@@ -43,7 +43,7 @@ export class RolesOverviewComponent implements OnInit {
         const dialogRef = this.matDialog.open(RoleCreationComponent);
 
         dialogRef.afterClosed().subscribe(() => {
-            this.refresh();        
+            this.refresh();
         });
     }
 

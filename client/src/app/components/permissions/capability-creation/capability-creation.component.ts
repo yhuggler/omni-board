@@ -10,36 +10,36 @@ import { CapabilitiesService } from "../../../services/capabilities.service";
   styleUrls: ['./capability-creation.component.css']
 })
 export class CapabilityCreationComponent implements OnInit {
-    
-    public capabilityFormGroup: FormGroup;
 
-    constructor(public dialogRef: MatDialogRef<CapabilityCreationComponent>,
-        private capabilitiesService: CapabilitiesService,
-        private matSnackBar: MatSnackBar) { }
+  public capabilityFormGroup: FormGroup;
 
-    ngOnInit() {
-        this.createFormGroup();
-    }
+  constructor(public dialogRef: MatDialogRef<CapabilityCreationComponent>,
+              private capabilitiesService: CapabilitiesService,
+              private matSnackBar: MatSnackBar) { }
 
-    public createFormGroup() {
-        this.capabilityFormGroup = new FormGroup({
-            capability: new FormControl('', Validators.required)
-        });
-    }
+  ngOnInit() {
+    this.createFormGroup();
+  }
 
-    public createCapability() {
-        const capability = {
-            capability: this.capabilityFormGroup.value['capability'],
-        };
+  public createFormGroup() {
+    this.capabilityFormGroup = new FormGroup({
+      capability: new FormControl('', Validators.required)
+    });
+  }
 
-        this.capabilitiesService.createCapability(capability).subscribe(response => {
-            if (response['message']) {
-                this.dialogRef.close();
-            }
+  public createCapability() {
+    const capability = {
+      capability: this.capabilityFormGroup.value['capability'],
+    };
 
-            this.matSnackBar.open(response['message'] ? response['message'] : response['error'], 'Dismiss', {
-                duration: 5000
-            });
-        });
-    }
+    this.capabilitiesService.createCapability(capability).subscribe(response => {
+      if (response['message']) {
+        this.dialogRef.close();
+      }
+
+      this.matSnackBar.open(response['message'] ? response['message'] : response['error'], 'Dismiss', {
+        duration: 5000
+      });
+    });
+  }
 }

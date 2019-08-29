@@ -28,10 +28,10 @@ public signinForm: FormGroup;
 
     public signin() {
         const user = {
-            username: this.signinForm.value['username'],
-            password: this.signinForm.value['password']
-        }
-        
+            username: this.signinForm.value.username,
+            password: this.signinForm.value.password
+        };
+
         this.userService.signin(user);
     }
 
